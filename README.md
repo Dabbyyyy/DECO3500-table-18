@@ -1,4 +1,4 @@
-#DECO3500 Social & Mobile Computing - Team 18#
+# DECO3500 Social & Mobile Computing - Team 18
 
 ## Project
 

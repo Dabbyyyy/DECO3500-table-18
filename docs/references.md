@@ -1,3 +1,13 @@
 # References
 
-[1]
+[1] Y. Shi, N. Hayba, and M. Allman-Farinelli, “International tertiary education students experienced difficulties in dietary transitions in Australia: A qualitative study,” Health Promotion Journal of Australia, vol. 35, no. 1, pp. 165–175, 2024, doi: 10.1002/hpja.728. 
+[2] B. Ball and L. B. Brown, “Qualitative description of college students’ dinner groups,” Journal of Nutrition Education and Behavior, vol. 44, no. 1, pp. 29–35, 2012, doi: 10.1016/j.jneb.2011.04.008. 
+[3] L. Thomas, J. Vines, and P. Briggs, “Exploring digital support for the student transition to university through questionable concepts,” Personal and Ubiquitous Computing, vol. 26, no. 1, pp. 79–92, 2022, doi: 10.1007/s00779-021-01570-z. 
+[5] J. Paay, J. Kjeldskov, and M. B. Skov, “Connecting in the kitchen: An empirical study of physical interactions while cooking together at home,” in Proc. 18th ACM Conf. Computer Supported Cooperative Work & Social Computing (CSCW), Vancouver, BC, Canada, 2015, pp. 276–287, doi: 10.1145/2675133.2675194.
+[6] R. Niewiadomski, E. Ceccaldi, G. Huisman, G. Volpe, and M. Mancini, “Computational commensality: From theories to computational models for social food preparation and consumption in HCI,” Frontiers in Robotics and AI, vol. 6, p. 119, 2019, doi: 10.3389/frobt.2019.00119.
+[7] SamsungFood, “Samsung Food: Meal Planner,” Google Play Store. [Online]. Available: https://play.google.com/store/apps/dev?id=9061226745153569193&hl=en_GB. [Accessed: Sep. 15, 2026].
+[8] Big Kitty Labs, LLC, “Dish Dish Fun,” Google Play Store. [Online]. Available: https://play.google.com/store/apps/details?id=com.dishdishfun. [Accessed: Sep. 15, 2026].
+[10] A. Grimes and R. Harper, “Celebratory technology: New directions for food research in HCI,” in Proc. SIGCHI Conf. Human Factors in Computing Systems (CHI), 2008, pp. 467–476, doi: 10.1145/1357054.1357130.
+[11] F. M. Li, J. Dorst, P. Cederberg, and P. Carrington, “Non-visual cooking: Exploring practices and challenges of meal preparation by people with visual impairments,” in Proc. 23rd Int. ACM SIGACCESS Conf. Computers and Accessibility (ASSETS), 2021, Art. no. 30, pp. 1–11, doi: 10.1145/3441852.3471215.
+[12] C. Spence, M. Mancini, and G. Huisman, “Digital commensality: Eating and drinking in the company of technology,” Frontiers in Psychology, vol. 10, Art. no. 2252, 2019, doi: 10.3389/fpsyg.2019.02252.
+[13] N. M. Yaar, O. Sadka, I. Shatil, M. Aharonson, B. Efrima, T. Barda, M. Hayat, O. Zuckerman, and H. Erel, “Kitchef: A TUI for parent-child cooking together,” in Extended Abstracts of the CHI Conference on Human Factors in Computing Systems, 2024, Art. no. 213, pp. 1–7, doi: 10.1145/3613905.3650970.

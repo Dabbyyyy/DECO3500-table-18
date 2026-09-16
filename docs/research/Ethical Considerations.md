@@ -1,63 +1,168 @@
-## Ethical Considerations
+# Ethical Considerations
 
-As our concept involves users sharing preferences, joining cooking groups, receiving task suggestions, using voice commands, and viewing shared progress, there are several ethical considerations that need to be considered during the design and development of the app.
+To assess the ethical risks and implications of our concept, we used the **Ethical Disclaimer** framework from Ethics for Designers. The framework encourages designers to consider the current situation, stakeholders, design intentions, possible unethical situations, and which risks the design team should take responsibility for.
 
-### Privacy and Personal Data
+Our ethical considerations will continue to be reviewed as the prototype develops and we receive more feedback from users.
 
-The app may collect information such as food preferences, dietary requirements, availability, group information, and voice data. We should only collect information that is necessary for the cooking experience and clearly explain why it is needed.
+## 1. Current Situation
 
-Users should also have control over what information is shared with other group members. For example, the app does not need to show someone's full personal schedule when organising a cooking session. It could simply show whether they are available or unavailable.
+Our project explores collaborative cooking between students, particularly students living in shared accommodation.
 
-### Dietary Requirements and Food Safety
+Cooking together can already be a social activity where people communicate, divide tasks, help each other, and share the experience of preparing a meal. Our concept introduces technology to support this experience without trying to replace the natural interaction between people.
 
-Meal selection may use users' preferences and dietary requirements to recommend suitable recipes. However, food preferences and allergies should be treated differently because incorrect allergy information could create a safety risk.
+The proposed app currently includes features such as:
 
-The app should clearly display important allergens and allow users to enter their dietary requirements. Recipe suggestions should also not be presented as guaranteed to be safe, and users should still be encouraged to check ingredients and food labels themselves.
+- Meal selection
+- User food and dietary preferences
+- Cooking session scheduling
+- Cooking groups/lobbies
+- Task claiming and assignment
+- Recipe tutorials
+- Voice commands
+- Personalised app helper
+- Shared cooking progress
+- Game-like interface
+- Suggestions to help other users after completing a task
 
-### User Choice and Autonomy
+The app is intended to stay mostly in the background during cooking so that users can focus on the people and activities happening around them.
 
-The app should support users rather than control how they cook. Users should be able to choose, claim, swap, or reject tasks depending on their cooking skills, confidence, abilities, or personal preferences.
+## 2. Stakeholders
 
-Meal suggestions, schedules, tasks, and other recommendations should also remain optional. The system should provide suggestions while allowing the group to make the final decision.
+The main stakeholders affected by our design include:
 
-### Avoiding Social Pressure
+- Students using the app to cook together
+- Students with different levels of cooking experience
+- Students from different cultural backgrounds
+- Users with dietary requirements or food allergies
+- Users with different accessibility needs
+- Housemates sharing the kitchen space
+- The design and development team
+- Recipe or food information providers
 
-Since the app uses a game-like interface and shows shared cooking progress, we need to make sure it does not create unnecessary competition or pressure.
+Some people may also be indirectly affected even if they are not actively using the app. For example, other housemates may be affected by how a cooking group uses the shared kitchen.
 
-For example, showing who finishes first or ranking users based on speed could make slower or less experienced cooks feel uncomfortable. The app should focus more on group progress and completing the meal together rather than comparing individual performance.
+## 3. Our Design Intentions
 
-### Encouraging Help Without Forcing It
+Our main intention is to support collaborative cooking while keeping the experience social and focused on the people involved rather than the technology.
 
-When users finish their task, the app may show a pop-up suggesting that they help another person, start cleaning, or prepare the table.
+The app is intended to:
 
-These should remain optional suggestions rather than instructions. The wording should also avoid making users feel guilty for not helping. The purpose of this feature is to create more opportunities for collaboration while still allowing users to decide what they want to do.
+- Make it easier for a group to organise and prepare a meal together.
+- Support awareness of what other group members are doing.
+- Reduce unnecessary coordination during cooking.
+- Encourage users to help each other.
+- Allow users to choose or change cooking tasks.
+- Support different food preferences, dietary requirements and cooking abilities.
+- Reduce the need to constantly touch or look at a device through voice and audio interaction.
+- Make collaborative cooking more enjoyable through a playful interface without making the experience overly competitive.
+- Keep technology in the background when it is not needed.
 
-### Accessibility and Inclusion
+## 4. Potential Unethical Situations
 
-Users may have different cooking abilities, disabilities, language abilities, confidence levels, and experience with cooking. The app should therefore provide different ways for users to interact with the system.
+### Privacy and Personal Information
 
-For example, cooking instructions could be available through both audio and visual information. Voice commands should also have touch controls as an alternative. The interface should use simple language, readable text, clear buttons, and should not rely only on colour to communicate important information.
+The app may collect information such as dietary preferences, availability, group membership and voice data. There is a risk that users may share more personal information than is necessary or may not understand how their information is being used.
 
-Users should also be able to avoid or swap tasks that they are unable or uncomfortable doing.
+For scheduling, users should not need to share their entire personal calendar with other group members. Only relevant availability information should be shown.
 
-### Voice Recognition and Personalisation
+Voice data also needs to be considered carefully because personalised voice commands may require the system to process or store voice information.
 
-The app may use personalised voice commands so users can interact with it without frequently touching or looking at their device while cooking.
+### Food Allergies and Dietary Requirements
 
-However, voice recognition may not work equally well for different accents, pronunciation, or speech patterns. Users should not be required to use voice commands, and touch controls should always be available as an alternative.
+The meal selection feature may recommend recipes based on users' preferences and dietary requirements. There is a risk that a recipe could contain an ingredient that is unsafe for someone with an allergy.
 
-If the system does not understand a command, it should provide simple feedback and allow the user to easily try again instead of making the user feel like they made a mistake.
+The system should therefore clearly distinguish between general food preferences and serious allergies. Suggested recipes should not be presented as guaranteed to be safe, and users should still be encouraged to check ingredients themselves.
 
-### Cultural and Food Preferences
+### Loss of User Choice
 
-Our target users may come from different cultural backgrounds and have different food preferences. The app should avoid treating one cuisine or cooking style as the default or better option.
+Automatic task assignment could make users feel forced to complete tasks they are uncomfortable with or unable to perform.
 
-Users should be able to enter their own preferences and avoid ingredients they do not want to use. Cultural information should also be presented respectfully and should not rely on stereotypes.
+For example, someone may not feel confident using a knife, handling raw meat, or using the stove.
 
-### Preserving Social Interaction
+Users should therefore be able to claim, reject, or swap tasks rather than being forced to follow the system's assignment.
 
-One of the main goals of our concept is to support collaborative cooking without making users constantly look at their devices. Because of this, we need to consider whether each feature actually supports the cooking experience or creates another distraction.
+### Social Pressure From Shared Progress
 
-During cooking, the app should mainly provide necessary information such as tasks, progress, instructions, timers, and help prompts. When users are already communicating or helping each other naturally, the technology should stay in the background.
+Showing everyone's progress could unintentionally create pressure or embarrassment.
 
-The goal is not to replace communication between users, but to support coordination when needed while keeping the main experience focused on cooking and interacting together.
+A beginner may take longer to complete a task while another person finishes quickly. Showing individual completion speed, rankings, or scores could make the slower user feel responsible for holding the group back.
+
+The game-like interface should therefore focus on shared group progress rather than competition between individual users.
+
+### Pressure to Help Other Users
+
+After completing a task, the app may suggest helping another cook, cleaning, or preparing the table.
+
+Although this feature is intended to encourage collaboration, it could make users feel guilty or pressured to help.
+
+Helping should therefore remain optional. The system should suggest opportunities rather than instruct users that they must help another person.
+
+### Accessibility and Exclusion
+
+Voice commands may make the system easier to use while cooking, but they may not work equally well for every user.
+
+Different accents, speech patterns, disabilities, language abilities, or noisy kitchen environments could affect voice recognition.
+
+Voice should therefore not be the only interaction method. Important actions should also be available through touch and visual controls.
+
+### Cultural Representation
+
+Meal recommendations may include food from different cultures. There is a risk of oversimplifying cultures, presenting stereotypes, or treating one type of cuisine as the default.
+
+Cultural food information should be represented respectfully, and users should be able to contribute their own food preferences and experiences rather than having the system make assumptions based on their background.
+
+### Technology Interrupting Social Interaction
+
+One of the biggest risks for our project is that technology intended to support collaborative cooking could actually reduce the social interaction we are trying to encourage.
+
+Too many notifications, instructions, progress screens, game elements, or interactions could result in users paying more attention to their devices than to the people around them.
+
+The app should therefore provide only the information needed during active cooking and stay in the background when users are already communicating and collaborating naturally.
+
+## 5. What We Take Responsibility For
+
+As the designers of the concept, we take responsibility for ethical issues that are directly influenced by our design decisions.
+
+These include:
+
+- Minimising unnecessary collection of personal information.
+- Clearly communicating what information is being collected and why.
+- Giving users control over their preferences and information.
+- Providing alternatives to voice interaction.
+- Allowing users to claim, reject, or swap cooking tasks.
+- Avoiding competitive rankings based on cooking speed or ability.
+- Designing helping prompts as optional suggestions rather than requirements.
+- Clearly communicating dietary and allergy information.
+- Avoiding cultural stereotypes in recipe and food content.
+- Making important information accessible through more than one interaction method.
+- Reducing unnecessary notifications and screen interaction during cooking.
+- Designing the app to support rather than replace face-to-face communication.
+
+## 6. What We Do Not Take Responsibility For
+
+There are also situations that are outside the reasonable control of the design team.
+
+These include:
+
+- Users intentionally entering incorrect dietary or allergy information.
+- Users ignoring clearly displayed allergy or food safety warnings.
+- Unsafe cooking behaviour that happens outside the instructions provided by the system.
+- Conflicts between housemates that are unrelated to the app.
+- Users choosing to perform cooking tasks beyond their own ability after appropriate alternatives are provided.
+- Incorrect information provided by external recipe or ingredient sources that the design team cannot independently verify.
+
+Although these situations may be outside our direct responsibility, the design should still avoid increasing these risks where possible.
+
+## 7. Ethical Design Priorities
+
+From this assessment, we identified four main ethical priorities for the project:
+
+1. **User autonomy** – Users should remain in control of their tasks, preferences and participation.
+
+2. **Privacy and safety** – Personal information, dietary requirements and voice interactions should be handled carefully.
+
+3. **Inclusive participation** – The system should support different abilities, cooking experience, languages and cultural backgrounds.
+
+4. **Preserving social interaction** – Technology should support coordination while remaining in the background when it is not needed.
+
+These priorities will be considered when developing and evaluating the next prototype. The ethical assessment will also be updated if new risks appear during user testing.

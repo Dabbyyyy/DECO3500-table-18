@@ -8,35 +8,35 @@ How students coordinate and participate in collaborative meal preparation and sh
 
 ## Design opportunity
 
-Based on round two interviews with three participants, the clearest and most consistently reported pain point sits in the cooking stage itself, specifically in how tasks get divided and coordinated in real time once people are already in the kitchen.
+Based on round two interviews with three participants, the most obvious and consistently mentioned pain point is in the cooking stage itself, in terms of how tasks get divided and coordinated in real time once people are already in the kitchen.
 
-Design opportunity: enhance how students coordinate task division and timing during collaborative cooking, so that roles are clear before cooking starts, workload is visibly shared, and instructions can be accessed hands free mid task.
+Design opportunity: improving students’ management of task division and timing strategies while doing collaborative cooking work so that roles are clear prior to cooking, workload is visibly shared, and instructions can be accessed hands-free during the task.
 
-This is deliberately narrower than scheduling in general. It is not about finding a time everyone is free, and it is not primarily about deciding what to cook or facilitating cultural exchange. It is about the moment by moment coordination that happens once cooking has already begun.
+This is intentionally more narrow than general scheduling. This project is not about finding free time for all, nor is it primarily about deciding what to cook or facilitating cultural exchange. It is about the moment-to-moment coordination that occurs after cooking has already begun.
 
 ### Why this option and not the others
 
-All three participants independently described the same cluster of problems. Nobody sets up roles before starting, so someone informally becomes the head chef while others wait to be told what to do. That same person then ends up doing most of the work, especially cleaning, which nobody assigns and which one person usually absorbs out of frustration rather than agreement. Small shared kitchens with limited equipment make timing worse, since one dish finishes while another is still going. And sharing a recipe on a phone mid cook consistently fails once hands are covered in oil or sauce, leading to missed steps and mistimed ingredients.
+All three participants described the same cluster of problems independently of one another. Nobody makes roles before they start. Someone is the head chef, and everyone else waits to be told what to do. Then that same person ends up doing most of the work, especially cleaning, which no one is assigned to do, and which one person typically takes on out of frustration rather than out of agreement. Small shared kitchens with limited equipment make timing worse as one dish finishes cooking while another is still cooking. And trying to share a recipe on a phone while mid-cook inevitably fails once your hands are covered in oil or sauce, resulting in missed steps and mistimed ingredients.
 
-When asked what would help, all three participants independently described something close to the same idea: joining a shared cooking session, getting an individually assigned task, marking it done, and being notified on timing. That level of spontaneous agreement across three separate interviews is a strong signal.
+Asked what would help, all three participants described something close to the same idea: joining a shared cooking session, getting an individually assigned task, marking it done, and being notified on timing. That kind of spontaneous agreement, in three different interviews, is a strong signal.
 
-By comparison, when preferences differed on diet or budget, participants described avoiding the issue by cooking separately rather than negotiating, which is a weaker basis for a meal decision making focus. Cultural exchange was present in the data, since one participant regularly cooks with housemates from a different culture, but it was never described as a source of friction or an unmet need.
+Conversely, where preferences differed in terms of diet or budget, participants said that they sidestepped the issue by cooking separately, rather than negotiating. This is a weaker basis for a meal decision-making focus. There was evidence of cultural exchange in the data, for example, one participant mentioned they regularly cook with housemates from a different culture, but this was never described as a source of friction or an unmet need.
 
 ## Initial requirements
 
 The experience should:
 
-1. Support setting up roles and tasks before cooking starts, rather than improvising once everyone is already in the kitchen and hungry.
-2. Let a group join one shared cooking session with a single visible plan, instead of coordinating across a messy group chat or separate phone screens.
-3. Assign individual tasks clearly, so no one is left standing around waiting to be told what to do.
-4. Make progress visible to the whole group in real time, including cleanup tasks, so contribution is transparent rather than falling unfairly on one person.
-5. Be usable hands free or with minimal touch, since hands are frequently wet, oily, or occupied mid task, and screen based instructions have directly caused mistakes.
-6. Account for shared and limited kitchen equipment when sequencing tasks, so that timing mismatches between dishes are reduced rather than assumed away.
-7. Notify people at the right moment, for example when a task needs attention or when it is time to plate up, rather than relying on a static list someone has to keep checking.
-8. Avoid interference between multiple people's devices operating in the same physical kitchen at once, for example one person's voice command should not accidentally trigger another person's device.
+1. Help to create roles and tasks before the cooking begins, not to improvise when everyone is already in the kitchen and hungry.
+2. Let a team cook together, once, with one shared plan, rather than coordinating on a cluttered group chat or multiple phone screens.
+3. Assign specific tasks to each person so there’s no standing around waiting to be told what to do.
+4. Show progress to the group in real time, including cleanup tasks so that contribution is visible rather than falling disproportionately to one person.
+5. Be usable hands-free or with minimal touch, because hands are often wet, oily or busy mid-task, and screen-based instructions have caused mistakes directly.
+6. Sequence tasks with shared and limited kitchen equipment so that timing mismatches between dishes are minimised rather than assumed away.
+7. Notify people at the right time, e.g., when a task needs attention or when it is time to plate up, rather than relying on a static list that someone has to keep checking.
+8. Avoid interference between multiple devices operating in the same physical kitchen at the same time, e.g., a voice command from one person should not accidentally trigger another person’s device.
 
-Lower priority, worth allowing for but not designing around: some way to note individual dietary or budget preferences alongside the shared plan, since participants currently resolve these differences by cooking separately rather than negotiating, so the system does not need to solve this, just avoid getting in the way of it.
+At lower priority, nice to have but not worth designing for, is some way of noting individual dietary or budget preferences along with the shared plan, as participants currently solve these differences by cooking separately rather than negotiating, so the system doesn't need to solve the issue, just not get in the way of it.
 
 ## Note on evidence base
 
-This is based on three interviews. Treat the design opportunity and requirements above as a strong working direction to keep testing against further research and evaluation, not a finalised conclusion. Requirements should be revisited as the prototype is tested with users.
+This information is based on 3 interviews. See the design opportunity and requirements above as a strong working direction to keep testing against further research and evaluation, rather than a finalised conclusion. When testing the prototype with users, requirements need to be reviewed.

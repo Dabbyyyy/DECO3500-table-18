@@ -1,0 +1,370 @@
+.cooking-page {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: 44% 56%;
+
+  background: #fbf7f1;
+  color: #3f2d26;
+}
+
+
+/* LEFT */
+
+.cooking-left {
+  padding: 24px 30px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  border-right: 1px solid #eee5db;
+}
+
+
+.cooking-back {
+  width: 27px;
+  height: 27px;
+
+  margin-bottom: 10px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #e4dbd2;
+  border-radius: 50%;
+
+  background: white;
+  color: #3f2d26;
+
+  cursor: pointer;
+}
+
+
+.cooking-label {
+  margin: 0 0 2px;
+
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+
+  color: #8e837a;
+}
+
+
+.helper-name {
+  margin: 0 0 3px;
+
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+
+  color: #d66324;
+}
+
+
+.cooking-left h1 {
+  margin: 0;
+
+  font-family: Georgia,
+    "Times New Roman", serif;
+
+  font-size: 24px;
+
+  color: #3f2d26;
+}
+
+
+.cooking-task-meta {
+  margin-top: 4px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+}
+
+
+.cooking-task-meta span {
+  font-size: 12px;
+}
+
+
+.cooking-task-meta p {
+  margin: 0;
+
+  font-size: 7px;
+
+  color: #8e837a;
+}
+
+
+/* CURRENT STEP */
+
+.current-instruction {
+  min-height: 75px;
+
+  padding: 10px 12px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  border: 1px solid #e4d8cd;
+  border-radius: 10px;
+
+  background: white;
+}
+
+
+.instruction-number {
+  width: 35px;
+  height: 35px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #d66324;
+  color: white;
+
+  font-family: Georgia,
+    "Times New Roman", serif;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+.current-instruction span {
+  font-size: 6px;
+  font-weight: 700;
+
+  color: #a0968d;
+}
+
+
+.current-instruction h2 {
+  margin: 3px 0 0;
+
+  font-family: Georgia,
+    "Times New Roman", serif;
+
+  font-size: 12px;
+  line-height: 1.2;
+
+  color: #453a33;
+}
+
+
+/* VOICE */
+
+.voice-transcript {
+  margin: 0;
+
+  font-size: 6px;
+
+  color: #8d8279;
+}
+
+
+/* BUTTONS */
+
+.cooking-controls {
+  margin-top: auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+
+  gap: 7px;
+}
+
+
+.cooking-controls button {
+  padding: 9px;
+
+  border-radius: 7px;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.previous-button {
+  border: 1px solid #dfd6ce;
+
+  background: white;
+
+  color: #71665e;
+}
+
+
+.previous-button:disabled {
+  opacity: 0.35;
+
+  cursor: default;
+}
+
+
+.next-button {
+  border: none;
+
+  background: #d66324;
+
+  color: white;
+}
+
+
+/* RIGHT */
+
+.cooking-right {
+  padding: 27px 34px;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+
+.cooking-progress-header {
+  margin-bottom: 7px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+
+.cooking-progress-header p {
+  margin: 0 0 2px;
+
+  font-size: 6px;
+  font-weight: 700;
+
+  color: #9b9087;
+}
+
+
+.cooking-progress-header h2 {
+  margin: 0;
+
+  font-family: Georgia,
+    "Times New Roman", serif;
+
+  font-size: 17px;
+
+  color: #3f2d26;
+}
+
+
+.cooking-progress-header > span {
+  font-size: 8px;
+  font-weight: 700;
+
+  color: #d66324;
+}
+
+
+/* STEPS */
+
+.cooking-step-list {
+  margin-top: 10px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  overflow-y: auto;
+}
+
+
+/* QUICK ACTIONS */
+
+.cooking-bottom {
+  margin-top: auto;
+}
+
+
+.quick-actions {
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 5px;
+}
+
+
+.quick-actions button {
+  min-height: 38px;
+
+  padding: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  border: 1px solid #e4dbd3;
+  border-radius: 7px;
+
+  background: white;
+
+  color: #756a62;
+
+  font-size: 9px;
+
+  cursor: pointer;
+}
+
+
+.quick-actions button span {
+  font-size: 6px;
+  font-weight: 700;
+}
+
+
+.quick-actions .help-active {
+  border-color: #d66324;
+
+  background: #fff3eb;
+
+  color: #c15822;
+}
+
+
+.cooking-message {
+  margin-top: 5px;
+
+  padding: 5px 7px;
+
+  border-radius: 5px;
+
+  background: #f3ede4;
+
+  font-size: 6px;
+
+  color: #746960;
+}
+
+
+.cooking-empty {
+  width: 100%;
+  height: 100%;
+
+  padding: 40px;
+
+  background: #fbf7f1;
+
+  color: #3f2d26;
+}

@@ -235,3 +235,136 @@
 .preferences-bottom button:hover {
   background: #bd541d;
 }
+
+/* =========================
+   COLLABORATIVE CUISINE
+========================= */
+
+.cuisine-section {
+  margin-bottom: 14px;
+}
+
+.preference-section-label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+
+  color: #81766d;
+}
+
+
+.cuisine-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 7px;
+}
+
+
+.cuisine-option {
+  min-height: 54px;
+
+  padding: 7px 9px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  gap: 5px;
+
+  border: 1px solid #e2d9d0;
+  border-radius: 8px;
+
+  background: white;
+
+  color: #4c4139;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: 0.15s ease;
+}
+
+
+.cuisine-option:hover {
+  border-color: #d66324;
+}
+
+
+.cuisine-option.selected {
+  border-color: #d66324;
+
+  background: #fff7f1;
+}
+
+
+.cuisine-name {
+  font-size: 8px;
+  font-weight: 700;
+}
+
+
+.cuisine-members {
+  min-height: 18px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 3px;
+}
+
+
+.cuisine-member-avatar {
+  width: 18px;
+  height: 18px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: white;
+
+  font-size: 6px;
+  font-weight: 700;
+}
+
+
+/* Reuse group colours */
+
+.cuisine-member-avatar.avatar-0 {
+  background: #d66324;
+}
+
+.cuisine-member-avatar.avatar-1 {
+  background: #78836d;
+}
+
+.cuisine-member-avatar.avatar-2 {
+  background: #e9ad35;
+}
+
+
+.preferences-other-grid {
+  margin-top: 4px;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+}
+
+
+.preferences-waiting-button {
+  background: #d8cec4 !important;
+
+  color: #756b63 !important;
+
+  cursor: default !important;
+}

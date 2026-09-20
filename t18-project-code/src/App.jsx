@@ -133,11 +133,10 @@ function App() {
           <Lobby
             user={user}
             room={room}
-
+            setRoom={setRoom}
             onContinue={() =>
               setScreen("preferences")
             }
-
             onBack={() =>
               setScreen("join")
             }
@@ -153,8 +152,10 @@ function App() {
           <Preferences
             user={user}
 
-            preferences={preferences}
+            room={room}
+            setRoom={setRoom}
 
+            preferences={preferences}
             setPreferences={setPreferences}
 
             onContinue={() =>

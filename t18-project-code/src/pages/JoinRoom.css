@@ -212,3 +212,27 @@
 .join-main-button:hover {
   background: #bd541d;
 }
+
+/* ERROR MESSAGE */
+
+.join-error {
+  margin: 12px 0 0;
+
+  padding: 8px 10px;
+
+  border-radius: 7px;
+
+  background: #f8e5dc;
+  color: #a64724;
+
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+
+/* DISABLED BUTTON */
+
+.join-main-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}

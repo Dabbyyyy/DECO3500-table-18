@@ -248,3 +248,13 @@
 
   background: #f1ece5;
 }
+
+.lobby-waiting-button {
+  background: #d8cec4;
+  color: #756b63;
+  cursor: default;
+}
+
+.lobby-waiting-button:hover {
+  background: #d8cec4;
+}

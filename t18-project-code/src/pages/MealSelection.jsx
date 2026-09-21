@@ -1,267 +1,495 @@
-import { useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
 import "./MealSelection.css";
 
-import meals from "../data/meals";
+import {
+  findMeals,
+  getMealDetails,
+} from "../services/themealdbService";
+
+import {
+  subscribeToRoom,
+  changeRoomScreen,
+  setMealSuggestions,
+  setSelectedRecipe,
+} from "../services/roomService";
+
+/* --------------------------------
+   Find the group's most common
+   selection for one preference
+--------------------------------- */
+
+function mostCommon(values) {
+  const filtered = values.filter(
+    (value) => value && value !== "Any"
+  );
+
+  if (filtered.length === 0) {
+    return "Any";
+  }
+
+  const counts = {};
+
+  filtered.forEach((value) => {
+    counts[value] = (counts[value] || 0) + 1;
+  });
+
+  return Object.entries(counts).sort(
+    (a, b) => b[1] - a[1]
+  )[0][0];
+}
 
 export default function MealSelection({
-  preferences,
+  room,
+  setRoom,
   setMeal,
   onContinue,
   onBack,
 }) {
-  const [selectedMeal, setSelectedMeal] = useState(meals[0]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  function chooseMeal() {
-    setMeal(selectedMeal);
-    onContinue();
+  const requestStarted = useRef(false);
+
+  const isHost = room.memberId === room.hostId;
+
+  /* --------------------------------
+     Build group search profile
+  --------------------------------- */
+
+  const searchProfile = useMemo(() => {
+    const readyMembers =
+      room.members?.filter(
+        (member) => member.preferences?.ready
+      ) || [];
+
+    const source =
+      readyMembers.length > 0
+        ? readyMembers
+        : room.members || [];
+
+    return {
+      area: mostCommon(
+        source.map(
+          (member) =>
+            member.preferences?.area
+        )
+      ),
+
+      category: mostCommon(
+        source.map(
+          (member) =>
+            member.preferences?.category
+        )
+      ),
+
+      ingredient: mostCommon(
+        source.map(
+          (member) =>
+            member.preferences?.ingredient
+        )
+      ),
+    };
+  }, [room.members]);
+
+  /* --------------------------------
+     Listen to Firebase room
+  --------------------------------- */
+
+  useEffect(() => {
+    if (!room.code) return;
+
+    return subscribeToRoom(
+      room.code,
+      (updatedRoom) => {
+        if (!updatedRoom) return;
+
+        setRoom((previous) => ({
+          ...updatedRoom,
+          memberId: previous.memberId,
+        }));
+
+        if (updatedRoom.selectedRecipe) {
+          setMeal(updatedRoom.selectedRecipe);
+        }
+
+        if (updatedRoom.screen === "tasks") {
+          onContinue();
+        }
+
+        if (
+          updatedRoom.screen === "preferences"
+        ) {
+          onBack();
+        }
+      }
+    );
+  }, [
+    room.code,
+    setRoom,
+    setMeal,
+    onContinue,
+    onBack,
+  ]);
+
+  /* --------------------------------
+     Admin fetches recommendations
+  --------------------------------- */
+
+  useEffect(() => {
+    if (!isHost) return;
+
+    if (room.mealSuggestions?.length) {
+      return;
+    }
+
+    if (requestStarted.current) {
+      return;
+    }
+
+    requestStarted.current = true;
+
+    async function loadSuggestions() {
+      try {
+        setLoading(true);
+        setError("");
+
+        const meals = await findMeals(
+          searchProfile
+        );
+
+        if (meals.length === 0) {
+          setError(
+            "No meals matched all three group filters. Go back and make one preference broader, such as choosing Any category or Any ingredient."
+          );
+
+          return;
+        }
+
+        await setMealSuggestions(
+          room.code,
+          meals,
+          searchProfile
+        );
+      } catch (err) {
+        console.error(err);
+
+        setError(
+          err.message ||
+            "Could not load meal suggestions."
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadSuggestions();
+  }, [
+    isHost,
+    room.code,
+    room.mealSuggestions,
+    searchProfile.area,
+    searchProfile.category,
+    searchProfile.ingredient,
+  ]);
+
+  const recipes = room.mealSuggestions || [];
+
+  const selectedRecipe =
+    room.selectedRecipe || null;
+
+  /* --------------------------------
+     Select recipe
+  --------------------------------- */
+
+  async function chooseRecipe(recipe) {
+    if (!isHost) return;
+
+    try {
+      setLoading(true);
+      setError("");
+
+      const fullMeal =
+        await getMealDetails(
+          recipe.idMeal || recipe.id
+        );
+
+      await setSelectedRecipe(
+        room.code,
+        fullMeal
+      );
+
+      setMeal(fullMeal);
+    } catch (err) {
+      console.error(err);
+
+      setError(
+        "Could not load the selected meal."
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const otherMeals = meals.filter(
-    (meal) => meal.id !== selectedMeal.id
-  );
+  async function continueWithRecipe() {
+    if (!isHost || !selectedRecipe) {
+      return;
+    }
+
+    await changeRoomScreen(
+      room.code,
+      "tasks"
+    );
+  }
+
+  async function goBack() {
+    if (!isHost) return;
+
+    await changeRoomScreen(
+      room.code,
+      "preferences"
+    );
+  }
 
   return (
-    <div className="meal-page">
+    <div className="meal-selection-page">
 
-      {/* LEFT SIDE */}
-      <section className="meal-left">
+      {/* =========================
+          HEADER
+      ========================== */}
 
-        <div>
-          <button
-            className="meal-back"
-            onClick={onBack}
-            aria-label="Go back"
-          >
-            ←
-          </button>
+      <header className="meal-selection-header">
+        <div className="meal-header-content">
+          <span className="meal-eyebrow">
+            GROUP MEAL
+          </span>
 
-          <p className="meal-step">
-            STEP 3 · CHOOSE A MEAL
-          </p>
-
-          <h1>
-            Pick
-            <br />
-            together.
-          </h1>
-
-          <p className="meal-description">
-            These meals are suggested based on the
-            group's preferences. Pick one together
-            before we divide the cooking tasks.
-          </p>
-
-          {/* PREFERENCE SUMMARY */}
-          <div className="preference-summary">
-
-            <p>Your preferences</p>
-
-            <div className="preference-tags">
-
-              {preferences?.cuisine &&
-                preferences.cuisine !== "Any" && (
-                  <span>
-                    {preferences.cuisine}
-                  </span>
-                )}
-
-              {preferences?.budget && (
-                <span>
-                  {preferences.budget}
-                </span>
-              )}
-
-              {preferences?.cookingTime && (
-                <span>
-                  {preferences.cookingTime}
-                </span>
-              )}
-
-              {preferences?.difficulty && (
-                <span>
-                  {preferences.difficulty}
-                </span>
-              )}
-
-              {preferences?.dietary && (
-                <span>
-                  {preferences.dietary}
-                </span>
-              )}
-
-            </div>
-
-          </div>
-        </div>
-
-
-        <div className="meal-left-bottom">
-
-          <div className="meal-group-note">
-            <strong>Group suggestion</strong>
-
-            <span>
-              The top option is currently the
-              strongest match for your cooking group.
-            </span>
-          </div>
-
-          <button
-            className="meal-main-button"
-            onClick={chooseMeal}
-          >
-            Cook {selectedMeal.name}
-          </button>
-
-        </div>
-
-      </section>
-
-
-      {/* RIGHT SIDE */}
-      <section className="meal-right">
-
-        <p className="meal-right-label">
-          SUGGESTED FOR YOUR GROUP
-        </p>
-
-
-        {/* FEATURED MEAL */}
-        <div className="featured-meal">
-
-          <div className="featured-image">
-            <span>
-              {selectedMeal.icon}
-            </span>
-          </div>
-
-
-          <div className="featured-content">
-
-            <div>
-
-              <div className="featured-heading-row">
-
-                <p className="meal-best-match">
-                  BEST MATCH
-                </p>
-
-                <span className="vote-badge">
-                  {selectedMeal.votes}{" "}
-                  {selectedMeal.votes === 1
-                    ? "vote"
-                    : "votes"}
-                </span>
-
-              </div>
-
-
-              <h2>
-                {selectedMeal.name}
-              </h2>
-
-
-              <div className="meal-meta">
-
-                <span>
-                  {selectedMeal.time} min
-                </span>
-
-                <span>·</span>
-
-                <span>
-                  {selectedMeal.difficulty}
-                </span>
-
-                <span>·</span>
-
-                <span>
-                  {selectedMeal.cooks} cooks
-                </span>
-
-              </div>
-
-
-              <p className="meal-equipment">
-                {selectedMeal.equipment.join(" · ")}
-              </p>
-
-
-              <p className="meal-ingredients">
-                {selectedMeal.ingredients.join(", ")}
-              </p>
-
-            </div>
-
-
-            <div className="meal-match">
-              {selectedMeal.matchText}
-            </div>
-
-          </div>
-
-        </div>
-
-
-        {/* OTHER OPTIONS */}
-        <div className="alternative-heading">
+          <h1>Suggested meals</h1>
 
           <p>
-            Other options
+            Recommendations use your group's
+            cuisine, category and ingredient
+            choices.
           </p>
+        </div>
 
-          <span>
-            Tap to preview
+        <div className="meal-room-code">
+          {room.code}
+        </div>
+      </header>
+
+      {/* =========================
+          FILTER SUMMARY
+      ========================== */}
+
+      <div className="meal-filter-bar">
+        <div className="meal-filter-inner">
+
+          <span className="meal-filter-chip">
+            <strong>Cuisine</strong>
+            {searchProfile.area}
+          </span>
+
+          <span className="meal-filter-chip">
+            <strong>Category</strong>
+            {searchProfile.category}
+          </span>
+
+          <span className="meal-filter-chip">
+            <strong>Ingredient</strong>
+            {searchProfile.ingredient}
           </span>
 
         </div>
+      </div>
 
+      {/* =========================
+          RESULTS
+      ========================== */}
 
-        <div className="meal-options">
+      <main className="meal-results">
 
-          {otherMeals.map((meal) => (
+        {loading &&
+          recipes.length === 0 && (
+            <div className="meal-state">
 
-            <button
-              key={meal.id}
-              className="meal-option"
-              onClick={() =>
-                setSelectedMeal(meal)
-              }
-            >
+              <div className="meal-loader" />
 
-              <div className="option-icon">
-                {meal.icon}
-              </div>
+              <h2>Finding meals…</h2>
 
+              <p>
+                Matching everyone's preferences.
+              </p>
 
-              <div className="option-info">
+            </div>
+          )}
 
-                <strong>
-                  {meal.name}
-                </strong>
+        {!isHost &&
+          recipes.length === 0 &&
+          !error && (
+            <div className="meal-state">
 
-                <span>
-                  {meal.time} min ·{" "}
-                  {meal.difficulty}
-                </span>
+              <div className="meal-loader" />
 
-              </div>
+              <h2>
+                Waiting for suggestions…
+              </h2>
 
+              <p>
+                The admin is finding meals for
+                the group.
+              </p>
 
-              <div className="option-votes">
-                {meal.votes}{" "}
-                {meal.votes === 1
-                  ? "vote"
-                  : "votes"}
-              </div>
+            </div>
+          )}
 
-            </button>
+        {error && (
+          <div className="meal-state">
 
-          ))}
+            <h2>No matching meals</h2>
 
-        </div>
+            <p>{error}</p>
 
-      </section>
+            {isHost && (
+              <button
+                className="state-change-button"
+                onClick={goBack}
+              >
+                Change preferences
+              </button>
+            )}
+
+          </div>
+        )}
+
+        {!error &&
+          recipes.length > 0 && (
+            <div className="recipe-grid">
+
+              {recipes.map(
+                (recipe, index) => {
+                  const recipeId =
+                    recipe.id ||
+                    recipe.idMeal;
+
+                  const selectedId =
+                    selectedRecipe?.id ||
+                    selectedRecipe?.idMeal;
+
+                  const selected =
+                    String(selectedId) ===
+                    String(recipeId);
+
+                  return (
+                    <button
+                      type="button"
+                      key={`${recipeId}-${index}`}
+                      className={`recipe-card ${
+                        selected
+                          ? "selected"
+                          : ""
+                      }`}
+                      disabled={
+                        !isHost || loading
+                      }
+                      onClick={() =>
+                        chooseRecipe(recipe)
+                      }
+                    >
+
+                      <div className="recipe-image">
+
+                        <img
+                          src={recipe.image}
+                          alt={recipe.title}
+                        />
+
+                        {selected && (
+                          <span className="selected-badge">
+                            Selected
+                          </span>
+                        )}
+
+                      </div>
+
+                      <div className="recipe-info">
+
+                        <h3>
+                          {recipe.title}
+                        </h3>
+
+                        <div className="recipe-meta">
+
+                          <span>
+                            {recipe.area ||
+                              searchProfile.area ||
+                              "Meal"}
+                          </span>
+
+                          {recipe.category && (
+                            <span>
+                              {
+                                recipe.category
+                              }
+                            </span>
+                          )}
+
+                        </div>
+
+                      </div>
+
+                    </button>
+                  );
+                }
+              )}
+
+            </div>
+          )}
+
+      </main>
+
+      {/* =========================
+          FOOTER
+      ========================== */}
+
+      <footer className="meal-selection-footer">
+
+        <button
+          className="meal-back-button"
+          disabled={!isHost}
+          onClick={goBack}
+        >
+          {isHost
+            ? "← Change preferences"
+            : "Admin controls navigation"}
+        </button>
+
+        {isHost ? (
+          <button
+            className="meal-continue-button"
+            disabled={
+              !selectedRecipe || loading
+            }
+            onClick={continueWithRecipe}
+          >
+            Cook this meal →
+          </button>
+        ) : (
+          <div className="meal-waiting">
+
+            {selectedRecipe
+              ? `Admin selected ${selectedRecipe.title}`
+              : "Waiting for admin to choose a meal…"}
+
+          </div>
+        )}
+
+      </footer>
 
     </div>
   );

@@ -48,4 +48,4 @@ Based on the round-two interviews and thematic analysis, the experience should b
 
 ## Note on evidence base
 
-This information is based on 3 interviews. See the design opportunity and requirements above as a strong working direction to keep testing against further research and evaluation, rather than a finalised conclusion. When testing the prototype with users, requirements need to be reviewed.
+This information is based on the interviews in the user interviews folder of this repository. See the design opportunity and requirements above as a strong working direction to keep testing against further research and evaluation. When testing the prototype with users, requirements need to be reviewed.

@@ -22,20 +22,29 @@ Asked what would help, all three participants described something close to the s
 
 Conversely, where preferences differed in terms of diet or budget, participants said that they sidestepped the issue by cooking separately, rather than negotiating. This is a weaker basis for a meal decision-making focus. There was evidence of cultural exchange in the data, for example, one participant mentioned they regularly cook with housemates from a different culture, but this was never described as a source of friction or an unmet need.
 
-## Initial requirements
+## Initial experience requirements
 
-The experience should:
+Based on the round-two interviews and thematic analysis, the experience should be as follows:
 
-1. Help to create roles and tasks before the cooking begins, not to improvise when everyone is already in the kitchen and hungry.
-2. Let a team cook together, once, with one shared plan, rather than coordinating on a cluttered group chat or multiple phone screens.
-3. Assign specific tasks to each person so there’s no standing around waiting to be told what to do.
-4. Show progress to the group in real time, including cleanup tasks so that contribution is visible rather than falling disproportionately to one person.
-5. Be usable hands-free or with minimal touch, because hands are often wet, oily or busy mid-task, and screen-based instructions have caused mistakes directly.
-6. Sequence tasks with shared and limited kitchen equipment so that timing mismatches between dishes are minimised rather than assumed away.
-7. Notify people at the right time, e.g., when a task needs attention or when it is time to plate up, rather than relying on a static list that someone has to keep checking.
-8. Avoid interference between multiple devices operating in the same physical kitchen at the same time, e.g., a voice command from one person should not accidentally trigger another person’s device.
+1. Support multiple students participating in the same collaborative cooking session.
 
-At lower priority, nice to have but not worth designing for, is some way of noting individual dietary or budget preferences along with the shared plan, as participants currently solve these differences by cooking separately rather than negotiating, so the system doesn't need to solve the issue, just not get in the way of it.
+2. Help the group establish a shared cooking plan and divide roles and tasks before or at the beginning of the cooking session.
+
+3. Provide each participant with a clear individual task while allowing participants to swap tasks when needed.
+
+4. Allow participants to see the progress of the overall cooking session and the status of other participants' tasks, including shared tasks such as cleanup.
+
+5. Provide individual cooking instructions that participants can follow as they complete their assigned tasks.
+
+6. Support hands-free and minimal-touch interaction while cooking, particularly when participants' hands are messy or otherwise occupied.
+
+7. Support coordination of task timing and shared kitchen resources so that participants can understand when tasks need attention and avoid unnecessary conflicts around limited equipment or kitchen space.
+
+8. Support participants in helping one another after completing their own respective tasks.
+
+9. Provide timely notifications or prompts when a participant needs to act or when a shared cooking milestone requires attention.
+
+10. Avoid unintended interaction between multiple participants' devices when several people are using the system in the same physical kitchen.
 
 ## Note on evidence base
 

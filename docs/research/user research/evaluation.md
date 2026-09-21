@@ -26,9 +26,7 @@ The evaluation aims to investigate:
 
 ## 3. Prototype Version
 
-**Prototype:** [Prototype name] / version 1.0
-
-**Prototype type:** Low-fidelity
+### **1. Prototype:** Low Fidelity / version 1.0
 
 **Date evaluated:** [15 September 2026]
 
@@ -39,6 +37,7 @@ The evaluation aims to investigate:
 - Scan Kitchen
 - Personalised Voice Commands
 - Cooking Lobby
+- Meal Selection
 - Task Setup
 - Cooking Mode
 - Group Progress
@@ -54,6 +53,22 @@ The following components were simulated rather than fully implemented:
 
 These components were simulated because they were not central to the interaction being evaluated.
 
+### **2. Prototype:** High Fidelity / version 1.0
+
+**Date evaluated:** [18 September 2026]
+
+**Prototype link:** [Link](https://www.figma.com/design/3OTwrEJZ7nNwccutJz0rSv/Table-18)
+
+### Features included in this evaluation
+
+- Cooking Lobby
+- Meal Selection
+- Task Setup
+- Cooking Mode
+- Group Progress
+- Help Others
+
+
 ---
 
 ## 4. Evaluation Method
@@ -64,7 +79,7 @@ These components were simulated because they were not central to the interaction
 
 **Participant type:** Target Users / Developers
 
-**Recruitment:** The initial evaluation of the low fidelity prototype was conducted internally within the team and cross referenced while analysis existing user interviews and research literature.
+**Recruitment:** The initial evaluation of both the prototypes was conducted internally within the team and cross referenced while analysis existing user interviews and research literature.
 
 > Participant identities are anonymised in this documentation.
 
@@ -72,7 +87,7 @@ These components were simulated because they were not central to the interaction
 
 ### 4.2 Evaluation Approach
 
-We used an informal semi-structured feedback approach to evaluate the low-fidelity prototype. As the prototype consisted of OneNote sketches rather than a functional interface, the evaluation focused on gathering people's opinions and initial reactions to the proposed features and interaction ideas rather than measuring usability or task performance.
+We used an informal semi-structured feedback approach to evaluate the prototypes. As the prototypes consisted of low fidelity OneNote sketches and high fidelity Figma wireframes, and the evaluation focused on gathering people's opinions and initial reactions to the proposed features and interaction ideas rather than measuring usability or task performance.
 
 Participants were shown a scenario representing a typical collaborative cooking situation:
 
@@ -176,25 +191,20 @@ Based on the evaluation, we identified the following key insights:
 ## 7. Limitations
 
 The evaluation had the following limitations:
-1. **The prototype is low fidelity.**  
-   The current prototype was created in OneNote and represents the proposed interactions through static screens and concepts rather than a fully functional application. As a result, some interactions cannot yet be evaluated in their intended real-world form.
 
-2. **Several proposed interactions have not yet been technically implemented.**  
-   Features such as task assignment, voice interaction, kitchen scanning, and finding nearby friends are currently represented as design concepts rather than functioning systems. Therefore, this evaluation cannot establish their technical feasibility or performance.
+1. **Several proposed interactions have not yet been technically implemented.**  
+   Features such as task assignment, voice interaction, kitchen scanning, and finding nearby friends are currently represented as design concepts only. Therefore, this evaluation cannot establish their technical feasibility or performance.
 
-3. **The revised task assignment approach has not yet been validated with users.**  
+2. **The revised task assignment approach has not yet been validated with users.**  
    The decision to automatically provide an initial task division and allow users to swap tasks is a design decision based on the current project direction. Further user testing is required to determine whether users actually prefer this approach over claiming tasks themselves.
 
-4. **The revised voice interaction has not yet been evaluated.**  
-   Replacing voice training with a custom assistant name reduces the technical complexity of the original concept, but the prototype has not yet established whether users understand or would naturally use this interaction while cooking.
+3. **The proposed "Find Friends" map requires further investigation.**  
+   A map showing nearby users is currently just  a proposed solution. Further testing is required to determine whether a map is the most appropriate way for users to find cooking partners. The design would also need to consider privacy and whether users are comfortable with their location or proximity being visible to others.
 
-5. **The proposed "Find Friends" map requires further investigation.**  
-   A map showing nearby users is currently a proposed solution rather than a validated interaction. Further testing is required to determine whether a map is the most appropriate way for users to find cooking partners. The design would also need to consider privacy and whether users are comfortable with their location or proximity being visible to others.
-
-6. **The feedback does not yet provide evidence of long-term use.**  
+4. **The feedback does not yet provide evidence of long-term use.**  
    The current evaluation focuses on understanding and refining the prototype. It does not establish whether the proposed features would change how frequently students cook together or how they behave during real collaborative cooking sessions.
 
-7. **The evaluation does not yet test the complete cooking experience.**  
+5. **The evaluation does not yet test the complete cooking experience.**  
    The prototype currently represents individual parts of the proposed workflow. Further evaluation is required to assess how these interactions work together from finding participants and joining a cooking session through to completing the meal.
 
 These limitations should be considered when interpreting the findings.

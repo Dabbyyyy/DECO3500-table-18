@@ -368,3 +368,107 @@
 
   color: #3f2d26;
 }
+
+.cooking-timer {
+  padding: 9px 11px;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #dfd3c8;
+  border-radius: 9px;
+  background: #fff;
+}
+
+.cooking-timer div {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+
+.cooking-timer span {
+  color: #8e837a;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.cooking-timer strong {
+  color: #bd4b16;
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cooking-timer button {
+  padding: 6px 8px;
+  border: 1px solid #dfd3c8;
+  border-radius: 6px;
+  background: #fbf7f1;
+  color: #5b5048;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+@media (min-width: 700px) {
+  .cooking-label,
+  .helper-name,
+  .cooking-progress-header p,
+  .current-instruction span,
+  .voice-transcript {
+    font-size: 10px;
+  }
+
+  .cooking-left h1 {
+    font-size: clamp(26px, 3vw, 38px);
+  }
+
+  .cooking-task-meta p,
+  .cooking-progress-header > span {
+    font-size: 12px;
+  }
+
+  .current-instruction {
+    min-height: 92px;
+    padding: 14px;
+  }
+
+  .current-instruction h2 {
+    font-size: 17px;
+    line-height: 1.35;
+  }
+
+  .cooking-controls button {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .cooking-progress-header h2 {
+    font-size: 24px;
+  }
+
+  .quick-actions button {
+    min-height: 48px;
+    font-size: 15px;
+  }
+
+  .quick-actions button span,
+  .cooking-message {
+    font-size: 10px;
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .cooking-left,
+  .cooking-right {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .cooking-left {
+    gap: 6px;
+  }
+
+  .current-instruction {
+    min-height: 64px;
+  }
+}

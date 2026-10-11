@@ -332,3 +332,39 @@ button.cook-action-card:hover {
 
   cursor: default;
 }
+
+@media (min-width: 700px) {
+  .cook-complete-label,
+  .cook-complete-heading p {
+    font-size: 10px;
+  }
+
+  .cook-complete-left h1 {
+    font-size: 38px;
+  }
+
+  .cook-complete-description,
+  .cook-complete-heading > span {
+    font-size: 12px;
+  }
+
+  .cook-complete-heading h2 {
+    font-size: 26px;
+  }
+
+  .cook-complete-meal span,
+  .cook-action-content small,
+  .recommended-label {
+    font-size: 8px;
+  }
+
+  .cook-complete-meal strong,
+  .cook-action-content p,
+  .cook-action-footer {
+    font-size: 10px;
+  }
+
+  .cook-action-content h3 {
+    font-size: 16px;
+  }
+}

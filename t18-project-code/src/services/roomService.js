@@ -295,6 +295,9 @@ export async function initializeCookingSetup(
           assignedToId: people.length
             ? people[index % people.length].id
             : null,
+          status: "waiting",
+          currentStep: 0,
+          needsHelp: false,
         })),
       };
     }
@@ -361,5 +364,65 @@ export async function assignCookingTask(
           : task
       );
     }
+  );
+}
+
+// Update live cooking progress without replacing the task list.
+// Keeping this as a transaction prevents two cooks from overwriting
+// each other's progress when they act at the same time.
+export async function updateCookingTask(
+  roomCode,
+  taskId,
+  changes
+) {
+  if (!roomCode || taskId == null || !changes) return;
+
+  await runTransaction(
+    ref(
+      database,
+      `rooms/${roomCode}/cookingSetup/assignments`
+    ),
+    (current) => {
+      if (!current) return current;
+
+      const tasks = Array.isArray(current)
+        ? current
+        : Object.values(current);
+
+      return tasks.map((task) =>
+        String(task.id) === String(taskId)
+          ? {
+              ...task,
+              ...changes,
+              updatedAt: Date.now(),
+            }
+          : task
+      );
+    }
+  );
+}
+
+// Store what a finished cook is doing while the rest of the group
+// continues. One activity per member keeps help and shared tasks from
+// becoming stale or duplicated across devices.
+export async function setCookingActivity(
+  roomCode,
+  memberId,
+  activity
+) {
+  if (!roomCode || !memberId) return;
+
+  await set(
+    ref(
+      database,
+      `rooms/${roomCode}/cookingActivities/${memberId}`
+    ),
+    activity
+      ? {
+          ...activity,
+          helperId: memberId,
+          updatedAt: Date.now(),
+        }
+      : null
   );
 }

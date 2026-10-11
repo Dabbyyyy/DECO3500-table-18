@@ -10,7 +10,7 @@ export default function VoiceButton({
       disabled={!supported}
       style={{
         width: "100%",
-        padding: "7px 9px",
+        padding: "10px 12px",
 
         display: "flex",
         alignItems: "center",
@@ -38,8 +38,8 @@ export default function VoiceButton({
     >
       <div
         style={{
-          width: "25px",
-          height: "25px",
+          width: "34px",
+          height: "34px",
           flexShrink: 0,
 
           display: "grid",
@@ -49,7 +49,7 @@ export default function VoiceButton({
 
           background: "#fff8f2",
 
-          fontSize: "11px",
+          fontSize: "15px",
         }}
       >
         {listening ? "●" : "🎙"}
@@ -59,7 +59,7 @@ export default function VoiceButton({
         <strong
           style={{
             display: "block",
-            fontSize: "7px",
+            fontSize: "12px",
           }}
         >
           {!supported
@@ -71,7 +71,7 @@ export default function VoiceButton({
 
         <span
           style={{
-            fontSize: "6px",
+            fontSize: "10px",
             color: "#91867d",
           }}
         >

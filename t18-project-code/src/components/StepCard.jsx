@@ -9,8 +9,8 @@ export default function StepCard({
   return (
     <div
       style={{
-        minHeight: "40px",
-        padding: "6px 8px",
+        minHeight: "48px",
+        padding: "8px 10px",
         display: "flex",
         alignItems: "center",
         gap: "7px",
@@ -30,8 +30,8 @@ export default function StepCard({
     >
       <div
         style={{
-          width: "23px",
-          height: "23px",
+          width: "28px",
+          height: "28px",
           flexShrink: 0,
 
           display: "grid",
@@ -51,7 +51,7 @@ export default function StepCard({
               ? "#ffffff"
               : "#938980",
 
-          fontSize: "7px",
+          fontSize: "10px",
           fontWeight: "700",
         }}
       >
@@ -67,7 +67,7 @@ export default function StepCard({
       >
         <strong
           style={{
-            fontSize: "7px",
+            fontSize: "11px",
             color: "#4b4038",
           }}
         >
@@ -76,7 +76,7 @@ export default function StepCard({
 
         <span
           style={{
-            fontSize: "6px",
+            fontSize: "9px",
             color: isCurrent
               ? "#d66324"
               : "#a1978e",

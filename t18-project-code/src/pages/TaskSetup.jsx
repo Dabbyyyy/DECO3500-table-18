@@ -1,5 +1,5 @@
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   subscribeToRoom,
@@ -27,12 +27,38 @@ function getMemberLabel(member, myId) {
   return `${member.name || "Member"}${isMe ? " (You)" : ""}`;
 }
 
+function prepareAssignments(assignments, members) {
+  const tasks = Array.isArray(assignments)
+    ? assignments
+    : Object.values(assignments || {});
+
+  return tasks.filter(Boolean).map((task, index) => {
+    const owner = members.find(
+      (member) =>
+        String(member.id) === String(task.assignedToId)
+    );
+
+    return {
+      ...task,
+      id: String(task.id ?? `task-${index}`),
+      name: task.name || task.title || `Task ${index + 1}`,
+      estimatedTime:
+        task.estimatedTime ?? task.minutes ?? null,
+      assignedTo: owner?.name || task.assignedTo || null,
+      status: task.status || "waiting",
+      currentStep: Number(task.currentStep) || 0,
+      needsHelp: Boolean(task.needsHelp),
+    };
+  });
+}
+
 export default function TaskSetup({
   meal,
   user = {},
   room = {},
   setTaskAssignments,
   onContinue,
+  onRoomStart,
   onBack,
 }) {
   const [liveRoom, setLiveRoom] = useState(null);
@@ -41,6 +67,7 @@ export default function TaskSetup({
   const [error, setError] = useState("");
   const [showEveryone, setShowEveryone] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const navigationStarted = useRef(false);
 
   const roomCode = room.code || room.roomCode;
 
@@ -56,12 +83,33 @@ export default function TaskSetup({
       (updatedRoom) => {
         if (updatedRoom) {
           setLiveRoom(updatedRoom);
+
+          if (
+            updatedRoom.screen === "cooking" &&
+            !navigationStarted.current
+          ) {
+            navigationStarted.current = true;
+
+            const updatedMembers = Array.isArray(
+              updatedRoom.members
+            )
+              ? updatedRoom.members
+              : Object.values(updatedRoom.members || {});
+
+            setTaskAssignments?.(
+              prepareAssignments(
+                updatedRoom.cookingSetup?.assignments,
+                updatedMembers
+              )
+            );
+            onRoomStart?.();
+          }
         }
       }
     );
 
     return () => unsubscribe();
-  }, [roomCode]);
+  }, [roomCode, onRoomStart, setTaskAssignments]);
 
   const currentRoom = liveRoom || room;
 
@@ -257,19 +305,9 @@ export default function TaskSetup({
     }
 
     await perform(async () => {
-      const finalAssignments = assignments.map(
-        (task) => {
-          const owner = members.find(
-            (member) =>
-              String(member.id) ===
-              String(task.assignedToId)
-          );
-
-          return {
-            ...task,
-            assignedTo: owner?.name || null,
-          };
-        }
+      const finalAssignments = prepareAssignments(
+        assignments,
+        members
       );
 
       if (

@@ -1,45 +1,55 @@
+
 import "./Welcome.css";
 
-export default function Welcome({ onContinue }) {
+export default function Welcome({ onContinue, onJoin }) {
   return (
-    <div className="welcome-page">
-      <section className="welcome-left">
-        <div>
-          <p className="welcome-eyebrow">TABLE 18</p>
-
-          <h1>
-            Cook <span className="welcome-highlight">together</span>,
-            <br />
-            without the confusion.
-          </h1>
-
-          <p className="welcome-subtitle">
-            Join your group, choose a meal and let the app help everyone
-            understand what to do next.
-          </p>
+    <main className="welcome-page">
+      <div className="welcome-centre">
+        <div className="welcome-icon" aria-hidden="true">
+          <svg
+            width="42"
+            height="42"
+            viewBox="0 0 48 48"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M10 19h28v18a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4V19Z" />
+            <path d="M7 19h34" />
+            <path d="M24 19v-7" />
+            <path d="M24 12c0-5 8-5 8-9" />
+            <path d="M15 13l18-5" />
+          </svg>
         </div>
 
-        <button className="welcome-button" onClick={onContinue}>
-          Start cooking
+        <h1>ktchn</h1>
+
+        <p>
+          Coordinate the cooking, not just the calendar.
+          Plan, cook, and eat together — one shared plan
+          at a time.
+        </p>
+      </div>
+
+      <div className="welcome-actions">
+        <button
+          type="button"
+          className="welcome-primary"
+          onClick={onContinue}
+        >
+          Start a new session
         </button>
-      </section>
 
-      <section className="welcome-right">
-        <div className="welcome-card">
-          <span>1</span>
-          <p>Join your cooking group</p>
-        </div>
-
-        <div className="welcome-card">
-          <span>2</span>
-          <p>Choose a meal together</p>
-        </div>
-
-        <div className="welcome-card">
-          <span>3</span>
-          <p>Follow your task and help others</p>
-        </div>
-      </section>
-    </div>
+        <button
+          type="button"
+          className="welcome-secondary"
+          onClick={onJoin}
+        >
+          Join with session code
+        </button>
+      </div>
+    </main>
   );
 }

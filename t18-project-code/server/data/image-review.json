@@ -1,0 +1,533 @@
+[
+  {
+    "id": "teriyaki-chicken-bowl",
+    "title": "Teriyaki Chicken Bowl",
+    "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Teriyaki_Chicken_Rice_Bowl_from_Botejyu_%282024-12-21%29.jpg",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Teriyaki_Chicken_Rice_Bowl_from_Botejyu_%282024-12-21%29.jpg",
+    "imageCredit": null,
+    "imageLicense": null,
+    "status": "Existing image"
+  },
+  {
+    "id": "one-pan-fried-rice",
+    "title": "One-Pan Fried Rice",
+    "image": "https://commons.wikimedia.org/wiki/Special:FilePath/FriedRice.JPG",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:FriedRice.JPG",
+    "imageCredit": null,
+    "imageLicense": null,
+    "status": "Existing image"
+  },
+  {
+    "id": "chicken-tacos",
+    "title": "Chicken Tacos",
+    "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Chicken_Tacos.jpg",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_Tacos.jpg",
+    "imageCredit": null,
+    "imageLicense": null,
+    "status": "Existing image"
+  },
+  {
+    "id": "tomato-pasta",
+    "title": "Tomato Basil Pasta",
+    "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Pasta_al_pomodoro_1.jpg",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Pasta_al_pomodoro_1.jpg",
+    "imageCredit": null,
+    "imageLicense": null,
+    "status": "Existing image"
+  },
+  {
+    "id": "vegetable-curry",
+    "title": "Vegetable Curry",
+    "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Vegetable_curry_%28387626674%29.jpg",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetable_curry_%28387626674%29.jpg",
+    "imageCredit": null,
+    "imageLicense": null,
+    "status": "Existing image"
+  },
+  {
+    "id": "chicken-katsu-rice",
+    "title": "Chicken Katsu Rice",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Chicken_Katsu_Curry_with_Rice_-_Wagamama_Flinders_Lane_%282426703227%29.jpg/1280px-Chicken_Katsu_Curry_with_Rice_-_Wagamama_Flinders_Lane_%282426703227%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_Katsu_Curry_with_Rice_-_Wagamama_Flinders_Lane_(2426703227).jpg",
+    "imageCredit": "Alpha  from Melbourne, Australia",
+    "imageLicense": "CC BY-SA 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "tofu-teriyaki-bowl",
+    "title": "Tofu Teriyaki Bowl",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Rice_bowl_topped_with_tofu_%287960798384%29.jpg/1280px-Rice_bowl_topped_with_tofu_%287960798384%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Rice_bowl_topped_with_tofu_(7960798384).jpg",
+    "imageCredit": "pelican from Tokyo, Japan",
+    "imageLicense": "CC BY-SA 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "miso-mushroom-udon",
+    "title": "Miso Mushroom Udon",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Mixed_Mushroom_Udon_%28red_miso_broth%29_-_MOGUMOGU_2024-10-02.jpg/1280px-Mixed_Mushroom_Udon_%28red_miso_broth%29_-_MOGUMOGU_2024-10-02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Mixed_Mushroom_Udon_(red_miso_broth)_-_MOGUMOGU_2024-10-02.jpg",
+    "imageCredit": "Andy Li",
+    "imageLicense": "CC0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "salmon-rice-bowl",
+    "title": "Salmon Rice Bowl",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/15/Salmon_bowl.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Salmon_bowl.jpg",
+    "imageCredit": "Janine  from Mililani, Hawaii, United States",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "japanese-vegetable-rice-bowl",
+    "title": "Japanese Vegetable Rice Bowl",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Chicken_and_egg_%22oyako%22_donburi%2C_pork_and_vegetable_miso_soup%2C_and_carrot_and_egg_stir_fry_%E8%A6%AA%E5%AD%90%E4%B8%BC%E3%80%81%E8%B1%9A%E6%B1%81%E3%80%81%E3%83%8B%E3%83%B3%E3%82%B8%E3%83%B3%E3%81%A8%E5%8D%B5%E3%81%AE%E3%80%8C%E3%81%97%E3%82%8A%E3%81%97%E3%82%8A%E3%80%8D.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_and_egg_%22oyako%22_donburi,_pork_and_vegetable_miso_soup,_and_carrot_and_egg_stir_fry_%E8%A6%AA%E5%AD%90%E4%B8%BC%E3%80%81%E8%B1%9A%E6%B1%81%E3%80%81%E3%83%8B%E3%83%B3%E3%82%B8%E3%83%B3%E3%81%A8%E5%8D%B5%E3%81%AE%E3%80%8C%E3%81%97%E3%82%8A%E3%81%97%E3%82%8A%E3%80%8D.jpg",
+    "imageCredit": "naotakem",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "chicken-yakisoba",
+    "title": "Chicken Yakisoba",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Chicken_yakisoba_Merelymel13.jpg/1280px-Chicken_yakisoba_Merelymel13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_yakisoba_Merelymel13.jpg",
+    "imageCredit": "Merelymel13",
+    "imageLicense": "CC BY-SA 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "vegetable-sushi-bowl",
+    "title": "Vegetable Sushi Bowl",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Vegetarian_sushi_bowl_%2836099859772%29.jpg/1280px-Vegetarian_sushi_bowl_%2836099859772%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetarian_sushi_bowl_(36099859772).jpg",
+    "imageCredit": "Charlie Marchant from UK",
+    "imageLicense": "CC BY 2.0",
+    "status": "Manually selected; visual review required"
+  },
+  {
+    "id": "ginger-tofu-stir-fry",
+    "title": "Ginger Tofu Stir-Fry",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/50/Stir_Fry_with_Tofu.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Stir_Fry_with_Tofu.JPG",
+    "imageCredit": "ParentingPatch",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "egg-fried-noodles",
+    "title": "Egg Fried Noodles",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Noodles_and_fried_egg.jpg/1280px-Noodles_and_fried_egg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Noodles_and_fried_egg.jpg",
+    "imageCredit": "Nancy Nwachukwu",
+    "imageLicense": "CC BY-SA 4.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "garlic-chicken-rice",
+    "title": "Garlic Chicken Rice",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Ping_SJ_garlic_chicken_%26_fried_rice.JPG/1280px-Ping_SJ_garlic_chicken_%26_fried_rice.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Ping_SJ_garlic_chicken_%26_fried_rice.JPG",
+    "imageCredit": "BrokenSphere",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "thai-basil-chicken",
+    "title": "Thai Basil Chicken",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Kao_Rad_Pad_Kra-pao_with_chicken_and_fried_egg_-_Unithai_2025-07-30.jpg/1280px-Kao_Rad_Pad_Kra-pao_with_chicken_and_fried_egg_-_Unithai_2025-07-30.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Kao_Rad_Pad_Kra-pao_with_chicken_and_fried_egg_-_Unithai_2025-07-30.jpg",
+    "imageCredit": "Andy Li",
+    "imageLicense": "CC0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "thai-green-vegetable-curry",
+    "title": "Thai Green Vegetable Curry",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/Vegetable_In_Thai_Green_Curry_-_Hyatt_Hyderabad_Gachibowli_-_Hyderabad_2023-04-28_7776.jpg/1280px-Vegetable_In_Thai_Green_Curry_-_Hyatt_Hyderabad_Gachibowli_-_Hyderabad_2023-04-28_7776.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetable_In_Thai_Green_Curry_-_Hyatt_Hyderabad_Gachibowli_-_Hyderabad_2023-04-28_7776.jpg",
+    "imageCredit": "Biswarup Ganguly",
+    "imageLicense": "CC BY 3.0",
+    "status": "Manually selected; visual review required"
+  },
+  {
+    "id": "thai-peanut-noodles",
+    "title": "Thai Peanut Noodles",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Vegan_Peanut_Cold_Noodles_with_Cucumbers_%286002019389%29.jpg/1280px-Vegan_Peanut_Cold_Noodles_with_Cucumbers_%286002019389%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegan_Peanut_Cold_Noodles_with_Cucumbers_(6002019389).jpg",
+    "imageCredit": "tomatoes and friends",
+    "imageLicense": "CC BY 2.0",
+    "status": "Manually selected; visual review required"
+  },
+  {
+    "id": "thai-coconut-tofu-soup",
+    "title": "Thai Coconut Tofu Soup",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Tom_Kha_Gai_Polevka_Zlaty_Klas_2025.jpg/1280px-Tom_Kha_Gai_Polevka_Zlaty_Klas_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Tom_Kha_Gai_Polevka_Zlaty_Klas_2025.jpg",
+    "imageCredit": "Mojmir Churavy",
+    "imageLicense": "CC0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "indonesian-nasi-goreng",
+    "title": "Indonesian Nasi Goreng",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Nasi_goreng.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Nasi_goreng.jpg",
+    "imageCredit": "Sakurai Midori",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "indonesian-tempeh-rice-bowl",
+    "title": "Indonesian Tempeh Rice Bowl",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Beef_Serunding%2C_Tofu_and_Tempeh_Curry%2C_Stir-fried_beansprouts_-_Nelayan_Indonesian_Cafe_AUD8.70_%283224618418%29.jpg/1280px-Beef_Serunding%2C_Tofu_and_Tempeh_Curry%2C_Stir-fried_beansprouts_-_Nelayan_Indonesian_Cafe_AUD8.70_%283224618418%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Beef_Serunding,_Tofu_and_Tempeh_Curry,_Stir-fried_beansprouts_-_Nelayan_Indonesian_Cafe_AUD8.70_(3224618418).jpg",
+    "imageCredit": "Alpha from Melbourne, Australia",
+    "imageLicense": "CC BY-SA 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "gado-gado-inspired-bowl",
+    "title": "Gado-Gado Inspired Bowl",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Indonesian_cuisine-Gado_Gado-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Indonesian_cuisine-Gado_Gado-01.jpg",
+    "imageCredit": "Christian Losari",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "soto-ayam-inspired-soup",
+    "title": "Soto Ayam Inspired Soup",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Soto_ayam.JPG/1280px-Soto_ayam.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Soto_ayam.JPG",
+    "imageCredit": "Sakurai Midori",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "indian-chana-masala",
+    "title": "Indian Chana Masala",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Indian_food_naan_chana_masala_8285643741_o.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Indian_food_naan_chana_masala_8285643741_o.jpg",
+    "imageCredit": "Tony Webster",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "red-lentil-dal",
+    "title": "Red Lentil Dal",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/38/Masoor_dal.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Masoor_dal.JPG",
+    "imageCredit": "Rydia~commonswiki",
+    "imageLicense": "CC BY-SA 2.5",
+    "status": "Manually selected; visual review required"
+  },
+  {
+    "id": "palak-tofu",
+    "title": "Palak Tofu",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Chakra_Palak_Tofu.jpg/1280px-Chakra_Palak_Tofu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chakra_Palak_Tofu.jpg",
+    "imageCredit": "JIP",
+    "imageLicense": "CC BY-SA 4.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "chicken-tikka-rice-bowl",
+    "title": "Chicken Tikka Rice Bowl",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Chicken_Tikka_Masala.jpeg/1280px-Chicken_Tikka_Masala.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_Tikka_Masala.jpeg",
+    "imageCredit": "David Johnson [1]",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "potato-pea-curry",
+    "title": "Potato Pea Curry",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Aaloo_Matar.JPG/1280px-Aaloo_Matar.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Aaloo_Matar.JPG",
+    "imageCredit": "Miansari66",
+    "imageLicense": "CC0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "mexican-black-bean-tacos",
+    "title": "Mexican Black Bean Tacos",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/45/Vegetables_and_Black_Bean_Tacos_%287212559656%29.jpg/1280px-Vegetables_and_Black_Bean_Tacos_%287212559656%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetables_and_Black_Bean_Tacos_(7212559656).jpg",
+    "imageCredit": "Jennifer from Vancouver, Canada",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "chicken-fajita-rice-bowl",
+    "title": "Chicken Fajita Rice Bowl",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Flickr_elisart_324248450--Beef_and_chicken_fajitas.jpg/1280px-Flickr_elisart_324248450--Beef_and_chicken_fajitas.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Flickr_elisart_324248450--Beef_and_chicken_fajitas.jpg",
+    "imageCredit": "Elisa Arteaga from Caracas, Venezuela",
+    "imageLicense": "CC BY-SA 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "bean-and-corn-quesadillas",
+    "title": "Bean and Corn Quesadillas",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Vegetarian_Black_Bean_Quesadilla.jpg/1280px-Vegetarian_Black_Bean_Quesadilla.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetarian_Black_Bean_Quesadilla.jpg",
+    "imageCredit": "BOSTON66",
+    "imageLicense": "CC BY-SA 4.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "sweet-potato-burrito-bowl",
+    "title": "Sweet Potato Burrito Bowl",
+    "image": null,
+    "imageSourcePage": null,
+    "imageCredit": null,
+    "imageLicense": null,
+    "status": "Missing image"
+  },
+  {
+    "id": "mexican-lentil-tacos",
+    "title": "Mexican Lentil Tacos",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Mexican_food_vegetarian_tacos_20260607_161424_%281%29.jpg/1280px-Mexican_food_vegetarian_tacos_20260607_161424_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Mexican_food_vegetarian_tacos_20260607_161424_(1).jpg",
+    "imageCredit": "Gerardolagunes",
+    "imageLicense": "CC0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "pesto-vegetable-pasta",
+    "title": "Pesto Vegetable Pasta",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Feta_and_pesto_pasta_as_a_convenience_meal.jpg/1280px-Feta_and_pesto_pasta_as_a_convenience_meal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Feta_and_pesto_pasta_as_a_convenience_meal.jpg",
+    "imageCredit": "JIP",
+    "imageLicense": "CC BY-SA 4.0",
+    "status": "Manually selected; visual review required"
+  },
+  {
+    "id": "creamy-mushroom-pasta",
+    "title": "Creamy Mushroom Pasta",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Creamy_Mushroom_Pasta.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Creamy_Mushroom_Pasta.jpg",
+    "imageCredit": "Sharon Chen",
+    "imageLicense": "CC BY 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "lentil-bolognese",
+    "title": "Lentil Bolognese",
+    "image": null,
+    "imageSourcePage": null,
+    "imageCredit": null,
+    "imageLicense": null,
+    "status": "Missing image"
+  },
+  {
+    "id": "caprese-chickpea-salad",
+    "title": "Caprese Chickpea Salad",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Humus-Chickpea-Salad.jpg/1280px-Humus-Chickpea-Salad.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Humus-Chickpea-Salad.jpg",
+    "imageCredit": "Sharon Gefen",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "vegetable-risotto",
+    "title": "Vegetable Risotto",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Vegetable_risotto.jpg/1280px-Vegetable_risotto.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetable_risotto.jpg",
+    "imageCredit": "Lara604",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "greek-chicken-rice-bowl",
+    "title": "Greek Chicken Rice Bowl",
+    "image": null,
+    "imageSourcePage": null,
+    "imageCredit": null,
+    "imageLicense": null,
+    "status": "Missing image"
+  },
+  {
+    "id": "greek-chickpea-salad",
+    "title": "Greek Chickpea Salad",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Humus-Chickpea-Salad.jpg/1280px-Humus-Chickpea-Salad.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Humus-Chickpea-Salad.jpg",
+    "imageCredit": "Sharon Gefen",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "lemon-potato-tray-bake",
+    "title": "Lemon Potato Tray Bake",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Roast_beef_in_lemon_juice_and_oregano_with_potatoes.jpg/1280px-Roast_beef_in_lemon_juice_and_oregano_with_potatoes.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Roast_beef_in_lemon_juice_and_oregano_with_potatoes.jpg",
+    "imageCredit": "Kgbo",
+    "imageLicense": "CC BY-SA 4.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "mediterranean-couscous-bowl",
+    "title": "Mediterranean Couscous Bowl",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Couscous_and_other_salad_%289604349195%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Couscous_and_other_salad_(9604349195).jpg",
+    "imageCredit": "Suzette - www.suzette.nu from Arnhem, Netherlands",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "hummus-roasted-veg-wrap",
+    "title": "Hummus Roasted Veg Wrap",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Vegetable_and_Basil-Garlic_Hummus_Wrap_%284800115998%29.jpg/1280px-Vegetable_and_Basil-Garlic_Hummus_Wrap_%284800115998%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetable_and_Basil-Garlic_Hummus_Wrap_(4800115998).jpg",
+    "imageCredit": "Jennifer from Vancouver, Canada",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "falafel-rice-bowl",
+    "title": "Falafel Rice Bowl",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Vegan_Falafel_Plate_at_Nuba_in_Vancouver_%283817524657%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegan_Falafel_Plate_at_Nuba_in_Vancouver_(3817524657).jpg",
+    "imageCredit": "Jennifer from Vancouver, Canada",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "shakshuka",
+    "title": "Shakshuka",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Shakshuka_011.jpg/1280px-Shakshuka_011.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Shakshuka_011.jpg",
+    "imageCredit": "Gilabrand",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "lemon-herb-chicken-couscous",
+    "title": "Lemon Herb Chicken Couscous",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Chicken_Orange_Couscous-01.jpg/1280px-Chicken_Orange_Couscous-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_Orange_Couscous-01.jpg",
+    "imageCredit": "Evan",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "korean-bibimbap-inspired-bowl",
+    "title": "Korean Bibimbap Inspired Bowl",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Korean.food-Bibimbap-02.jpg/1280px-Korean.food-Bibimbap-02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Korean.food-Bibimbap-02.jpg",
+    "imageCredit": "abex  (a flickr user)",
+    "imageLicense": "CC BY-SA 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "korean-tofu-rice-bowl",
+    "title": "Korean Tofu Rice Bowl",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Brighton_Bibimbap_%28tofu%29_-_Time_For_Kimchi.jpg/1280px-Brighton_Bibimbap_%28tofu%29_-_Time_For_Kimchi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Brighton_Bibimbap_(tofu)_-_Time_For_Kimchi.jpg",
+    "imageCredit": "Andy Li",
+    "imageLicense": "CC0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "kimchi-fried-rice",
+    "title": "Kimchi Fried Rice",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Kimchi_fried_rice_with_cheese.jpg/1280px-Kimchi_fried_rice_with_cheese.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Kimchi_fried_rice_with_cheese.jpg",
+    "imageCredit": "L. W. Yang",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "korean-beef-lettuce-cups",
+    "title": "Korean Beef Lettuce Cups",
+    "image": null,
+    "imageSourcePage": null,
+    "imageCredit": null,
+    "imageLicense": null,
+    "status": "Missing image"
+  },
+  {
+    "id": "vietnamese-rice-noodle-salad",
+    "title": "Vietnamese Rice Noodle Salad",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Vegan_Vietnamese_Rice_Noodle_Salad_with_Tofu_%287242348804%29.jpg/1280px-Vegan_Vietnamese_Rice_Noodle_Salad_with_Tofu_%287242348804%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegan_Vietnamese_Rice_Noodle_Salad_with_Tofu_(7242348804).jpg",
+    "imageCredit": "tomatoes and friends",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "vietnamese-chicken-noodle-bowl",
+    "title": "Vietnamese Chicken Noodle Bowl",
+    "image": null,
+    "imageSourcePage": null,
+    "imageCredit": null,
+    "imageLicense": null,
+    "status": "Missing image"
+  },
+  {
+    "id": "vietnamese-fresh-spring-rolls",
+    "title": "Vietnamese Fresh Spring Rolls",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Goi_cuon_Phuongnhu.JPG/1280px-Goi_cuon_Phuongnhu.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Goi_cuon_Phuongnhu.JPG",
+    "imageCredit": "Phuongnhu",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "chinese-tomato-egg-stir-fry",
+    "title": "Chinese Tomato Egg Stir-Fry",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/19/Stir_Fried_Tomatoes_with_Scrambled_Eggs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Stir_Fried_Tomatoes_with_Scrambled_Eggs.jpg",
+    "imageCredit": "NNU-10-24100123",
+    "imageLicense": "CC BY-SA 3.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "chinese-garlic-bok-choy-tofu",
+    "title": "Chinese Garlic Bok Choy Tofu",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/70/TofuBokchoy.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:TofuBokchoy.jpg",
+    "imageCredit": "Roland from (optional)",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "chinese-chicken-vegetable-noodles",
+    "title": "Chinese Chicken Vegetable Noodles",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Fried_noodles%2C_chicken_and_vegetables%2C_Adelaide.jpg/1280px-Fried_noodles%2C_chicken_and_vegetables%2C_Adelaide.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Fried_noodles,_chicken_and_vegetables,_Adelaide.jpg",
+    "imageCredit": "philip.mallis",
+    "imageLicense": "CC BY-SA 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "moroccan-chickpea-stew",
+    "title": "Moroccan Chickpea Stew",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Moroccan_Chickpea_and_Vegetable_Stew_%286750034613%29.jpg/1280px-Moroccan_Chickpea_and_Vegetable_Stew_%286750034613%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Moroccan_Chickpea_and_Vegetable_Stew_(6750034613).jpg",
+    "imageCredit": "Jennifer from Vancouver, Canada",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  },
+  {
+    "id": "moroccan-chicken-couscous",
+    "title": "Moroccan Chicken Couscous",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Marokkansk_kylling_med_couscous_%285205156640%29.jpg/1280px-Marokkansk_kylling_med_couscous_%285205156640%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Marokkansk_kylling_med_couscous_(5205156640).jpg",
+    "imageCredit": "cyclonebill from Copenhagen, Denmark",
+    "imageLicense": "CC BY-SA 2.0",
+    "status": "Manually selected; visual review required"
+  },
+  {
+    "id": "australian-pumpkin-soup",
+    "title": "Australian Pumpkin Soup",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/23/Pumpkin_soup_with_ginger_and_roasted_pumpkin_seeds.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Pumpkin_soup_with_ginger_and_roasted_pumpkin_seeds.jpg",
+    "imageCredit": "photonome",
+    "imageLicense": "CC BY 2.0",
+    "status": "Automatically matched; manually review"
+  }
+]

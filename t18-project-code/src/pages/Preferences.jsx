@@ -1,207 +1,120 @@
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
 
+import { useEffect, useState } from "react";
 import "./Preferences.css";
 
 import {
   subscribeToRoom,
-  updateMemberPreference,
-  setMemberReady,
+  updateMemberPreferences,
   clearMealSuggestions,
   changeRoomScreen,
 } from "../services/roomService";
 
-import {
-  getAreas,
-  getCategories,
-  getIngredients,
-} from "../services/themealdbService";
+const DEFAULTS = {
+  dietary: ["No Allergies"],
+  cuisine: "Any",
+  budget: "$8–12 per person",
+  cookingTime: "Under 30 min",
+  difficulty: "Easy",
+  foodLikes: [],
+  ready: false,
+};
 
-/* ---------------------------------
-   Searchable dropdown
----------------------------------- */
+const FIELDS = [
+  {
+    key: "dietary",
+    title: "Dietary",
+    icon: "♡",
+    hint: "Restrictions and food needs",
+    multiple: true,
+    options: [
+      "No Allergies",
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Wheat",
+      "No Egg",
+    ],
+  },
+  {
+    key: "cuisine",
+    title: "Cuisine",
+    icon: "◉",
+    hint: "What sounds good?",
+    options: [
+      "Any",
+      "Japanese",
+      "Asian",
+      "Indian",
+      "Italian",
+      "Mexican",
+      "Thai",
+      "Indonesian",
+      "Korean",
+      "Vietnamese",
+      "Chinese",
+      "Greek",
+      "Mediterranean",
+      "Middle Eastern",
+      "Moroccan",
+      "Australian",
+    ],
+  },
+  {
+    key: "budget",
+    title: "Budget",
+    icon: "$",
+    hint: "Estimated cost per person",
+    options: [
+      "Under $8",
+      "$8–12 per person",
+      "$12–20 per person",
+    ],
+  },
+  {
+    key: "cookingTime",
+    title: "Cooking Time",
+    icon: "◷",
+    hint: "How much time do you have?",
+    options: [
+      "Under 30 min",
+      "Under 45 min",
+      "Under 60 min",
+    ],
+  },
+  {
+    key: "difficulty",
+    title: "Difficulty",
+    icon: "★",
+    hint: "Your cooking comfort level",
+    options: ["Easy", "Medium", "Hard"],
+  },
+  {
+    key: "foodLikes",
+    title: "Food Likes",
+    icon: "♥",
+    hint: "Ingredients you enjoy",
+    multiple: true,
+    options: [
+      "Rice",
+      "Chicken",
+      "Pasta",
+      "Vegetables",
+      "Egg",
+      "Potato",
+      "Tomato",
+      "Chickpeas",
+    ],
+  },
+];
 
-function SearchDropdown({
-  label,
-  description,
-  value,
-  options,
-  placeholder,
-  onChange,
-  members = [],
-  field,
-}) {
-  const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState("");
-  const dropdownRef = useRef(null);
-
-  const filteredOptions = useMemo(() => {
-    const text = search.trim().toLowerCase();
-
-    if (!text) {
-      return options;
-    }
-
-    return options.filter((option) =>
-      option.toLowerCase().includes(text)
-    );
-  }, [options, search]);
-
-  useEffect(() => {
-    function handleOutsideClick(event) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target)
-      ) {
-        setOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleOutsideClick
-      );
-    };
-  }, []);
-
-  function selectOption(option) {
-    onChange(option);
-    setOpen(false);
-    setSearch("");
+function displayValue(value) {
+  if (Array.isArray(value)) {
+    return value.length ? value.join(", ") : "Any";
   }
-
-  function getInitial(name) {
-    return name?.trim()?.charAt(0)?.toUpperCase() || "?";
-  }
-
-  return (
-    <div className="preference-field">
-      <div className="field-heading">
-        <div>
-          <h3>{label}</h3>
-          <p>{description}</p>
-        </div>
-
-        <span className="api-badge">API</span>
-      </div>
-
-      <div
-        className={`search-dropdown ${open ? "open" : ""}`}
-        ref={dropdownRef}
-      >
-        <button
-          type="button"
-          className="dropdown-trigger"
-          onClick={() => setOpen((previous) => !previous)}
-        >
-          <span>
-            {value === "Any" ? placeholder : value}
-          </span>
-
-          <span className="dropdown-arrow">
-            {open ? "▲" : "▼"}
-          </span>
-        </button>
-
-        {open && (
-          <div className="dropdown-menu">
-            <div className="dropdown-search-wrap">
-              <span className="search-icon">⌕</span>
-
-              <input
-                autoFocus
-                value={search}
-                onChange={(event) =>
-                  setSearch(event.target.value)
-                }
-                placeholder={`Search ${label.toLowerCase()}...`}
-              />
-            </div>
-
-            <div className="dropdown-options">
-              <button
-                type="button"
-                className={`dropdown-option ${
-                  value === "Any" ? "selected" : ""
-                }`}
-                onClick={() => selectOption("Any")}
-              >
-                <span>{placeholder}</span>
-
-                {value === "Any" && (
-                  <span className="option-check">✓</span>
-                )}
-              </button>
-
-              {filteredOptions.map((option, index) => (
-                <button
-                  type="button"
-                  key={`${field}-${option}-${index}`}
-                  className={`dropdown-option ${
-                    value === option ? "selected" : ""
-                  }`}
-                  onClick={() => selectOption(option)}
-                >
-                  <span>{option}</span>
-
-                  {value === option && (
-                    <span className="option-check">✓</span>
-                  )}
-                </button>
-              ))}
-
-              {filteredOptions.length === 0 && (
-                <div className="no-dropdown-results">
-                  No matching options
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="group-choice-row">
-        {members.map((member) => {
-          const memberValue =
-            member.preferences?.[field] || "Any";
-
-          return (
-            <div
-              className="group-choice-person"
-              key={member.id}
-              title={`${member.name}: ${memberValue}`}
-            >
-              <span className="group-choice-avatar">
-                {getInitial(member.name)}
-              </span>
-
-              <span className="group-choice-name">
-                {member.name}
-              </span>
-
-              <span className="group-choice-value">
-                {memberValue === "Any"
-                  ? "No preference"
-                  : memberValue}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+  return value || "Any";
 }
-
-/* ---------------------------------
-   Preferences page
----------------------------------- */
 
 export default function Preferences({
   user,
@@ -212,494 +125,406 @@ export default function Preferences({
   onContinue,
   onBack,
 }) {
-  const [areas, setAreas] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-
-  const [loadingOptions, setLoadingOptions] =
-    useState(true);
-
+  const [activeField, setActiveField] = useState(null);
+  const [cuisineSearch, setCuisineSearch] = useState("");
+  const [draft, setDraft] = useState(null);
+  const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  const currentMember = useMemo(
-    () =>
-      room.members?.find(
-        (member) => member.id === room.memberId
-      ) || null,
-    [room.members, room.memberId]
-  );
-
+  const members = room.members || [];
   const isHost = room.memberId === room.hostId;
 
-  /* Load real TheMealDB preference options */
+  const currentMember = members.find(
+    (member) => member.id === room.memberId
+  );
 
-  useEffect(() => {
-    let cancelled = false;
+  const saved = currentMember?.preferences || null;
 
-    async function loadOptions() {
-      try {
-        setLoadingOptions(true);
+  const values = {
+    ...DEFAULTS,
+    ...(saved || {}),
+    ...(draft || {}),
+  };
 
-        const [
-          areaData,
-          categoryData,
-          ingredientData,
-        ] = await Promise.all([
-          getAreas(),
-          getCategories(),
-          getIngredients(),
-        ]);
+  const readyCount = members.filter(
+    (member) => member.preferences?.ready === true
+  ).length;
 
-        if (cancelled) return;
-
-        setAreas(areaData);
-        setCategories(categoryData);
-        setIngredients(ingredientData);
-      } catch (err) {
-        console.error(err);
-
-        if (!cancelled) {
-          setError(
-            "Could not load food options from TheMealDB."
-          );
-        }
-      } finally {
-        if (!cancelled) {
-          setLoadingOptions(false);
-        }
-      }
-    }
-
-    loadOptions();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  /* Listen to room changes */
+  const everyoneReady =
+    members.length > 0 && readyCount === members.length;
 
   useEffect(() => {
     if (!room.code) return;
 
-    const unsubscribe = subscribeToRoom(
-      room.code,
-      (updatedRoom) => {
-        if (!updatedRoom) return;
+    return subscribeToRoom(room.code, (updatedRoom) => {
+      if (!updatedRoom) return;
 
-        setRoom((previous) => ({
-          ...updatedRoom,
-          memberId: previous.memberId,
-        }));
+      setRoom((previous) => ({
+        ...updatedRoom,
+        memberId: previous.memberId,
+      }));
 
-        if (updatedRoom.screen === "meal") {
-          onContinue();
-        }
+      if (updatedRoom.screen === "summary") {
+        onContinue();
       }
-    );
-
-    return unsubscribe;
+    });
   }, [room.code, setRoom, onContinue]);
 
-  /* Keep this device's preference state synced */
+  function openField(field) {
+    setCuisineSearch("");
+    setActiveField(field);
+  }
 
-  useEffect(() => {
-    if (!currentMember?.preferences) return;
-
-    setPreferences({
-      area:
-        currentMember.preferences.area || "Any",
-
-      category:
-        currentMember.preferences.category || "Any",
-
-      ingredient:
-        currentMember.preferences.ingredient || "Any",
-
-      cookingConfidence:
-        currentMember.preferences.cookingConfidence ||
-        "Beginner",
-
-      ready:
-        currentMember.preferences.ready === true,
-    });
-  }, [currentMember, setPreferences]);
-
-  /* Save immediately when a preference changes */
-
-  async function choose(field, value) {
-    const next = {
-      ...preferences,
-      [field]: value,
-      ready: false,
-    };
-
-    // Immediate local update.
+  function updateDraft(next) {
+    setDraft(next);
     setPreferences(next);
     setError("");
+  }
+
+  function selectOption(field, option) {
+    if (values.ready) return;
+
+    let nextValue = option;
+
+    if (field.multiple) {
+      const current = Array.isArray(values[field.key])
+        ? values[field.key]
+        : [];
+
+      if (field.key === "dietary") {
+        if (option === "No Allergies") {
+          nextValue = ["No Allergies"];
+        } else {
+          const withoutDefault = current.filter(
+            (item) => item !== "No Allergies"
+          );
+
+          nextValue = withoutDefault.includes(option)
+            ? withoutDefault.filter((item) => item !== option)
+            : [...withoutDefault, option];
+
+          if (!nextValue.length) {
+            nextValue = ["No Allergies"];
+          }
+        }
+      } else {
+        nextValue = current.includes(option)
+          ? current.filter((item) => item !== option)
+          : [...current, option];
+      }
+    }
+
+    updateDraft({
+      ...values,
+      [field.key]: nextValue,
+      ready: false,
+    });
+  }
+
+  async function saveReady(ready) {
+    if (!room.code || !room.memberId || busy) return;
+
+    setBusy(true);
+    setError("");
+
+    const next = {
+      ...values,
+      ready,
+    };
 
     try {
-      await updateMemberPreference(
+      await updateMemberPreferences(
         room.code,
         room.memberId,
-        field,
-        value
+        next
       );
 
-      // Old meal suggestions no longer match.
       await clearMealSuggestions(room.code);
+
+      setPreferences(next);
+      setDraft(null);
     } catch (err) {
       console.error(err);
-
-      setError(
-        "Could not save that choice. Please try again."
-      );
+      setError("Could not save your choices. Please try again.");
+    } finally {
+      setBusy(false);
     }
   }
 
-  async function markReady() {
+  async function reviewGroup() {
+    if (!isHost || !everyoneReady || busy) return;
+
     try {
+      setBusy(true);
       setError("");
-
-      await setMemberReady(
-        room.code,
-        room.memberId,
-        true
-      );
-
-      setPreferences((previous) => ({
-        ...previous,
-        ready: true,
-      }));
+      await changeRoomScreen(room.code, "summary");
     } catch (err) {
       console.error(err);
-
-      setError("Could not mark you as ready.");
+      setError("Could not open the group summary.");
+      setBusy(false);
     }
-  }
-
-  const readyMembers =
-    room.members?.filter(
-      (member) => member.preferences?.ready
-    ) || [];
-
-  const everyoneReady =
-    room.members?.length > 0 &&
-    readyMembers.length === room.members.length;
-
-  async function continueToMeals() {
-    if (!isHost) return;
-
-    if (!everyoneReady) {
-      setError("Wait until everyone is ready.");
-      return;
-    }
-
-    await changeRoomScreen(room.code, "meal");
-  }
-
-  function getInitial(name) {
-    return (
-      name?.trim()?.charAt(0)?.toUpperCase() || "?"
-    );
   }
 
   return (
-    <div className="preferences-page">
-      {/* LEFT SIDE */}
-
-      <aside className="preferences-sidebar">
+    <main className="preferences-page">
+      <div className="preferences-scroll">
         <button
-          className="preferences-back"
+          type="button"
+          className="pref-back"
           onClick={onBack}
+          aria-label="Go back"
         >
-          ← Back
+          ‹
         </button>
 
-        <span className="preferences-step">
-          STEP 2
-        </span>
+        <p className="pref-eyebrow">PREFERENCES</p>
 
-        <h1>Build your group meal</h1>
+        <h1>What does everyone want or need?</h1>
 
-        <p className="preferences-description">
-          Choose what you feel like cooking. Everyone
-          can make their own choices and see what the
-          group prefers.
+        <p className="pref-description">
+          Choose what works for you. We'll combine
+          everyone's input to find a meal for the group.
         </p>
 
-        <div className="your-profile">
-          <span className="sidebar-label">
-            YOUR PROFILE
-          </span>
+        <div className="pref-section-heading">
+          <strong>Your input</strong>
+          <span>{values.ready ? "Saved ✓" : "Tap to edit"}</span>
+        </div>
 
-          <div className="profile-person">
-            <div className="profile-avatar">
-              {getInitial(user.name)}
-            </div>
-
-            <div>
-              <strong>{user.name || "You"}</strong>
-
-              <span>
-                {preferences.ready
-                  ? "Ready to find meals"
-                  : "Choosing preferences"}
+        <div className="pref-grid">
+          {FIELDS.map((field) => (
+            <button
+              key={field.key}
+              type="button"
+              className={`pref-tile ${
+                activeField?.key === field.key
+                  ? "pref-tile-active"
+                  : ""
+              }`}
+              onClick={() => openField(field)}
+            >
+              <span className="pref-tile-top">
+                <span className="pref-tile-icon">
+                  {field.icon}
+                </span>
+                <span className="pref-tile-arrow">›</span>
               </span>
-            </div>
+
+              <span className="pref-tile-label">
+                {field.title}
+              </span>
+
+              <span className="pref-tile-value">
+                {displayValue(values[field.key])}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <div className="pref-group-note">
+          <span className="pref-group-note-icon">♧</span>
+
+          <div>
+            <strong>
+              {members.length} cook
+              {members.length === 1 ? "" : "s"} in your session
+            </strong>
+            <p>
+              Everyone makes their own selections.
+              You'll review the combined preferences next.
+            </p>
           </div>
         </div>
 
-        <div className="group-status">
-          <div className="group-status-header">
-            <span>GROUP STATUS</span>
-
-            <strong>
-              {readyMembers.length}/
-              {room.members?.length || 0} ready
-            </strong>
+        <div className="pref-ready-status">
+          <div className="pref-ready-status-top">
+            <strong>Group progress</strong>
+            <span>
+              {readyCount}/{members.length} ready
+            </span>
           </div>
 
-          <div className="member-ready-list">
-            {room.members?.map((member) => (
+          <div className="pref-ready-people">
+            {members.map((member) => (
               <div
-                className="ready-member"
                 key={member.id}
+                className="pref-ready-person"
               >
-                <div className="ready-member-left">
-                  <div className="mini-avatar">
-                    {getInitial(member.name)}
-                  </div>
-
-                  <span>
-                    {member.name}
-
-                    {member.id === room.hostId
-                      ? " · Admin"
-                      : ""}
-                  </span>
-                </div>
-
                 <span
                   className={
                     member.preferences?.ready
-                      ? "ready-check complete"
-                      : "ready-check"
+                      ? "pref-avatar is-ready"
+                      : "pref-avatar"
                   }
                 >
-                  {member.preferences?.ready
-                    ? "✓"
-                    : "…"}
+                  {member.name?.charAt(0).toUpperCase() || "?"}
                 </span>
+                <small>
+                  {member.id === room.memberId
+                    ? "You"
+                    : member.name}
+                </small>
+                {member.preferences?.ready && (
+                  <span className="pref-person-check">✓</span>
+                )}
               </div>
             ))}
           </div>
         </div>
-      </aside>
 
-      {/* RIGHT SIDE */}
+        {error && (
+          <p className="pref-error" role="alert">
+            {error}
+          </p>
+        )}
+      </div>
 
-      <main className="preferences-main">
-        <header className="preferences-main-header">
-          <div>
-            <span className="preferences-eyebrow">
-              YOUR FOOD PREFERENCES
-            </span>
+      <footer className="preferences-footer">
+        <button
+          type="button"
+          className="pref-ready-button"
+          disabled={busy}
+          onClick={() => saveReady(!values.ready)}
+        >
+          {values.ready
+            ? "Edit my choices"
+            : busy
+              ? "Saving..."
+              : "Mark as ready"}
+        </button>
 
-            <h2>What sounds good?</h2>
+        <button
+          type="button"
+          className="pref-continue-button"
+          disabled={!isHost || !everyoneReady || busy}
+          onClick={reviewGroup}
+        >
+          {isHost
+            ? "Review group →"
+            : "Waiting for admin"}
+        </button>
 
-            <p>
-              Pick a few things you would enjoy
-              cooking together.
-            </p>
-          </div>
+        <small className="pref-footer-note">
+          {everyoneReady
+            ? "Everyone is ready!"
+            : `Waiting for ${members.length - readyCount} cook(s)`}
+        </small>
+      </footer>
 
-          <div className="room-pill">
-            {room.code}
-          </div>
-        </header>
+      {activeField && (
+        <div
+          className="pref-modal-overlay"
+          onClick={() => setActiveField(null)}
+        >
+          <section
+            className="pref-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Choose ${activeField.title}`}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="pref-modal-handle" />
 
-        <div className="preferences-content">
-          {loadingOptions ? (
-            <div className="preference-loading">
-              <div className="preference-spinner" />
-
+            <div className="pref-modal-header">
               <div>
-                <strong>
-                  Loading food choices…
-                </strong>
-
-                <span>
-                  Getting options from TheMealDB
-                </span>
+                <p className="pref-eyebrow">
+                  YOUR PREFERENCES
+                </p>
+                <h2>{activeField.title}</h2>
+                <p>{activeField.hint}</p>
               </div>
+
+              <button
+                type="button"
+                className="pref-modal-close"
+                onClick={() => setActiveField(null)}
+                aria-label="Close"
+              >
+                ×
+              </button>
             </div>
-          ) : (
-            <>
-              <div className="preference-grid">
-                <SearchDropdown
-                  label="Cuisine / region"
-                  description="What style of food sounds good?"
-                  value={preferences.area || "Any"}
-                  options={areas}
-                  placeholder="Any cuisine"
-                  field="area"
-                  members={room.members || []}
-                  onChange={(value) =>
-                    choose("area", value)
-                  }
-                />
 
-                <SearchDropdown
-                  label="Meal category"
-                  description="What kind of meal should we make?"
-                  value={
-                    preferences.category || "Any"
-                  }
-                  options={categories}
-                  placeholder="Any category"
-                  field="category"
-                  members={room.members || []}
-                  onChange={(value) =>
-                    choose("category", value)
-                  }
-                />
+            {values.ready ? (
+              <p className="pref-modal-locked">
+                Press "Edit my choices" before changing
+                your saved preferences.
+              </p>
+            ) : (
+              <>
+                {activeField.key === "cuisine" && (
+                  <input
+                    type="search"
+                    aria-label="Search cuisines"
+                    placeholder="Search cuisines..."
+                    value={cuisineSearch}
+                    onChange={(event) => setCuisineSearch(event.target.value)}
+                    style={{
+                      display: "block",
+                      width: "calc(100% - 40px)",
+                      margin: "0 20px 12px",
+                      padding: "12px 14px",
+                      border: "1px solid #e9d9cb",
+                      borderRadius: "10px",
+                      background: "#fff",
+                      color: "#3f2d26",
+                      fontSize: "14px",
+                    }}
+                  />
+                )}
+                <div className="pref-modal-options">
+                {activeField.options
+                  .filter((option) =>
+                    activeField.key !== "cuisine" ||
+                    option.toLowerCase().includes(cuisineSearch.trim().toLowerCase())
+                  )
+                  .map((option) => {
+                  const selected = activeField.multiple
+                    ? (values[activeField.key] || [])
+                        .includes(option)
+                    : values[activeField.key] === option;
 
-                <SearchDropdown
-                  label="Main ingredient"
-                  description="Anything you feel like cooking with?"
-                  value={
-                    preferences.ingredient || "Any"
-                  }
-                  options={ingredients}
-                  placeholder="Any ingredient"
-                  field="ingredient"
-                  members={room.members || []}
-                  onChange={(value) =>
-                    choose("ingredient", value)
-                  }
-                />
-
-                <div className="preference-field">
-                  <div className="field-heading">
-                    <div>
-                      <h3>Cooking confidence</h3>
-
-                      <p>
-                        Helps us divide tasks later.
-                      </p>
-                    </div>
-
-                    <span className="table18-badge">
-                      TABLE 18
-                    </span>
-                  </div>
-
-                  <div className="confidence-options">
-                    {[
-                      "Beginner",
-                      "Comfortable",
-                      "Experienced",
-                    ].map((level) => (
-                      <button
-                        type="button"
-                        key={level}
-                        className={`confidence-button ${
-                          preferences.cookingConfidence ===
-                          level
-                            ? "selected"
-                            : ""
-                        }`}
-                        onClick={() =>
-                          choose(
-                            "cookingConfidence",
-                            level
-                          )
-                        }
-                      >
-                        <span className="confidence-title">
-                          {level}
-                        </span>
-
-                        <span className="confidence-copy">
-                          {level === "Beginner"
-                            ? "Simple tasks"
-                            : level === "Comfortable"
-                            ? "Everyday cooking"
-                            : "More involved tasks"}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
+                  return (
+                    <button
+                      key={option}
+                      type="button"
+                      className={
+                        selected
+                          ? "pref-option selected"
+                          : "pref-option"
+                      }
+                      onClick={() =>
+                        selectOption(activeField, option)
+                      }
+                    >
+                      <span>{option}</span>
+                      <span className="pref-option-check">
+                        {selected ? "✓" : ""}
+                      </span>
+                    </button>
+                  );
+                })}
+                {activeField.key === "cuisine" &&
+                  !activeField.options.some((option) =>
+                    option.toLowerCase().includes(cuisineSearch.trim().toLowerCase())
+                  ) && (
+                    <p style={{ padding: "12px 20px", color: "#766358" }}>
+                      No cuisines found.
+                    </p>
+                  )}
                 </div>
-              </div>
-
-              <div className="preference-note">
-                <strong>
-                  How recommendations work
-                </strong>
-
-                <span>
-                  We combine the group's cuisine,
-                  category and ingredient choices to
-                  find meals from TheMealDB.
-                </span>
-              </div>
-            </>
-          )}
-        </div>
-
-        <footer className="preferences-footer">
-          <div className="preferences-footer-status">
-            {error ? (
-              <span className="preferences-error">
-                {error}
-              </span>
-            ) : preferences.ready ? (
-              <span className="ready-message">
-                ✓ You are ready
-              </span>
-            ) : (
-              <span>
-                Choices save automatically
-              </span>
+              </>
             )}
-          </div>
 
-          <div className="preferences-actions">
             <button
-              className={`ready-button ${
-                preferences.ready
-                  ? "is-ready"
-                  : ""
-              }`}
-              onClick={markReady}
-              disabled={preferences.ready}
+              type="button"
+              className="pref-modal-done"
+              onClick={() => setActiveField(null)}
             >
-              {preferences.ready
-                ? "Ready ✓"
-                : "I'm ready"}
+              Done
             </button>
-
-            {isHost ? (
-              <button
-                className="find-meals-button"
-                disabled={!everyoneReady}
-                onClick={continueToMeals}
-              >
-                Find suggested meals →
-              </button>
-            ) : (
-              <button
-                className="find-meals-button"
-                disabled
-              >
-                Waiting for admin
-              </button>
-            )}
-          </div>
-        </footer>
-      </main>
-    </div>
+          </section>
+        </div>
+      )}
+    </main>
   );
 }

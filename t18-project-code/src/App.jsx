@@ -1,10 +1,12 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import "./App.css";
 
 import Welcome from "./pages/Welcome";
 import JoinRoom from "./pages/JoinRoom";
 import Lobby from "./pages/Lobby";
 import Preferences from "./pages/Preferences";
+import GroupSummary from "./pages/GroupSummary";
 import MealSelection from "./pages/MealSelection";
 import TaskSetup from "./pages/TaskSetup";
 import CookingMode from "./pages/CookingMode";
@@ -12,8 +14,24 @@ import CookComplete from "./pages/CookComplete";
 import GroupProgress from "./pages/GroupProgress";
 import AllTasksComplete from "./pages/AllTasksComplete";
 
+import {
+  subscribeToRoom,
+  changeRoomScreen,
+} from "./services/roomService";
+
+const defaultPreferences = {
+  dietary: ["No Allergies"],
+  cuisine: "Any",
+  budget: "$8–12 per person",
+  cookingTime: "Under 30 min",
+  difficulty: "Easy",
+  foodLikes: [],
+  ready: false,
+};
+
 function App() {
   const [screen, setScreen] = useState("welcome");
+  const [joinMode, setJoinMode] = useState("create");
 
   const [user, setUser] = useState({
     name: "",
@@ -25,21 +43,27 @@ function App() {
     members: [],
   });
 
-  const [preferences, setPreferences] = useState({
-    area: "Any",
-    category: "Any",
-    ingredient: "Any",
-    cookingConfidence: "Beginner",
-    ready: false,
-  });
+  const [preferences, setPreferences] =
+    useState(defaultPreferences);
 
   const [meal, setMeal] = useState(null);
-  const [taskAssignments, setTaskAssignments] = useState([]);
-  const [helpingMember, setHelpingMember] = useState(null);
-  const [sharedTask, setSharedTask] = useState(null);
+  const [taskAssignments, setTaskAssignments] =
+    useState([]);
+
+  const [helpingMember, setHelpingMember] =
+    useState(null);
+
+  const [sharedTask, setSharedTask] =
+    useState(null);
+
+  function openJoinRoom(mode) {
+    setJoinMode(mode);
+    setScreen("join");
+  }
 
   function restartSession() {
     setScreen("welcome");
+    setJoinMode("create");
 
     setUser({
       name: "",
@@ -51,25 +75,39 @@ function App() {
       members: [],
     });
 
-    setPreferences({
-      area: "Any",
-      category: "Any",
-      ingredient: "Any",
-      cookingConfidence: "Beginner",
-      ready: false,
-    });
-
+    setPreferences(defaultPreferences);
     setMeal(null);
     setTaskAssignments([]);
     setHelpingMember(null);
     setSharedTask(null);
   }
 
+  async function startCooking() {
+    if (!room.code) return;
+
+    await changeRoomScreen(room.code, "cooking");
+    setScreen("cooking");
+  }
+
+  async function backToMeal() {
+    if (!room.code) return;
+
+    await changeRoomScreen(room.code, "meal");
+    setScreen("meal");
+  }
+
   return (
     <div className="app-shell">
       <div className="phone-app">
         {screen === "welcome" && (
-          <Welcome onContinue={() => setScreen("join")} />
+          <Welcome
+            onContinue={() =>
+              openJoinRoom("create")
+            }
+            onJoin={() =>
+              openJoinRoom("join")
+            }
+          />
         )}
 
         {screen === "join" && (
@@ -78,8 +116,13 @@ function App() {
             setUser={setUser}
             room={room}
             setRoom={setRoom}
-            onContinue={() => setScreen("lobby")}
-            onBack={() => setScreen("welcome")}
+            initialMode={joinMode}
+            onContinue={() =>
+              setScreen("lobby")
+            }
+            onBack={() =>
+              setScreen("welcome")
+            }
           />
         )}
 
@@ -88,8 +131,12 @@ function App() {
             user={user}
             room={room}
             setRoom={setRoom}
-            onContinue={() => setScreen("preferences")}
-            onBack={() => setScreen("join")}
+            onContinue={() =>
+              setScreen("preferences")
+            }
+            onBack={() =>
+              setScreen("join")
+            }
           />
         )}
 
@@ -100,8 +147,25 @@ function App() {
             setRoom={setRoom}
             preferences={preferences}
             setPreferences={setPreferences}
-            onContinue={() => setScreen("meal")}
-            onBack={() => setScreen("lobby")}
+            onContinue={() =>
+              setScreen("summary")
+            }
+            onBack={() =>
+              setScreen("lobby")
+            }
+          />
+        )}
+
+        {screen === "summary" && (
+          <GroupSummary
+            room={room}
+            setRoom={setRoom}
+            onContinue={() =>
+              setScreen("meal")
+            }
+            onBack={() =>
+              setScreen("preferences")
+            }
           />
         )}
 
@@ -110,31 +174,45 @@ function App() {
             room={room}
             setRoom={setRoom}
             setMeal={setMeal}
-            onContinue={() => setScreen("tasks")}
-            onBack={() => setScreen("preferences")}
+            onContinue={() =>
+              setScreen("tasks")
+            }
+            onBack={() =>
+              setScreen("summary")
+            }
           />
         )}
 
-        {screen === "tasks" && (
+       {screen === "tasks" && (
           <TaskSetup
-            meal={meal}
-            user={user}
+            meal={meal || room.selectedRecipe}
+            user={{
+              ...user,
+              memberId: room.memberId,
+            }}
             room={room}
-            setTaskAssignments={setTaskAssignments}
-            onContinue={() => setScreen("cooking")}
-            onBack={() => setScreen("meal")}
+            onContinue={startCooking}
+            onBack={backToMeal}
           />
         )}
 
         {screen === "cooking" && (
           <CookingMode
-            meal={meal}
+            meal={meal || room.selectedRecipe}
             user={user}
             room={room}
-            taskAssignments={taskAssignments}
-            setTaskAssignments={setTaskAssignments}
-            onComplete={() => setScreen("cookComplete")}
-            onBack={() => setScreen("tasks")}
+            taskAssignments={
+              taskAssignments
+            }
+            setTaskAssignments={
+              setTaskAssignments
+            }
+            onComplete={() =>
+              setScreen("cookComplete")
+            }
+            onBack={() =>
+              setScreen("tasks")
+            }
           />
         )}
 
@@ -142,8 +220,12 @@ function App() {
           <CookComplete
             user={user}
             meal={meal}
-            taskAssignments={taskAssignments}
-            setHelpingMember={setHelpingMember}
+            taskAssignments={
+              taskAssignments
+            }
+            setHelpingMember={
+              setHelpingMember
+            }
             onHelp={() => {
               setSharedTask(null);
               setScreen("progress");
@@ -158,7 +240,9 @@ function App() {
               setSharedTask("table");
               setScreen("progress");
             }}
-            onProgress={() => setScreen("progress")}
+            onProgress={() =>
+              setScreen("progress")
+            }
           />
         )}
 
@@ -167,14 +251,26 @@ function App() {
             user={user}
             meal={meal}
             room={room}
-            taskAssignments={taskAssignments}
-            setTaskAssignments={setTaskAssignments}
-            helpingMember={helpingMember}
-            setHelpingMember={setHelpingMember}
+            taskAssignments={
+              taskAssignments
+            }
+            setTaskAssignments={
+              setTaskAssignments
+            }
+            helpingMember={
+              helpingMember
+            }
+            setHelpingMember={
+              setHelpingMember
+            }
             sharedTask={sharedTask}
             setSharedTask={setSharedTask}
-            onBack={() => setScreen("cookComplete")}
-            onAllComplete={() => setScreen("allComplete")}
+            onBack={() =>
+              setScreen("cookComplete")
+            }
+            onAllComplete={() =>
+              setScreen("allComplete")
+            }
           />
         )}
 
@@ -183,15 +279,12 @@ function App() {
             user={user}
             meal={meal}
             room={room}
-            taskAssignments={taskAssignments}
+            taskAssignments={
+              taskAssignments
+            }
             onRestart={restartSession}
           />
         )}
-      </div>
-
-      <div className="portrait-message">
-        <h2>Rotate your phone</h2>
-        <p>This cooking experience works best in landscape mode.</p>
       </div>
     </div>
   );

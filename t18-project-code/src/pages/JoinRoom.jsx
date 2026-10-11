@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import "./JoinRoom.css";
 
@@ -6,35 +7,27 @@ import {
   joinRoom,
 } from "../services/roomService";
 
-
 export default function JoinRoom({
   user,
   setUser,
   room,
   setRoom,
+  initialMode = "create",
   onContinue,
   onBack,
 }) {
-  const [mode, setMode] = useState("join");
-
+  const [mode, setMode] = useState(initialMode);
   const [loading, setLoading] = useState(false);
-
   const [error, setError] = useState("");
 
-
-  // =========================
-  // CREATE ROOM
-  // =========================
+  function changeMode(nextMode) {
+    setMode(nextMode);
+    setError("");
+  }
 
   async function handleCreateRoom() {
-    if (
-      !user.name.trim() ||
-      !user.helperName.trim()
-    ) {
-      setError(
-        "Please enter your name and helper name."
-      );
-
+    if (!user.name.trim() || !user.helperName.trim()) {
+      setError("Please enter your name and helper name.");
       return;
     }
 
@@ -42,20 +35,20 @@ export default function JoinRoom({
       setLoading(true);
       setError("");
 
-      // Create room in Firebase
-      const result = await createRoom(user);
+      const result = await createRoom({
+        name: user.name.trim(),
+        helperName: user.helperName.trim(),
+      });
 
-      // Save room + current member locally
       setRoom({
         code: result.roomCode,
-
         memberId: result.memberId,
-
+        hostId: result.hostId,
         members: [
           {
             id: result.memberId,
-            name: user.name,
-            helperName: user.helperName,
+            name: user.name.trim(),
+            helperName: user.helperName.trim(),
             status: "ready",
           },
         ],
@@ -63,23 +56,12 @@ export default function JoinRoom({
 
       onContinue();
     } catch (err) {
-      console.error(
-        "Error creating room:",
-        err
-      );
-
-      setError(
-        "Could not create the room. Please try again."
-      );
+      console.error("Error creating room:", err);
+      setError("Could not create the room. Please try again.");
     } finally {
       setLoading(false);
     }
   }
-
-
-  // =========================
-  // JOIN ROOM
-  // =========================
 
   async function handleJoinRoom() {
     if (
@@ -87,10 +69,7 @@ export default function JoinRoom({
       !user.helperName.trim() ||
       !room.code.trim()
     ) {
-      setError(
-        "Please complete all fields."
-      );
-
+      setError("Please complete all fields.");
       return;
     }
 
@@ -98,273 +77,197 @@ export default function JoinRoom({
       setLoading(true);
       setError("");
 
-      // Join existing Firebase room
-      const result = await joinRoom(
-        room.code,
-        user
-      );
+      const result = await joinRoom(room.code, {
+        name: user.name.trim(),
+        helperName: user.helperName.trim(),
+      });
 
-      // Save room + current member ID locally
-      setRoom((currentRoom) => ({
-        ...currentRoom,
-
+      setRoom((previous) => ({
+        ...previous,
         code: result.roomCode,
-
         memberId: result.memberId,
+        hostId: result.hostId,
       }));
 
       onContinue();
     } catch (err) {
-      console.error(
-        "Error joining room:",
-        err
-      );
+      console.error("Error joining room:", err);
 
-      if (err.message === "Room not found") {
-        setError(
-          "Room not found. Check the room code and try again."
-        );
-      } else {
-        setError(
-          "Could not join the room. Please try again."
-        );
-      }
+      setError(
+        err.message === "Room not found"
+          ? "Room not found. Check the session code."
+          : "Could not join the room. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    if (loading) return;
+
+    if (mode === "create") {
+      handleCreateRoom();
+    } else {
+      handleJoinRoom();
+    }
+  }
 
   return (
-    <div className="join-page">
+    <main className="join-page">
+      <div className="join-scroll">
+        <button
+          type="button"
+          className="join-back"
+          onClick={onBack}
+          disabled={loading}
+          aria-label="Go back"
+        >
+          ‹
+        </button>
 
-      {/* =========================
-          LEFT SIDE
-      ========================= */}
+        <p className="join-eyebrow">COOKING SESSION</p>
 
-      <section className="join-left">
+        <h1>
+          {mode === "create"
+            ? "Start cooking together"
+            : "Join your cooking group"}
+        </h1>
 
-        <div>
-
-          <button
-            className="back-button"
-            onClick={onBack}
-            disabled={loading}
-          >
-            ←
-          </button>
-
-
-          <p className="join-eyebrow">
-            COOKING SESSION
-          </p>
-
-
-          <h1>
-            Cook with
-            <br />
-            your group.
-          </h1>
-
-
-          <p className="join-description">
-            Create a cooking room or join your
-            friends using their room code.
-          </p>
-
-        </div>
-
-
-        <p className="join-note">
-          Everyone gets their own named helper
-          for hands-free cooking.
+        <p className="join-description">
+          {mode === "create"
+            ? "Create a shared session and invite your friends to cook together."
+            : "Enter your details and the session code shared by your group."}
         </p>
 
-      </section>
-
-
-      {/* =========================
-          RIGHT SIDE
-      ========================= */}
-
-      <section className="join-right">
-
-        {/* JOIN / CREATE SWITCH */}
-
         <div className="join-mode">
-
           <button
-            className={
-              mode === "join"
-                ? "active"
-                : ""
-            }
-            onClick={() => {
-              setMode("join");
-              setError("");
-            }}
+            type="button"
+            className={mode === "create" ? "active" : ""}
+            onClick={() => changeMode("create")}
             disabled={loading}
           >
-            Join room
+            Create session
           </button>
-
 
           <button
-            className={
-              mode === "create"
-                ? "active"
-                : ""
-            }
-            onClick={() => {
-              setMode("create");
-              setError("");
-            }}
+            type="button"
+            className={mode === "join" ? "active" : ""}
+            onClick={() => changeMode("join")}
             disabled={loading}
           >
-            Create room
+            Join session
           </button>
-
         </div>
 
-
-        {/* FORM */}
-
-        <div className="join-form">
-
-          {/* YOUR NAME */}
-
-          <div className="input-group">
-
-            <label>
-              Your name
-            </label>
-
+        <form
+          id="join-session-form"
+          className="join-form"
+          onSubmit={handleSubmit}
+        >
+          <div className="join-field">
+            <label htmlFor="join-name">Your name</label>
             <input
+              id="join-name"
+              name="name"
               type="text"
               placeholder="e.g. Patricia"
-
+              autoComplete="given-name"
+              maxLength={40}
               value={user.name}
-
               disabled={loading}
-
-              onChange={(e) =>
-                setUser({
-                  ...user,
-                  name: e.target.value,
-                })
+              onChange={(event) =>
+                setUser((previous) => ({
+                  ...previous,
+                  name: event.target.value,
+                }))
               }
             />
-
           </div>
 
-
-          {/* HELPER NAME */}
-
-          <div className="input-group">
-
-            <label>
+          <div className="join-field">
+            <label htmlFor="join-helper">
               Name your cooking helper
             </label>
 
             <input
+              id="join-helper"
+              name="helperName"
               type="text"
               placeholder="e.g. Nova"
-
+              maxLength={30}
               value={user.helperName}
-
               disabled={loading}
-
-              onChange={(e) =>
-                setUser({
-                  ...user,
-                  helperName:
-                    e.target.value,
-                })
+              onChange={(event) =>
+                setUser((previous) => ({
+                  ...previous,
+                  helperName: event.target.value,
+                }))
               }
             />
 
-
             <small>
-              You'll use this name for
-              voice commands while cooking.
+              This is the name you'll use for voice commands
+              while cooking.
             </small>
-
           </div>
 
-
-          {/* ROOM CODE */}
-
           {mode === "join" && (
-
-            <div className="input-group">
-
-              <label>
-                Room code
+            <div className="join-field">
+              <label htmlFor="join-code">
+                Session code
               </label>
 
               <input
+                id="join-code"
+                name="sessionCode"
                 type="text"
                 placeholder="KTCN-482"
-
+                autoCapitalize="characters"
+                maxLength={12}
                 value={room.code}
-
                 disabled={loading}
-
-                onChange={(e) =>
-                  setRoom({
-                    ...room,
-
-                    code:
-                      e.target.value
-                        .toUpperCase(),
-                  })
+                onChange={(event) =>
+                  setRoom((previous) => ({
+                    ...previous,
+                    code: event.target.value.toUpperCase(),
+                  }))
                 }
               />
-
             </div>
-
           )}
 
+          {error && (
+            <p className="join-error" role="alert">
+              {error}
+            </p>
+          )}
+        </form>
+      </div>
+
+      <div className="join-bottom">
+        <div className="join-note">
+          Each cook gets their own named assistant so voice
+          commands never overlap.
         </div>
 
-
-        {/* ERROR MESSAGE */}
-
-        {error && (
-
-          <p className="join-error">
-            {error}
-          </p>
-
-        )}
-
-
-        {/* MAIN BUTTON */}
-
         <button
+          type="submit"
+          form="join-session-form"
           className="join-main-button"
-
           disabled={loading}
-
-          onClick={
-            mode === "join"
-              ? handleJoinRoom
-              : handleCreateRoom
-          }
         >
-
           {loading
-            ? mode === "join"
-              ? "Joining..."
-              : "Creating..."
-            : mode === "join"
-              ? "Join cooking room"
-              : "Create cooking room"}
-
+            ? mode === "create"
+              ? "Creating session..."
+              : "Joining session..."
+            : mode === "create"
+              ? "Create cooking session"
+              : "Join cooking session"}
         </button>
-
-      </section>
-
-    </div>
+      </div>
+    </main>
   );
 }

@@ -1,420 +1,715 @@
-import { useState } from "react";
+
+import { useEffect, useMemo, useState } from "react";
+
+import {
+  subscribeToRoom,
+  initializeCookingSetup,
+  updateCookingEquipment,
+  setCookingSetupStage,
+  assignCookingTask,
+} from "../services/roomService";
+
 import "./TaskSetup.css";
+
+const EQUIPMENT = [
+  { name: "Stove", type: "Equipment" },
+  { name: "Rice Cooker", type: "Equipment" },
+  { name: "Kitchen Counter", type: "Prep Space" },
+  { name: "Knife", type: "Equipment" },
+  { name: "Wok", type: "Equipment" },
+  { name: "Frying Pan", type: "Equipment" },
+];
+
+function getMemberLabel(member, myId) {
+  if (!member) return "Unclaimed";
+
+  const isMe = String(member.id) === String(myId);
+  return `${member.name || "Member"}${isMe ? " (You)" : ""}`;
+}
 
 export default function TaskSetup({
   meal,
-  user,
-  room,
+  user = {},
+  room = {},
   setTaskAssignments,
   onContinue,
   onBack,
 }) {
-  const members =
-    room.members && room.members.length > 0
-      ? room.members
-      : [
-          {
-            id: "user",
-            name: user.name || "Patricia",
-            helperName: user.helperName || "Nova",
-          },
-        ];
+  const [liveRoom, setLiveRoom] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const [initializing, setInitializing] = useState(false);
+  const [error, setError] = useState("");
+  const [showEveryone, setShowEveryone] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
 
-  const [assignments, setAssignments] = useState(() => {
-    if (!meal) return [];
+  const roomCode = room.code || room.roomCode;
 
-    return meal.tasks.map((task, index) => ({
-      ...task,
-      assignedTo:
-        members[index % members.length]?.name || null,
-    }));
-  });
+  // Listen directly to Firebase so changes appear
+  // immediately on every device.
+  useEffect(() => {
+    if (!roomCode) return;
 
-  const [selectedTask, setSelectedTask] = useState(null);
+    setLiveRoom(null);
 
-  function claimTask(taskId) {
-    setAssignments((current) =>
-      current.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              assignedTo: user.name,
-            }
-          : task
-      )
+    const unsubscribe = subscribeToRoom(
+      roomCode,
+      (updatedRoom) => {
+        if (updatedRoom) {
+          setLiveRoom(updatedRoom);
+        }
+      }
+    );
+
+    return () => unsubscribe();
+  }, [roomCode]);
+
+  const currentRoom = liveRoom || room;
+
+  // The local member ID is not stored at the
+  // root of the Firebase room.
+  const myId =
+    room.memberId ||
+    user.memberId ||
+    user.id ||
+    null;
+
+  const isHost = Boolean(
+    myId &&
+      currentRoom.hostId &&
+      String(myId) === String(currentRoom.hostId)
+  );
+
+  const members = useMemo(() => {
+    const data = currentRoom.members;
+
+    if (Array.isArray(data)) {
+      return data.filter(Boolean);
+    }
+
+    if (data && typeof data === "object") {
+      return Object.values(data).filter(Boolean);
+    }
+
+    return [];
+  }, [currentRoom.members]);
+
+  const selectedMeal =
+    currentRoom.selectedRecipe || meal || null;
+
+  const recipeId =
+    selectedMeal?.id == null
+      ? null
+      : String(selectedMeal.id);
+
+  const setup = currentRoom.cookingSetup || null;
+
+  const setupReady = Boolean(
+    setup &&
+      recipeId &&
+      String(setup.recipeId) === recipeId
+  );
+
+  const stage = setupReady
+    ? setup.stage || "equipment"
+    : "equipment";
+
+  const equipment = setupReady
+    ? setup.equipment || {}
+    : {};
+
+  const assignments = useMemo(() => {
+    if (!setupReady) return [];
+
+    const data = setup.assignments;
+
+    if (Array.isArray(data)) {
+      return data.filter(Boolean);
+    }
+
+    if (data && typeof data === "object") {
+      return Object.values(data).filter(Boolean);
+    }
+
+    return [];
+  }, [setupReady, setup?.assignments]);
+
+  const allTasksAssigned =
+    assignments.length > 0 &&
+    assignments.every(
+      (task) => Boolean(task.assignedToId)
+    );
+
+  // Initialise Firebase setup only when needed.
+  useEffect(() => {
+    if (
+      !isHost ||
+      !roomCode ||
+      !selectedMeal ||
+      !members.length ||
+      setupReady
+    ) {
+      return;
+    }
+
+    let cancelled = false;
+
+    setInitializing(true);
+    setError("");
+
+    initializeCookingSetup(
+      roomCode,
+      selectedMeal,
+      members
+    )
+      .catch((err) => {
+        if (!cancelled) {
+          console.error(
+            "Cooking setup initialization failed:",
+            err
+          );
+          setError(
+            err.message ||
+              "Could not prepare cooking setup."
+          );
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setInitializing(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    isHost,
+    roomCode,
+    recipeId,
+    setupReady,
+    selectedMeal,
+    members,
+  ]);
+
+  async function perform(action) {
+    if (busy) return;
+
+    setBusy(true);
+    setError("");
+
+    try {
+      await action();
+    } catch (err) {
+      console.error("Task setup error:", err);
+      setError(
+        err.message ||
+          "Something went wrong. Please try again."
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function proceed() {
+    if (!isHost || !setupReady || busy) return;
+
+    await perform(() =>
+      setCookingSetupStage(roomCode, "assignment")
     );
   }
 
-  function unclaimTask(taskId) {
-    setAssignments((current) =>
-      current.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              assignedTo: null,
-            }
-          : task
-      )
-    );
+  async function goBack() {
+    if (!isHost || busy) return;
+
+    if (stage === "assignment") {
+      await perform(() =>
+        setCookingSetupStage(roomCode, "equipment")
+      );
+      return;
+    }
+
+    if (typeof onBack === "function") {
+      await perform(onBack);
+    }
   }
 
-  function swapTask(taskId) {
-    setSelectedTask(
-      selectedTask === taskId ? null : taskId
-    );
+  async function changeAssignment(taskId, memberId) {
+    if (!myId || !setupReady || busy) return;
+
+    await perform(async () => {
+      await assignCookingTask(
+        roomCode,
+        taskId,
+        memberId
+      );
+      setEditingTask(null);
+    });
   }
 
-  function assignToMember(taskId, memberName) {
-    setAssignments((current) =>
-      current.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              assignedTo: memberName,
-            }
-          : task
-      )
-    );
+  async function startCooking() {
+    if (
+      !isHost ||
+      !setupReady ||
+      !allTasksAssigned ||
+      busy
+    ) {
+      return;
+    }
 
-    setSelectedTask(null);
+    await perform(async () => {
+      const finalAssignments = assignments.map(
+        (task) => {
+          const owner = members.find(
+            (member) =>
+              String(member.id) ===
+              String(task.assignedToId)
+          );
+
+          return {
+            ...task,
+            assignedTo: owner?.name || null,
+          };
+        }
+      );
+
+      if (
+        typeof setTaskAssignments === "function"
+      ) {
+        setTaskAssignments(finalAssignments);
+      }
+
+      if (typeof onContinue === "function") {
+        await onContinue();
+      }
+    });
   }
 
-  function startCooking() {
-    setTaskAssignments(assignments);
-    onContinue();
-  }
-
-  if (!meal) {
+  if (!selectedMeal) {
     return (
-      <div className="task-page">
-        <div className="task-error">
-          <h2>No meal selected</h2>
+      <main className="kt-task-page">
+        <button
+          className="kt-task-back"
+          type="button"
+          onClick={() => onBack?.()}
+        >
+          ‹
+        </button>
 
-          <button onClick={onBack}>
-            Go back
-          </button>
-        </div>
-      </div>
+        <header className="kt-task-header">
+          <p className="kt-task-eyebrow">
+            COOKING SETUP
+          </p>
+          <h1>No meal selected</h1>
+          <p>
+            Please choose a recipe before
+            setting up your kitchen.
+          </p>
+        </header>
+      </main>
     );
   }
 
   return (
-    <div className="task-page">
+    <main className="kt-task-page">
+      <button
+        className="kt-task-back"
+        type="button"
+        onClick={goBack}
+        disabled={!isHost || busy}
+        aria-label="Go back"
+      >
+        ‹
+      </button>
 
-      {/* LEFT SIDE */}
+      {stage === "equipment" ? (
+        <>
+          <header className="kt-task-header">
+            <p className="kt-task-eyebrow">
+              COOKING SETUP
+            </p>
 
-      <section className="task-left">
+            <h1>Checking your kitchen</h1>
 
-        <div>
-          <button
-            className="task-back"
-            onClick={onBack}
-            aria-label="Go back"
-          >
-            ←
-          </button>
+            <p>
+              Select the equipment and preparation
+              space available in your kitchen.
+            </p>
+          </header>
 
-          <p className="task-step">
-            STEP 4 · TASK SETUP
-          </p>
+          <section className="kt-task-content">
+            <h2>What’s available</h2>
 
-          <h1>
-            Who's doing
-            <br />
-            what?
-          </h1>
+            <div className="kt-equipment-list">
+              {EQUIPMENT.map(({ name, type }) => {
+                const available = Boolean(
+                  equipment[name]
+                );
 
-          <p className="task-description">
-            We've divided the meal into smaller
-            tasks so everyone knows where to start.
-            You can swap or claim tasks before cooking.
-          </p>
-
-          <div className="task-meal-summary">
-            <span className="task-meal-icon">
-              {meal.icon}
-            </span>
-
-            <div>
-              <strong>
-                {meal.name}
-              </strong>
-
-              <span>
-                {meal.time} min · {meal.cooks} cooks
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="task-left-bottom">
-
-          <div className="task-tip">
-            <strong>Working together</strong>
-
-            <span>
-              Tasks are divided to help everyone
-              get started. You can still help each
-              other while cooking.
-            </span>
-          </div>
-
-          <button
-            className="start-cooking-button"
-            onClick={startCooking}
-          >
-            Everyone ready · Start cooking
-          </button>
-
-        </div>
-
-      </section>
-
-
-      {/* RIGHT SIDE */}
-
-      <section className="task-right">
-
-        <div className="task-right-heading">
-
-          <div>
-            <p>YOUR COOKING GROUP</p>
-
-            <h2>
-              Task assignments
-            </h2>
-          </div>
-
-          <span>
-            {assignments.length} tasks
-          </span>
-
-        </div>
-
-
-        <div className="task-list">
-
-          {assignments.map((task) => {
-
-            const isCurrentUser =
-              task.assignedTo === user.name;
-
-            const isSelecting =
-              selectedTask === task.id;
-
-            return (
-              <div
-                className={`task-card ${
-                  isCurrentUser
-                    ? "task-card-yours"
-                    : ""
-                }`}
-                key={task.id}
-              >
-
-                <div className="task-icon">
-                  {task.icon}
-                </div>
-
-
-                <div className="task-info">
-
-                  <div className="task-name-row">
-
-                    <strong>
-                      {task.name}
-                    </strong>
-
-                    {isCurrentUser && (
-                      <span className="your-task-badge">
-                        YOURS
+                return (
+                  <div
+                    className="kt-equipment-row"
+                    key={name}
+                  >
+                    <div>
+                      <span className="kt-equipment-type">
+                        {type}
                       </span>
-                    )}
 
+                      <span className="kt-equipment-name">
+                        {name}
+                      </span>
+                    </div>
+
+                    <button
+                      className={`kt-toggle ${
+                        available ? "on" : ""
+                      }`}
+                      type="button"
+                      role="switch"
+                      aria-checked={available}
+                      aria-label={`${name} available`}
+                      disabled={
+                        !isHost ||
+                        !setupReady ||
+                        busy ||
+                        initializing
+                      }
+                      onClick={() =>
+                        perform(() =>
+                          updateCookingEquipment(
+                            roomCode,
+                            name,
+                            !available
+                          )
+                        )
+                      }
+                    >
+                      <span />
+                    </button>
                   </div>
+                );
+              })}
+            </div>
 
+            {initializing && (
+              <p className="kt-task-hint">
+                Preparing your cooking setup...
+              </p>
+            )}
 
-                  <div className="task-details">
+            {!setupReady &&
+              !initializing &&
+              isHost && (
+                <p className="kt-task-hint">
+                  Waiting for the kitchen setup
+                  to load from Firebase.
+                </p>
+              )}
 
-                    <span>
-                      {task.estimatedTime} min
-                    </span>
+            {!isHost && (
+              <p className="kt-task-hint">
+                Waiting for the room admin to
+                confirm the kitchen equipment.
+              </p>
+            )}
+          </section>
 
-                    <span>·</span>
+          <footer className="kt-task-footer">
+            {error && (
+              <p
+                className="kt-task-error"
+                role="alert"
+              >
+                {error}
+              </p>
+            )}
 
-                    <span>
-                      {task.difficulty}
-                    </span>
+            <button
+              className="kt-task-primary"
+              type="button"
+              disabled={
+                !isHost ||
+                !setupReady ||
+                busy ||
+                initializing
+              }
+              onClick={proceed}
+            >
+              {initializing
+                ? "Preparing setup..."
+                : isHost
+                  ? "Proceed to Assign Tasks"
+                  : "Waiting for admin"}
+            </button>
+          </footer>
+        </>
+      ) : (
+        <>
+          <header className="kt-task-header">
+            <p className="kt-task-eyebrow">
+              TASK ASSIGNMENT
+            </p>
 
-                    {task.equipment?.length > 0 && (
-                      <>
-                        <span>·</span>
+            <h1>Who’s doing what</h1>
 
-                        <span>
-                          {task.equipment.join(", ")}
-                        </span>
-                      </>
-                    )}
+            <p>
+              The app gives an initial task split,
+              and the rest is up to you!
+              Claim and reassign tasks as
+              you see fit.
+            </p>
+          </header>
 
-                  </div>
+          <section className="kt-task-content kt-assignment-content">
+            <div className="kt-assignment-list">
+              {assignments
+                .filter(
+                  (task) =>
+                    showEveryone ||
+                    (Boolean(myId) &&
+                      String(task.assignedToId) ===
+                        String(myId)) ||
+                    !task.assignedToId
+                )
+                .map((task) => {
+                  const mine =
+                    Boolean(myId) &&
+                    String(task.assignedToId) ===
+                      String(myId);
 
+                  const owner = members.find(
+                    (member) =>
+                      String(member.id) ===
+                      String(task.assignedToId)
+                  );
 
-                  <div className="assigned-person">
+                  return (
+                    <article
+                      className={`kt-assignment-card ${
+                        mine ? "mine" : ""
+                      }`}
+                      key={task.id}
+                    >
+                      <div className="kt-assignment-main">
+                        <div className="kt-assignment-info">
+                          <strong>
+                            {task.title ||
+                              task.name ||
+                              "Cooking task"}
+                          </strong>
 
-                    <span className="assigned-avatar">
-                      {task.assignedTo
-                        ? task.assignedTo
-                            .charAt(0)
-                            .toUpperCase()
-                        : "?"}
-                    </span>
+                          <span
+                            className={
+                              mine
+                                ? "kt-mine-label"
+                                : ""
+                            }
+                            style={{
+                              display: "block",
+                              marginTop: "6px",
+                              fontWeight: 600,
+                              fontSize: "13px",
+                            }}
+                          >
+                            {getMemberLabel(
+                              owner,
+                              myId
+                            )}
+                          </span>
 
-                    <span>
-                      {task.assignedTo ||
-                        "Unclaimed"}
-                    </span>
+                          {owner?.helperName && (
+                            <span
+                              style={{
+                                display: "block",
+                                marginTop: "3px",
+                                fontSize: "11px",
+                                color: "#826b5c",
+                              }}
+                            >
+                              Helper: {owner.helperName}
+                            </span>
+                          )}
+                        </div>
 
-                  </div>
-
-
-                  {isSelecting && (
-                    <div className="swap-menu">
-
-                      <p>
-                        Give this task to:
-                      </p>
-
-                      <div className="swap-options">
-
-                        {members.map(
-                          (member, index) => (
-                            <button
-                              key={
-                                member.id ||
-                                `${member.name}-${index}`
-                              }
-                              onClick={() =>
-                                assignToMember(
+                        {mine ? (
+                          <span className="kt-assigned-pill">
+                            Assigned
+                          </span>
+                        ) : (
+                          <button
+                            className="kt-task-outline"
+                            type="button"
+                            disabled={
+                              !myId ||
+                              busy ||
+                              !setupReady
+                            }
+                            onClick={() => {
+                              if (!task.assignedToId) {
+                                changeAssignment(
                                   task.id,
-                                  member.name
+                                  myId
+                                );
+                              } else {
+                                setEditingTask(
+                                  editingTask === task.id
+                                    ? null
+                                    : task.id
+                                );
+                              }
+                            }}
+                          >
+                            {task.assignedToId
+                              ? "Reassign"
+                              : "Claim"}
+                          </button>
+                        )}
+                      </div>
+
+                      {editingTask === task.id && (
+                        <div className="kt-swap-panel">
+                          <p>
+                            Assign this task to:
+                          </p>
+
+                          <div className="kt-swap-choices">
+                            {members.map(
+                              (member) => (
+                                <button
+                                  key={member.id}
+                                  type="button"
+                                  disabled={busy}
+                                  onClick={() =>
+                                    changeAssignment(
+                                      task.id,
+                                      member.id
+                                    )
+                                  }
+                                >
+                                  {getMemberLabel(
+                                    member,
+                                    myId
+                                  )}
+                                </button>
+                              )
+                            )}
+
+                            <button
+                              type="button"
+                              disabled={busy}
+                              onClick={() =>
+                                changeAssignment(
+                                  task.id,
+                                  null
                                 )
                               }
                             >
-                              {member.name}
+                              Unassign
                             </button>
-                          )
-                        )}
+                          </div>
+                        </div>
+                      )}
 
-                      </div>
+                      {mine && (
+                        <button
+                          className="kt-release-link"
+                          type="button"
+                          disabled={busy}
+                          onClick={() =>
+                            changeAssignment(
+                              task.id,
+                              null
+                            )
+                          }
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "7px",
+                            marginTop: "12px",
+                            padding: "10px 15px",
+                            background: "#fff1e9",
+                            color: "#b94115",
+                            border: "1.5px solid #d76a42",
+                            borderRadius: "10px",
+                            fontSize: "12px",
+                            fontWeight: 700,
+                            cursor: busy
+                              ? "not-allowed"
+                              : "pointer",
+                            opacity: busy ? 0.5 : 1,
+                          }}
+                        >
+                          ↗ Release task
+                        </button>
+                      )}
+                    </article>
+                  );
+                })}
 
-                    </div>
-                  )}
+              {!showEveryone && (
+                <button
+                  className="kt-see-all"
+                  type="button"
+                  onClick={() =>
+                    setShowEveryone(true)
+                  }
+                >
+                  See what everyone else is doing
+                  <span>›</span>
+                </button>
+              )}
 
-                </div>
+              {showEveryone && (
+                <button
+                  className="kt-see-all"
+                  type="button"
+                  onClick={() =>
+                    setShowEveryone(false)
+                  }
+                >
+                  Show my tasks
+                  <span>⌃</span>
+                </button>
+              )}
 
-
-                <div className="task-actions">
-
-                  {!task.assignedTo ? (
-
-                    <button
-                      className="claim-button"
-                      onClick={() =>
-                        claimTask(task.id)
-                      }
-                    >
-                      Claim
-                    </button>
-
-                  ) : (
-
-                    <button
-                      className="swap-button"
-                      onClick={() =>
-                        swapTask(task.id)
-                      }
-                    >
-                      {isSelecting
-                        ? "Cancel"
-                        : "Swap"}
-                    </button>
-
-                  )}
-
-                  {isCurrentUser && (
-                    <button
-                      className="release-button"
-                      onClick={() =>
-                        unclaimTask(task.id)
-                      }
-                    >
-                      Release
-                    </button>
-                  )}
-
-                </div>
-
-              </div>
-            );
-          })}
-
-
-          {/* EXTRA SHARED TASK */}
-
-          <div className="task-card shared-task-card">
-
-            <div className="task-icon">
-              🍽️
+              {!assignments.length && (
+                <p className="kt-task-hint">
+                  No tasks are available for
+                  this recipe yet.
+                </p>
+              )}
             </div>
+          </section>
 
-            <div className="task-info">
-
-              <div className="task-name-row">
-                <strong>
-                  Table & cleanup
-                </strong>
-
-                <span className="optional-badge">
-                  LATER
-                </span>
-              </div>
-
-              <div className="task-details">
-                <span>
-                  Available when your cooking
-                  task is finished
-                </span>
-              </div>
-
-              <div className="assigned-person">
-
-                <span className="assigned-avatar unclaimed-avatar">
-                  ?
-                </span>
-
-                <span>
-                  Unclaimed
-                </span>
-
-              </div>
-
-            </div>
-
-            <div className="task-actions">
-              <button
-                className="disabled-claim-button"
-                disabled
+          <footer className="kt-task-footer">
+            {error && (
+              <p
+                className="kt-task-error"
+                role="alert"
               >
-                Later
-              </button>
-            </div>
+                {error}
+              </p>
+            )}
 
-          </div>
-
-        </div>
-
-      </section>
-
-    </div>
+            <button
+              className="kt-task-primary"
+              type="button"
+              disabled={
+                !isHost ||
+                !setupReady ||
+                busy ||
+                !allTasksAssigned
+              }
+              onClick={startCooking}
+            >
+              {isHost
+                ? "Start Cooking"
+                : "Waiting for admin to start"}
+            </button>
+          </footer>
+        </>
+      )}
+    </main>
   );
 }

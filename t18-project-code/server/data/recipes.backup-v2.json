@@ -1,0 +1,4982 @@
+[
+  {
+    "id": "teriyaki-chicken-bowl",
+    "title": "Teriyaki Chicken Bowl",
+    "description": "Japanese-style teriyaki chicken bowl with chicken breast, rice, broccoli.",
+    "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Teriyaki_Chicken_Rice_Bowl_from_Botejyu_%282024-12-21%29.jpg",
+    "cuisine": "Japanese",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 9.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free"
+    ],
+    "allergens": [
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "teriyaki sauce"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Teriyaki Sauce",
+        "quantity": "6 tbsp"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "teriyaki-chicken-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, rice, broccoli.",
+          "Measure the remaining ingredients: carrot, teriyaki sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "teriyaki-chicken-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Teriyaki Chicken Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Teriyaki_Chicken_Rice_Bowl_from_Botejyu_%282024-12-21%29.jpg"
+  },
+  {
+    "id": "one-pan-fried-rice",
+    "title": "One-Pan Fried Rice",
+    "description": "Asian-style one-pan fried rice with cooked rice, eggs, mixed vegetables.",
+    "image": "https://commons.wikimedia.org/wiki/Special:FilePath/FriedRice.JPG",
+    "cuisine": "Asian",
+    "category": "Main",
+    "minutes": 20,
+    "difficulty": "Easy",
+    "costPerPerson": 6.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Dairy Free",
+      "Gluten Free"
+    ],
+    "allergens": [
+      "Egg",
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Cooked Rice",
+        "quantity": "3 cups"
+      },
+      {
+        "name": "Eggs",
+        "quantity": "3"
+      },
+      {
+        "name": "Mixed Vegetables",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Spring Onions",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "one-pan-fried-rice-prep",
+        "title": "Prepare ingredients",
+        "minutes": 6,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare cooked rice, eggs, mixed vegetables.",
+          "Measure the remaining ingredients: spring onions, soy sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "one-pan-fried-rice-cook",
+        "title": "Cook and assemble",
+        "minutes": 15,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "One-Pan Fried Rice",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:FriedRice.JPG"
+  },
+  {
+    "id": "chicken-tacos",
+    "title": "Chicken Tacos",
+    "description": "Mexican-style chicken tacos with chicken breast, wheat tortillas, lettuce.",
+    "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Chicken_Tacos.jpg",
+    "cuisine": "Mexican",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 8.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free"
+    ],
+    "allergens": [
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "taco seasoning"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Wheat Tortillas",
+        "quantity": "6"
+      },
+      {
+        "name": "Lettuce",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tomato",
+        "quantity": "2"
+      },
+      {
+        "name": "Taco Seasoning",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "chicken-tacos-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, wheat tortillas, lettuce.",
+          "Measure the remaining ingredients: tomato, taco seasoning, cooking oil."
+        ]
+      },
+      {
+        "id": "chicken-tacos-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the filling and any meat thoroughly.",
+          "Warm tortillas or wraps using the appropriate equipment.",
+          "Add fillings and toppings, then serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Chicken Tacos",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_Tacos.jpg"
+  },
+  {
+    "id": "tomato-pasta",
+    "title": "Tomato Basil Pasta",
+    "description": "Italian-style tomato basil pasta with pasta, canned tomatoes, garlic.",
+    "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Pasta_al_pomodoro_1.jpg",
+    "cuisine": "Italian",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 5.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Pasta",
+        "quantity": "300 g"
+      },
+      {
+        "name": "Canned Tomatoes",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Fresh Basil",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "tomato-basil-pasta-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare pasta, canned tomatoes, garlic.",
+          "Measure the remaining ingredients: fresh basil, olive oil."
+        ]
+      },
+      {
+        "id": "tomato-basil-pasta-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook pasta or noodles according to packet directions.",
+          "Cook vegetables and protein separately until tender and any meat is fully cooked.",
+          "Combine with sauce, heat through and serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Tomato Basil Pasta",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Pasta_al_pomodoro_1.jpg"
+  },
+  {
+    "id": "vegetable-curry",
+    "title": "Vegetable Curry",
+    "description": "Indian-style vegetable curry with potatoes, carrots, chickpeas.",
+    "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Vegetable_curry_%28387626674%29.jpg",
+    "cuisine": "Indian",
+    "category": "Main",
+    "minutes": 35,
+    "difficulty": "Easy",
+    "costPerPerson": 7.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Potatoes",
+        "quantity": "3"
+      },
+      {
+        "name": "Carrots",
+        "quantity": "2"
+      },
+      {
+        "name": "Chickpeas",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Coconut Milk",
+        "quantity": "400 ml"
+      },
+      {
+        "name": "Curry Powder",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "vegetable-curry-prep",
+        "title": "Prepare ingredients",
+        "minutes": 11,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare potatoes, carrots, chickpeas.",
+          "Measure the remaining ingredients: coconut milk, curry powder, rice."
+        ]
+      },
+      {
+        "id": "vegetable-curry-cook",
+        "title": "Cook and assemble",
+        "minutes": 30,
+        "difficulty": "Easy",
+        "steps": [
+          "Heat a pot and cook aromatics or spices gently.",
+          "Add the remaining ingredients and enough liquid to simmer.",
+          "Simmer until vegetables or lentils are tender and any meat is fully cooked."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Vegetable Curry",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetable_curry_%28387626674%29.jpg"
+  },
+  {
+    "id": "chicken-katsu-rice",
+    "title": "Chicken Katsu Rice",
+    "description": "Japanese-style chicken katsu rice with chicken breast, rice, panko breadcrumbs.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Chicken_Katsu_Curry_with_Rice_-_Wagamama_Flinders_Lane_%282426703227%29.jpg/1280px-Chicken_Katsu_Curry_with_Rice_-_Wagamama_Flinders_Lane_%282426703227%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Japanese",
+    "category": "Main",
+    "minutes": 40,
+    "difficulty": "Medium",
+    "costPerPerson": 10.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "No Soy"
+    ],
+    "allergens": [
+      "Egg",
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Panko Breadcrumbs",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Egg",
+        "quantity": "1"
+      },
+      {
+        "name": "Wheat Flour",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cabbage",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "chicken-katsu-rice-prep",
+        "title": "Prepare ingredients",
+        "minutes": 13,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, rice, panko breadcrumbs.",
+          "Measure the remaining ingredients: egg, wheat flour, cabbage, cooking oil."
+        ]
+      },
+      {
+        "id": "chicken-katsu-rice-cook",
+        "title": "Cook and assemble",
+        "minutes": 35,
+        "difficulty": "Medium",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Chicken Katsu Rice",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_Katsu_Curry_with_Rice_-_Wagamama_Flinders_Lane_(2426703227).jpg",
+    "imageCredit": "Alpha  from Melbourne, Australia",
+    "imageLicense": "CC BY-SA 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "tofu-teriyaki-bowl",
+    "title": "Tofu Teriyaki Bowl",
+    "description": "Japanese-style tofu teriyaki bowl with firm tofu, rice, broccoli.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Rice_bowl_topped_with_tofu_%287960798384%29.jpg/1280px-Rice_bowl_topped_with_tofu_%287960798384%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Japanese",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 7.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Firm Tofu",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Tamari Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Brown Sugar",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "tofu-teriyaki-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare firm tofu, rice, broccoli.",
+          "Measure the remaining ingredients: carrot, tamari sauce, brown sugar, cooking oil."
+        ]
+      },
+      {
+        "id": "tofu-teriyaki-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Tofu Teriyaki Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Rice_bowl_topped_with_tofu_(7960798384).jpg",
+    "imageCredit": "pelican from Tokyo, Japan",
+    "imageLicense": "CC BY-SA 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "miso-mushroom-udon",
+    "title": "Miso Mushroom Udon",
+    "description": "Japanese-style miso mushroom udon with udon noodles, mushrooms, miso paste.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Mixed_Mushroom_Udon_%28red_miso_broth%29_-_MOGUMOGU_2024-10-02.jpg/1280px-Mixed_Mushroom_Udon_%28red_miso_broth%29_-_MOGUMOGU_2024-10-02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Japanese",
+    "category": "Main",
+    "minutes": 20,
+    "difficulty": "Easy",
+    "costPerPerson": 8,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free"
+    ],
+    "allergens": [
+      "Soy",
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "vegetable stock",
+      "miso paste"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Udon Noodles",
+        "quantity": "300 g"
+      },
+      {
+        "name": "Mushrooms",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Miso Paste",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Spring Onions",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Spinach",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Vegetable Stock",
+        "quantity": "As needed"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "miso-mushroom-udon-prep",
+        "title": "Prepare ingredients",
+        "minutes": 6,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare udon noodles, mushrooms, miso paste.",
+          "Measure the remaining ingredients: spring onions, spinach, vegetable stock."
+        ]
+      },
+      {
+        "id": "miso-mushroom-udon-cook",
+        "title": "Cook and assemble",
+        "minutes": 15,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook pasta or noodles according to packet directions.",
+          "Cook vegetables and protein separately until tender and any meat is fully cooked.",
+          "Combine with sauce, heat through and serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Miso Mushroom Udon",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Mixed_Mushroom_Udon_(red_miso_broth)_-_MOGUMOGU_2024-10-02.jpg",
+    "imageCredit": "Andy Li",
+    "imageLicense": "CC0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "salmon-rice-bowl",
+    "title": "Salmon Rice Bowl",
+    "description": "Japanese-style salmon rice bowl with salmon fillets, rice, cucumber.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/15/Salmon_bowl.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Japanese",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 12,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Fish"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Salmon Fillets",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Lemon",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "salmon-rice-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare salmon fillets, rice, cucumber.",
+          "Measure the remaining ingredients: carrot, lemon, olive oil."
+        ]
+      },
+      {
+        "id": "salmon-rice-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Salmon Rice Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Salmon_bowl.jpg",
+    "imageCredit": "Janine  from Mililani, Hawaii, United States",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "japanese-vegetable-rice-bowl",
+    "title": "Japanese Vegetable Rice Bowl",
+    "description": "Japanese-style japanese vegetable rice bowl with rice, mushrooms, carrot.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Chicken_and_egg_%22oyako%22_donburi%2C_pork_and_vegetable_miso_soup%2C_and_carrot_and_egg_stir_fry_%E8%A6%AA%E5%AD%90%E4%B8%BC%E3%80%81%E8%B1%9A%E6%B1%81%E3%80%81%E3%83%8B%E3%83%B3%E3%82%B8%E3%83%B3%E3%81%A8%E5%8D%B5%E3%81%AE%E3%80%8C%E3%81%97%E3%82%8A%E3%81%97%E3%82%8A%E3%80%8D.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Japanese",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 6.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Sesame",
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Mushrooms",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Spinach",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Sesame Oil",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": "3 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "japanese-vegetable-rice-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare rice, mushrooms, carrot.",
+          "Measure the remaining ingredients: spinach, sesame oil, soy sauce."
+        ]
+      },
+      {
+        "id": "japanese-vegetable-rice-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Japanese Vegetable Rice Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_and_egg_%22oyako%22_donburi,_pork_and_vegetable_miso_soup,_and_carrot_and_egg_stir_fry_%E8%A6%AA%E5%AD%90%E4%B8%BC%E3%80%81%E8%B1%9A%E6%B1%81%E3%80%81%E3%83%8B%E3%83%B3%E3%82%B8%E3%83%B3%E3%81%A8%E5%8D%B5%E3%81%AE%E3%80%8C%E3%81%97%E3%82%8A%E3%81%97%E3%82%8A%E3%80%8D.jpg",
+    "imageCredit": "naotakem",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "chicken-yakisoba",
+    "title": "Chicken Yakisoba",
+    "description": "Japanese-style chicken yakisoba with chicken breast, wheat noodles, cabbage.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Chicken_yakisoba_Merelymel13.jpg/1280px-Chicken_yakisoba_Merelymel13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Japanese",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 9,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Soy",
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Wheat Noodles",
+        "quantity": "300 g"
+      },
+      {
+        "name": "Cabbage",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "chicken-yakisoba-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, wheat noodles, cabbage.",
+          "Measure the remaining ingredients: carrot, soy sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "chicken-yakisoba-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Chicken Yakisoba",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_yakisoba_Merelymel13.jpg",
+    "imageCredit": "Merelymel13",
+    "imageLicense": "CC BY-SA 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "vegetable-sushi-bowl",
+    "title": "Vegetable Sushi Bowl",
+    "description": "Japanese-style vegetable sushi bowl with rice, cucumber, avocado.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Hiroshige_Bowl_of_Sushi.jpg/1280px-Hiroshige_Bowl_of_Sushi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Japanese",
+    "category": "Main",
+    "minutes": 20,
+    "difficulty": "Easy",
+    "costPerPerson": 7,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Avocado",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Nori Sheets",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice Vinegar",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "vegetable-sushi-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 6,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare rice, cucumber, avocado.",
+          "Measure the remaining ingredients: carrot, nori sheets, rice vinegar."
+        ]
+      },
+      {
+        "id": "vegetable-sushi-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 15,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Vegetable Sushi Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Hiroshige_Bowl_of_Sushi.jpg",
+    "imageCredit": "Utagawa Hiroshige",
+    "imageLicense": "Public domain",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "ginger-tofu-stir-fry",
+    "title": "Ginger Tofu Stir-Fry",
+    "description": "Asian-style ginger tofu stir-fry with firm tofu, broccoli, capsicum.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/50/Stir_Fry_with_Tofu.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Asian",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 7,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Firm Tofu",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Capsicum",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Ginger",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tamari Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "ginger-tofu-stir-fry-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare firm tofu, broccoli, capsicum.",
+          "Measure the remaining ingredients: ginger, tamari sauce, rice."
+        ]
+      },
+      {
+        "id": "ginger-tofu-stir-fry-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Ginger Tofu Stir-Fry",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Stir_Fry_with_Tofu.JPG",
+    "imageCredit": "ParentingPatch",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "egg-fried-noodles",
+    "title": "Egg Fried Noodles",
+    "description": "Asian-style egg fried noodles with egg noodles, eggs, cabbage.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Noodles_and_fried_egg.jpg/1280px-Noodles_and_fried_egg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Asian",
+    "category": "Main",
+    "minutes": 20,
+    "difficulty": "Easy",
+    "costPerPerson": 6,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Dairy Free"
+    ],
+    "allergens": [
+      "Egg",
+      "Soy",
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Egg Noodles",
+        "quantity": "300 g"
+      },
+      {
+        "name": "Eggs",
+        "quantity": "3"
+      },
+      {
+        "name": "Cabbage",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "egg-fried-noodles-prep",
+        "title": "Prepare ingredients",
+        "minutes": 6,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare egg noodles, eggs, cabbage.",
+          "Measure the remaining ingredients: carrot, soy sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "egg-fried-noodles-cook",
+        "title": "Cook and assemble",
+        "minutes": 15,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook pasta or noodles according to packet directions.",
+          "Cook vegetables and protein separately until tender and any meat is fully cooked.",
+          "Combine with sauce, heat through and serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Egg Fried Noodles",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Noodles_and_fried_egg.jpg",
+    "imageCredit": "Nancy Nwachukwu",
+    "imageLicense": "CC BY-SA 4.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "garlic-chicken-rice",
+    "title": "Garlic Chicken Rice",
+    "description": "Asian-style garlic chicken rice with chicken breast, rice, garlic.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Ping_SJ_garlic_chicken_%26_fried_rice.JPG/1280px-Ping_SJ_garlic_chicken_%26_fried_rice.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Asian",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 8,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Bok Choy",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Ginger",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "garlic-chicken-rice-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, rice, garlic.",
+          "Measure the remaining ingredients: bok choy, ginger, cooking oil."
+        ]
+      },
+      {
+        "id": "garlic-chicken-rice-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Garlic Chicken Rice",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Ping_SJ_garlic_chicken_%26_fried_rice.JPG",
+    "imageCredit": "BrokenSphere",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "thai-basil-chicken",
+    "title": "Thai Basil Chicken",
+    "description": "Thai-style thai basil chicken with chicken mince, rice, fresh basil.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Kao_Rad_Pad_Kra-pao_with_chicken_and_fried_egg_-_Unithai_2025-07-30.jpg/1280px-Kao_Rad_Pad_Kra-pao_with_chicken_and_fried_egg_-_Unithai_2025-07-30.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Thai",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 9,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Fish"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Mince",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Fresh Basil",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Chilli",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Fish Sauce",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "thai-basil-chicken-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken mince, rice, fresh basil.",
+          "Measure the remaining ingredients: garlic, chilli, fish sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "thai-basil-chicken-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Thai Basil Chicken",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Kao_Rad_Pad_Kra-pao_with_chicken_and_fried_egg_-_Unithai_2025-07-30.jpg",
+    "imageCredit": "Andy Li",
+    "imageLicense": "CC0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "thai-green-vegetable-curry",
+    "title": "Thai Green Vegetable Curry",
+    "description": "Thai-style thai green vegetable curry with green curry paste, coconut milk, broccoli.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Thai_green_curry_paste.jpg/1280px-Thai_green_curry_paste.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Thai",
+    "category": "Main",
+    "minutes": 35,
+    "difficulty": "Easy",
+    "costPerPerson": 8,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "green curry paste"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Green Curry Paste",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Coconut Milk",
+        "quantity": "400 ml"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Zucchini",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Capsicum",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "thai-green-vegetable-curry-prep",
+        "title": "Prepare ingredients",
+        "minutes": 11,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare green curry paste, coconut milk, broccoli.",
+          "Measure the remaining ingredients: zucchini, capsicum, rice."
+        ]
+      },
+      {
+        "id": "thai-green-vegetable-curry-cook",
+        "title": "Cook and assemble",
+        "minutes": 30,
+        "difficulty": "Easy",
+        "steps": [
+          "Heat a pot and cook aromatics or spices gently.",
+          "Add the remaining ingredients and enough liquid to simmer.",
+          "Simmer until vegetables or lentils are tender and any meat is fully cooked."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Thai Green Vegetable Curry",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Thai_green_curry_paste.jpg",
+    "imageCredit": "Papa November",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "thai-peanut-noodles",
+    "title": "Thai Peanut Noodles",
+    "description": "Thai-style thai peanut noodles with rice noodles, peanut butter, lime.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/77/RECALLED_Thai_Peanut_Noodles_and_Thai_Wrap_%2825285962549%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Thai",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 7,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Peanut",
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Rice Noodles",
+        "quantity": "250 g"
+      },
+      {
+        "name": "Peanut Butter",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lime",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tamari Sauce",
+        "quantity": "3 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "thai-peanut-noodles-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare rice noodles, peanut butter, lime.",
+          "Measure the remaining ingredients: carrot, cucumber, tamari sauce."
+        ]
+      },
+      {
+        "id": "thai-peanut-noodles-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook pasta or noodles according to packet directions.",
+          "Cook vegetables and protein separately until tender and any meat is fully cooked.",
+          "Combine with sauce, heat through and serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Thai Peanut Noodles",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:RECALLED_Thai_Peanut_Noodles_and_Thai_Wrap_(25285962549).jpg",
+    "imageCredit": "The U.S. Food and Drug Administration",
+    "imageLicense": "Public domain",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "thai-coconut-tofu-soup",
+    "title": "Thai Coconut Tofu Soup",
+    "description": "Thai-style thai coconut tofu soup with firm tofu, coconut milk, mushrooms.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Tom_Kha_Gai_Polevka_Zlaty_Klas_2025.jpg/1280px-Tom_Kha_Gai_Polevka_Zlaty_Klas_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Thai",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 8,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free"
+    ],
+    "allergens": [
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "vegetable stock"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Firm Tofu",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Coconut Milk",
+        "quantity": "400 ml"
+      },
+      {
+        "name": "Mushrooms",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lime",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Ginger",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Vegetable Stock",
+        "quantity": "As needed"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "thai-coconut-tofu-soup-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare firm tofu, coconut milk, mushrooms.",
+          "Measure the remaining ingredients: lime, ginger, vegetable stock."
+        ]
+      },
+      {
+        "id": "thai-coconut-tofu-soup-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Heat a pot and cook aromatics or spices gently.",
+          "Add the remaining ingredients and enough liquid to simmer.",
+          "Simmer until vegetables or lentils are tender and any meat is fully cooked."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Thai Coconut Tofu Soup",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Tom_Kha_Gai_Polevka_Zlaty_Klas_2025.jpg",
+    "imageCredit": "Mojmir Churavy",
+    "imageLicense": "CC0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "indonesian-nasi-goreng",
+    "title": "Indonesian Nasi Goreng",
+    "description": "Indonesian-style indonesian nasi goreng with cooked rice, eggs, shallots.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Nasi_goreng.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Indonesian",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 7,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Dairy Free"
+    ],
+    "allergens": [
+      "Egg",
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "kecap manis"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Cooked Rice",
+        "quantity": "3 cups"
+      },
+      {
+        "name": "Eggs",
+        "quantity": "3"
+      },
+      {
+        "name": "Shallots",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Kecap Manis",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "indonesian-nasi-goreng-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare cooked rice, eggs, shallots.",
+          "Measure the remaining ingredients: garlic, kecap manis, carrot, cooking oil."
+        ]
+      },
+      {
+        "id": "indonesian-nasi-goreng-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Indonesian Nasi Goreng",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Nasi_goreng.jpg",
+    "imageCredit": "Sakurai Midori",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "indonesian-tempeh-rice-bowl",
+    "title": "Indonesian Tempeh Rice Bowl",
+    "description": "Indonesian-style indonesian tempeh rice bowl with tempeh, rice, green beans.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Beef_Serunding%2C_Tofu_and_Tempeh_Curry%2C_Stir-fried_beansprouts_-_Nelayan_Indonesian_Cafe_AUD8.70_%283224618418%29.jpg/1280px-Beef_Serunding%2C_Tofu_and_Tempeh_Curry%2C_Stir-fried_beansprouts_-_Nelayan_Indonesian_Cafe_AUD8.70_%283224618418%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Indonesian",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 7.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Tempeh",
+        "quantity": "350 g"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Green Beans",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Chilli",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tamari Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "indonesian-tempeh-rice-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare tempeh, rice, green beans.",
+          "Measure the remaining ingredients: garlic, chilli, tamari sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "indonesian-tempeh-rice-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Indonesian Tempeh Rice Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Beef_Serunding,_Tofu_and_Tempeh_Curry,_Stir-fried_beansprouts_-_Nelayan_Indonesian_Cafe_AUD8.70_(3224618418).jpg",
+    "imageCredit": "Alpha from Melbourne, Australia",
+    "imageLicense": "CC BY-SA 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "gado-gado-inspired-bowl",
+    "title": "Gado-Gado Inspired Bowl",
+    "description": "Indonesian-style gado-gado inspired bowl with potatoes, green beans, cabbage.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Indonesian_cuisine-Gado_Gado-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Indonesian",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 8,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy"
+    ],
+    "allergens": [
+      "Egg",
+      "Peanut"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Potatoes",
+        "quantity": "3"
+      },
+      {
+        "name": "Green Beans",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cabbage",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Eggs",
+        "quantity": "3"
+      },
+      {
+        "name": "Peanut Butter",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lime",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "gado-gado-inspired-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare potatoes, green beans, cabbage.",
+          "Measure the remaining ingredients: eggs, peanut butter, lime, rice."
+        ]
+      },
+      {
+        "id": "gado-gado-inspired-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Gado-Gado  Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Indonesian_cuisine-Gado_Gado-01.jpg",
+    "imageCredit": "Christian Losari",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "soto-ayam-inspired-soup",
+    "title": "Soto Ayam Inspired Soup",
+    "description": "Indonesian-style soto ayam inspired soup with chicken breast, rice noodles, turmeric.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Soto_ayam.JPG/1280px-Soto_ayam.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Indonesian",
+    "category": "Main",
+    "minutes": 40,
+    "difficulty": "Medium",
+    "costPerPerson": 9,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "chicken stock"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Rice Noodles",
+        "quantity": "250 g"
+      },
+      {
+        "name": "Turmeric",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Ginger",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Cabbage",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Chicken Stock",
+        "quantity": "As needed"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "soto-ayam-inspired-soup-prep",
+        "title": "Prepare ingredients",
+        "minutes": 13,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, rice noodles, turmeric.",
+          "Measure the remaining ingredients: ginger, carrot, cabbage, chicken stock."
+        ]
+      },
+      {
+        "id": "soto-ayam-inspired-soup-cook",
+        "title": "Cook and assemble",
+        "minutes": 35,
+        "difficulty": "Medium",
+        "steps": [
+          "Heat a pot and cook aromatics or spices gently.",
+          "Add the remaining ingredients and enough liquid to simmer.",
+          "Simmer until vegetables or lentils are tender and any meat is fully cooked."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Soto Ayam  Soup",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Soto_ayam.JPG",
+    "imageCredit": "Sakurai Midori",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "indian-chana-masala",
+    "title": "Indian Chana Masala",
+    "description": "Indian-style indian chana masala with chickpeas, canned tomatoes, onion.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Indian_food_naan_chana_masala_8285643741_o.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Indian",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 6,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Chickpeas",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Canned Tomatoes",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Onion",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garam Masala",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "indian-chana-masala-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chickpeas, canned tomatoes, onion.",
+          "Measure the remaining ingredients: garlic, garam masala, rice, cooking oil."
+        ]
+      },
+      {
+        "id": "indian-chana-masala-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Heat a pot and cook aromatics or spices gently.",
+          "Add the remaining ingredients and enough liquid to simmer.",
+          "Simmer until vegetables or lentils are tender and any meat is fully cooked."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Indian Chana Masala",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Indian_food_naan_chana_masala_8285643741_o.jpg",
+    "imageCredit": "Tony Webster",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "red-lentil-dal",
+    "title": "Red Lentil Dal",
+    "description": "Indian-style red lentil dal with red lentils, coconut milk, turmeric.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Bengali_Dal_Pakora_RedLentilFritter.JPG/1280px-Bengali_Dal_Pakora_RedLentilFritter.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Indian",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Red Lentils",
+        "quantity": "1 cup"
+      },
+      {
+        "name": "Coconut Milk",
+        "quantity": "400 ml"
+      },
+      {
+        "name": "Turmeric",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Onion",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "red-lentil-dal-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare red lentils, coconut milk, turmeric.",
+          "Measure the remaining ingredients: onion, garlic, rice."
+        ]
+      },
+      {
+        "id": "red-lentil-dal-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Heat a pot and cook aromatics or spices gently.",
+          "Add the remaining ingredients and enough liquid to simmer.",
+          "Simmer until vegetables or lentils are tender and any meat is fully cooked."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Red Lentil Dal",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Bengali_Dal_Pakora_RedLentilFritter.JPG",
+    "imageCredit": "Kay 2015",
+    "imageLicense": "CC BY-SA 4.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "palak-tofu",
+    "title": "Palak Tofu",
+    "description": "Indian-style palak tofu with firm tofu, spinach, onion.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Chakra_Palak_Tofu.jpg/1280px-Chakra_Palak_Tofu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Indian",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 7,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Firm Tofu",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Spinach",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Onion",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Ginger",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "palak-tofu-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare firm tofu, spinach, onion.",
+          "Measure the remaining ingredients: garlic, ginger, rice, cooking oil."
+        ]
+      },
+      {
+        "id": "palak-tofu-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Palak Tofu",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chakra_Palak_Tofu.jpg",
+    "imageCredit": "JIP",
+    "imageLicense": "CC BY-SA 4.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "chicken-tikka-rice-bowl",
+    "title": "Chicken Tikka Rice Bowl",
+    "description": "Indian-style chicken tikka rice bowl with chicken breast, plain yoghurt, tikka spice.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Chicken_Tikka_Masala.jpeg/1280px-Chicken_Tikka_Masala.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Indian",
+    "category": "Main",
+    "minutes": 40,
+    "difficulty": "Medium",
+    "costPerPerson": 9.5,
+    "servings": 3,
+    "dietaryTags": [],
+    "allergens": [
+      "Milk"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "tikka spice"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Plain Yoghurt",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tikka Spice",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tomato",
+        "quantity": "2"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "chicken-tikka-rice-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 13,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, plain yoghurt, tikka spice.",
+          "Measure the remaining ingredients: rice, cucumber, tomato."
+        ]
+      },
+      {
+        "id": "chicken-tikka-rice-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 35,
+        "difficulty": "Medium",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Chicken Tikka Rice Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_Tikka_Masala.jpeg",
+    "imageCredit": "David Johnson [1]",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "potato-pea-curry",
+    "title": "Potato Pea Curry",
+    "description": "Indian-style potato pea curry with potatoes, frozen peas, canned tomatoes.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Aaloo_Matar.JPG/1280px-Aaloo_Matar.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Indian",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 5.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Potatoes",
+        "quantity": "3"
+      },
+      {
+        "name": "Frozen Peas",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Canned Tomatoes",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Curry Powder",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Onion",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "potato-pea-curry-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare potatoes, frozen peas, canned tomatoes.",
+          "Measure the remaining ingredients: curry powder, onion, rice, cooking oil."
+        ]
+      },
+      {
+        "id": "potato-pea-curry-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Heat a pot and cook aromatics or spices gently.",
+          "Add the remaining ingredients and enough liquid to simmer.",
+          "Simmer until vegetables or lentils are tender and any meat is fully cooked."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Potato Pea Curry",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Aaloo_Matar.JPG",
+    "imageCredit": "Miansari66",
+    "imageLicense": "CC0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "mexican-black-bean-tacos",
+    "title": "Mexican Black Bean Tacos",
+    "description": "Mexican-style mexican black bean tacos with corn tortillas, black beans, tomato.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/45/Vegetables_and_Black_Bean_Tacos_%287212559656%29.jpg/1280px-Vegetables_and_Black_Bean_Tacos_%287212559656%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Mexican",
+    "category": "Main",
+    "minutes": 20,
+    "difficulty": "Easy",
+    "costPerPerson": 6,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Corn Tortillas",
+        "quantity": "6"
+      },
+      {
+        "name": "Black Beans",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Tomato",
+        "quantity": "2"
+      },
+      {
+        "name": "Lettuce",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Avocado",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lime",
+        "quantity": "As needed"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "mexican-black-bean-tacos-prep",
+        "title": "Prepare ingredients",
+        "minutes": 6,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare corn tortillas, black beans, tomato.",
+          "Measure the remaining ingredients: lettuce, avocado, lime."
+        ]
+      },
+      {
+        "id": "mexican-black-bean-tacos-cook",
+        "title": "Cook and assemble",
+        "minutes": 15,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the filling and any meat thoroughly.",
+          "Warm tortillas or wraps using the appropriate equipment.",
+          "Add fillings and toppings, then serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Mexican Black Bean Tacos",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetables_and_Black_Bean_Tacos_(7212559656).jpg",
+    "imageCredit": "Jennifer from Vancouver, Canada",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "chicken-fajita-rice-bowl",
+    "title": "Chicken Fajita Rice Bowl",
+    "description": "Mexican-style chicken fajita rice bowl with chicken breast, rice, capsicum.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Flickr_elisart_324248450--Beef_and_chicken_fajitas.jpg/1280px-Flickr_elisart_324248450--Beef_and_chicken_fajitas.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Mexican",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 9,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Capsicum",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Onion",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Fajita Spice",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lime",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "chicken-fajita-rice-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, rice, capsicum.",
+          "Measure the remaining ingredients: onion, fajita spice, lime, cooking oil."
+        ]
+      },
+      {
+        "id": "chicken-fajita-rice-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Chicken Fajita Rice Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Flickr_elisart_324248450--Beef_and_chicken_fajitas.jpg",
+    "imageCredit": "Elisa Arteaga from Caracas, Venezuela",
+    "imageLicense": "CC BY-SA 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "bean-and-corn-quesadillas",
+    "title": "Bean and Corn Quesadillas",
+    "description": "Mexican-style bean and corn quesadillas with wheat tortillas, black beans, corn.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Vegetarian_Black_Bean_Quesadilla.jpg/1280px-Vegetarian_Black_Bean_Quesadilla.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Mexican",
+    "category": "Main",
+    "minutes": 20,
+    "difficulty": "Easy",
+    "costPerPerson": 6.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Wheat Tortillas",
+        "quantity": "6"
+      },
+      {
+        "name": "Black Beans",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Corn",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cheddar Cheese",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tomato",
+        "quantity": "2"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "bean-and-corn-quesadillas-prep",
+        "title": "Prepare ingredients",
+        "minutes": 6,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare wheat tortillas, black beans, corn.",
+          "Measure the remaining ingredients: cheddar cheese, tomato, cooking oil."
+        ]
+      },
+      {
+        "id": "bean-and-corn-quesadillas-cook",
+        "title": "Cook and assemble",
+        "minutes": 15,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the filling and any meat thoroughly.",
+          "Warm tortillas or wraps using the appropriate equipment.",
+          "Add fillings and toppings, then serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Bean and Corn Quesadillas",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetarian_Black_Bean_Quesadilla.jpg",
+    "imageCredit": "BOSTON66",
+    "imageLicense": "CC BY-SA 4.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "sweet-potato-burrito-bowl",
+    "title": "Sweet Potato Burrito Bowl",
+    "description": "Mexican-style sweet potato burrito bowl with sweet potato, rice, black beans.",
+    "image": null,
+    "cuisine": "Mexican",
+    "category": "Main",
+    "minutes": 35,
+    "difficulty": "Easy",
+    "costPerPerson": 7,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Sweet Potato",
+        "quantity": "2"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Black Beans",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Corn",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tomato",
+        "quantity": "2"
+      },
+      {
+        "name": "Lime",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "sweet-potato-burrito-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 11,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare sweet potato, rice, black beans.",
+          "Measure the remaining ingredients: corn, tomato, lime, olive oil."
+        ]
+      },
+      {
+        "id": "sweet-potato-burrito-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 30,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Sweet Potato Burrito Bowl"
+  },
+  {
+    "id": "mexican-lentil-tacos",
+    "title": "Mexican Lentil Tacos",
+    "description": "Mexican-style mexican lentil tacos with red lentils, corn tortillas, lettuce.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Mexican_food_vegetarian_tacos_20260607_161424_%281%29.jpg/1280px-Mexican_food_vegetarian_tacos_20260607_161424_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Mexican",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 6,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "taco seasoning"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Red Lentils",
+        "quantity": "1 cup"
+      },
+      {
+        "name": "Corn Tortillas",
+        "quantity": "6"
+      },
+      {
+        "name": "Lettuce",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tomato",
+        "quantity": "2"
+      },
+      {
+        "name": "Taco Seasoning",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lime",
+        "quantity": "As needed"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "mexican-lentil-tacos-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare red lentils, corn tortillas, lettuce.",
+          "Measure the remaining ingredients: tomato, taco seasoning, lime."
+        ]
+      },
+      {
+        "id": "mexican-lentil-tacos-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the filling and any meat thoroughly.",
+          "Warm tortillas or wraps using the appropriate equipment.",
+          "Add fillings and toppings, then serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Mexican Lentil Tacos",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Mexican_food_vegetarian_tacos_20260607_161424_(1).jpg",
+    "imageCredit": "Gerardolagunes",
+    "imageLicense": "CC0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "pesto-vegetable-pasta",
+    "title": "Pesto Vegetable Pasta",
+    "description": "Italian-style pesto vegetable pasta with pasta, basil pesto, zucchini.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Flickr_-_cyclonebill_-_Pasta_med_pesto%2C_kammuslinger_og_champignons.jpg/1280px-Flickr_-_cyclonebill_-_Pasta_med_pesto%2C_kammuslinger_og_champignons.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Italian",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 7.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free"
+    ],
+    "allergens": [
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "basil pesto"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Pasta",
+        "quantity": "300 g"
+      },
+      {
+        "name": "Basil Pesto",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Zucchini",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cherry Tomatoes",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "pesto-vegetable-pasta-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare pasta, basil pesto, zucchini.",
+          "Measure the remaining ingredients: cherry tomatoes, olive oil."
+        ]
+      },
+      {
+        "id": "pesto-vegetable-pasta-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook pasta or noodles according to packet directions.",
+          "Cook vegetables and protein separately until tender and any meat is fully cooked.",
+          "Combine with sauce, heat through and serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Pesto Vegetable Pasta",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Flickr_-_cyclonebill_-_Pasta_med_pesto,_kammuslinger_og_champignons.jpg",
+    "imageCredit": "cyclonebill",
+    "imageLicense": "CC BY-SA 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "creamy-mushroom-pasta",
+    "title": "Creamy Mushroom Pasta",
+    "description": "Italian-style creamy mushroom pasta with pasta, mushrooms, cream.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Creamy_Mushroom_Pasta.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Italian",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 8,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Pasta",
+        "quantity": "300 g"
+      },
+      {
+        "name": "Mushrooms",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cream",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Spinach",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "creamy-mushroom-pasta-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare pasta, mushrooms, cream.",
+          "Measure the remaining ingredients: garlic, spinach, olive oil."
+        ]
+      },
+      {
+        "id": "creamy-mushroom-pasta-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook pasta or noodles according to packet directions.",
+          "Cook vegetables and protein separately until tender and any meat is fully cooked.",
+          "Combine with sauce, heat through and serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Creamy Mushroom Pasta",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Creamy_Mushroom_Pasta.jpg",
+    "imageCredit": "Sharon Chen",
+    "imageLicense": "CC BY 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "lentil-bolognese",
+    "title": "Lentil Bolognese",
+    "description": "Italian-style lentil bolognese with pasta, brown lentils, canned tomatoes.",
+    "image": null,
+    "cuisine": "Italian",
+    "category": "Main",
+    "minutes": 35,
+    "difficulty": "Easy",
+    "costPerPerson": 6,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Pasta",
+        "quantity": "300 g"
+      },
+      {
+        "name": "Brown Lentils",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Canned Tomatoes",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Onion",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "lentil-bolognese-prep",
+        "title": "Prepare ingredients",
+        "minutes": 11,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare pasta, brown lentils, canned tomatoes.",
+          "Measure the remaining ingredients: carrot, onion, garlic, olive oil."
+        ]
+      },
+      {
+        "id": "lentil-bolognese-cook",
+        "title": "Cook and assemble",
+        "minutes": 30,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Lentil Bolognese"
+  },
+  {
+    "id": "caprese-chickpea-salad",
+    "title": "Caprese Chickpea Salad",
+    "description": "Italian-style caprese chickpea salad with chickpeas, mozzarella, tomato.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Humus-Chickpea-Salad.jpg/1280px-Humus-Chickpea-Salad.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Italian",
+    "category": "Main",
+    "minutes": 15,
+    "difficulty": "Easy",
+    "costPerPerson": 7,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Milk"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Bowl"
+    ],
+    "ingredients": [
+      {
+        "name": "Chickpeas",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Mozzarella",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tomato",
+        "quantity": "2"
+      },
+      {
+        "name": "Fresh Basil",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      },
+      {
+        "name": "Balsamic Vinegar",
+        "quantity": "As needed"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "caprese-chickpea-salad-prep",
+        "title": "Prepare ingredients",
+        "minutes": 5,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chickpeas, mozzarella, tomato.",
+          "Measure the remaining ingredients: fresh basil, olive oil, balsamic vinegar."
+        ]
+      },
+      {
+        "id": "caprese-chickpea-salad-cook",
+        "title": "Cook and assemble",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Prepare the main ingredients: chickpeas, mozzarella, tomato.",
+          "Combine or assemble all ingredients in clean bowls or wrappers.",
+          "Serve immediately; refrigerate perishables until serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Caprese Chickpea Salad",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Humus-Chickpea-Salad.jpg",
+    "imageCredit": "Sharon Gefen",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "vegetable-risotto",
+    "title": "Vegetable Risotto",
+    "description": "Italian-style vegetable risotto with arborio rice, mushrooms, peas.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Vegetable_risotto.jpg/1280px-Vegetable_risotto.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Italian",
+    "category": "Main",
+    "minutes": 40,
+    "difficulty": "Medium",
+    "costPerPerson": 8,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian"
+    ],
+    "allergens": [
+      "Milk"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "vegetable stock"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Arborio Rice",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Mushrooms",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Peas",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Onion",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Vegetable Stock",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Parmesan Cheese",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "vegetable-risotto-prep",
+        "title": "Prepare ingredients",
+        "minutes": 13,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare arborio rice, mushrooms, peas.",
+          "Measure the remaining ingredients: onion, vegetable stock, parmesan cheese, olive oil."
+        ]
+      },
+      {
+        "id": "vegetable-risotto-cook",
+        "title": "Cook and assemble",
+        "minutes": 35,
+        "difficulty": "Medium",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Vegetable Risotto",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetable_risotto.jpg",
+    "imageCredit": "Lara604",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "greek-chicken-rice-bowl",
+    "title": "Greek Chicken Rice Bowl",
+    "description": "Greek-style greek chicken rice bowl with chicken breast, rice, cucumber.",
+    "image": null,
+    "cuisine": "Greek",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 9,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tomato",
+        "quantity": "2"
+      },
+      {
+        "name": "Lemon",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      },
+      {
+        "name": "Oregano",
+        "quantity": "As needed"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "greek-chicken-rice-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, rice, cucumber.",
+          "Measure the remaining ingredients: tomato, lemon, olive oil, oregano."
+        ]
+      },
+      {
+        "id": "greek-chicken-rice-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Greek Chicken Rice Bowl"
+  },
+  {
+    "id": "greek-chickpea-salad",
+    "title": "Greek Chickpea Salad",
+    "description": "Greek-style greek chickpea salad with chickpeas, cucumber, tomato.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Humus-Chickpea-Salad.jpg/1280px-Humus-Chickpea-Salad.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Greek",
+    "category": "Main",
+    "minutes": 15,
+    "difficulty": "Easy",
+    "costPerPerson": 6.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Milk"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Bowl"
+    ],
+    "ingredients": [
+      {
+        "name": "Chickpeas",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tomato",
+        "quantity": "2"
+      },
+      {
+        "name": "Red Onion",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Feta Cheese",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lemon",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "greek-chickpea-salad-prep",
+        "title": "Prepare ingredients",
+        "minutes": 5,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chickpeas, cucumber, tomato.",
+          "Measure the remaining ingredients: red onion, feta cheese, lemon, olive oil."
+        ]
+      },
+      {
+        "id": "greek-chickpea-salad-cook",
+        "title": "Cook and assemble",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Prepare the main ingredients: chickpeas, cucumber, tomato.",
+          "Combine or assemble all ingredients in clean bowls or wrappers.",
+          "Serve immediately; refrigerate perishables until serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Greek Chickpea Salad",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Humus-Chickpea-Salad.jpg",
+    "imageCredit": "Sharon Gefen",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "lemon-potato-tray-bake",
+    "title": "Lemon Potato Tray Bake",
+    "description": "Greek-style lemon potato tray bake with potatoes, chickpeas, lemon.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Roast_beef_in_lemon_juice_and_oregano_with_potatoes.jpg/1280px-Roast_beef_in_lemon_juice_and_oregano_with_potatoes.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Greek",
+    "category": "Main",
+    "minutes": 40,
+    "difficulty": "Easy",
+    "costPerPerson": 6,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Oven",
+      "Baking Tray"
+    ],
+    "ingredients": [
+      {
+        "name": "Potatoes",
+        "quantity": "3"
+      },
+      {
+        "name": "Chickpeas",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Lemon",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Oregano",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "lemon-potato-tray-bake-prep",
+        "title": "Prepare ingredients",
+        "minutes": 13,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare potatoes, chickpeas, lemon.",
+          "Measure the remaining ingredients: oregano, garlic, olive oil."
+        ]
+      },
+      {
+        "id": "lemon-potato-tray-bake-cook",
+        "title": "Cook and assemble",
+        "minutes": 35,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Lemon Potato Tray Bake",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Roast_beef_in_lemon_juice_and_oregano_with_potatoes.jpg",
+    "imageCredit": "Kgbo",
+    "imageLicense": "CC BY-SA 4.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "mediterranean-couscous-bowl",
+    "title": "Mediterranean Couscous Bowl",
+    "description": "Mediterranean-style mediterranean couscous bowl with couscous, chickpeas, cucumber.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Couscous_and_other_salad_%289604349195%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Mediterranean",
+    "category": "Main",
+    "minutes": 20,
+    "difficulty": "Easy",
+    "costPerPerson": 6.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Couscous",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Chickpeas",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tomato",
+        "quantity": "2"
+      },
+      {
+        "name": "Lemon",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "mediterranean-couscous-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 6,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare couscous, chickpeas, cucumber.",
+          "Measure the remaining ingredients: tomato, lemon, olive oil."
+        ]
+      },
+      {
+        "id": "mediterranean-couscous-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 15,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Mediterranean Couscous Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Couscous_and_other_salad_(9604349195).jpg",
+    "imageCredit": "Suzette - www.suzette.nu from Arnhem, Netherlands",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "hummus-roasted-veg-wrap",
+    "title": "Hummus Roasted Veg Wrap",
+    "description": "Mediterranean-style hummus roasted veg wrap with wheat wraps, hummus, capsicum.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Vegetable_and_Basil-Garlic_Hummus_Wrap_%284800115998%29.jpg/1280px-Vegetable_and_Basil-Garlic_Hummus_Wrap_%284800115998%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Mediterranean",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 7,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free"
+    ],
+    "allergens": [
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "hummus"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Oven",
+      "Baking Tray"
+    ],
+    "ingredients": [
+      {
+        "name": "Wheat Wraps",
+        "quantity": "3"
+      },
+      {
+        "name": "Hummus",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Capsicum",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Zucchini",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "hummus-roasted-veg-wrap-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare wheat wraps, hummus, capsicum.",
+          "Measure the remaining ingredients: zucchini, carrot, olive oil."
+        ]
+      },
+      {
+        "id": "hummus-roasted-veg-wrap-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the filling and any meat thoroughly.",
+          "Warm tortillas or wraps using the appropriate equipment.",
+          "Add fillings and toppings, then serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Hummus Roasted Veg Wrap",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegetable_and_Basil-Garlic_Hummus_Wrap_(4800115998).jpg",
+    "imageCredit": "Jennifer from Vancouver, Canada",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "falafel-rice-bowl",
+    "title": "Falafel Rice Bowl",
+    "description": "Middle Eastern-style falafel rice bowl with canned chickpeas, rice, parsley.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Vegan_Falafel_Plate_at_Nuba_in_Vancouver_%283817524657%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Middle Eastern",
+    "category": "Main",
+    "minutes": 35,
+    "difficulty": "Medium",
+    "costPerPerson": 8,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Canned Chickpeas",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Parsley",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cumin",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lemon",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "falafel-rice-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 11,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare canned chickpeas, rice, parsley.",
+          "Measure the remaining ingredients: garlic, cumin, cucumber, lemon, olive oil."
+        ]
+      },
+      {
+        "id": "falafel-rice-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 30,
+        "difficulty": "Medium",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Falafel Rice Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegan_Falafel_Plate_at_Nuba_in_Vancouver_(3817524657).jpg",
+    "imageCredit": "Jennifer from Vancouver, Canada",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "shakshuka",
+    "title": "Shakshuka",
+    "description": "Middle Eastern-style shakshuka with eggs, canned tomatoes, capsicum.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Shakshuka_011.jpg/1280px-Shakshuka_011.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Middle Eastern",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 6.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy"
+    ],
+    "allergens": [
+      "Egg"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Eggs",
+        "quantity": "3"
+      },
+      {
+        "name": "Canned Tomatoes",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Capsicum",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Onion",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Paprika",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "shakshuka-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare eggs, canned tomatoes, capsicum.",
+          "Measure the remaining ingredients: onion, paprika, olive oil."
+        ]
+      },
+      {
+        "id": "shakshuka-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Shakshuka",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Shakshuka_011.jpg",
+    "imageCredit": "Gilabrand",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "lemon-herb-chicken-couscous",
+    "title": "Lemon Herb Chicken Couscous",
+    "description": "Middle Eastern-style lemon herb chicken couscous with chicken breast, couscous, lemon.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Chicken_Orange_Couscous-01.jpg/1280px-Chicken_Orange_Couscous-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Middle Eastern",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 9,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Couscous",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lemon",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Parsley",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "lemon-herb-chicken-couscous-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, couscous, lemon.",
+          "Measure the remaining ingredients: parsley, cucumber, olive oil."
+        ]
+      },
+      {
+        "id": "lemon-herb-chicken-couscous-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Lemon Herb Chicken Couscous",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_Orange_Couscous-01.jpg",
+    "imageCredit": "Evan",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "korean-bibimbap-inspired-bowl",
+    "title": "Korean Bibimbap Inspired Bowl",
+    "description": "Korean-style korean bibimbap inspired bowl with rice, beef mince, carrot.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Korean.food-Bibimbap-02.jpg/1280px-Korean.food-Bibimbap-02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Korean",
+    "category": "Main",
+    "minutes": 35,
+    "difficulty": "Medium",
+    "costPerPerson": 9,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "Gluten Free"
+    ],
+    "allergens": [
+      "Egg",
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Beef Mince",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Spinach",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Mushrooms",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Egg",
+        "quantity": "1"
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "korean-bibimbap-inspired-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 11,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare rice, beef mince, carrot.",
+          "Measure the remaining ingredients: spinach, mushrooms, egg, soy sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "korean-bibimbap-inspired-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 30,
+        "difficulty": "Medium",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Korean Bibimbap  Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Korean.food-Bibimbap-02.jpg",
+    "imageCredit": "abex  (a flickr user)",
+    "imageLicense": "CC BY-SA 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "korean-tofu-rice-bowl",
+    "title": "Korean Tofu Rice Bowl",
+    "description": "Korean-style korean tofu rice bowl with firm tofu, rice, cucumber.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Brighton_Bibimbap_%28tofu%29_-_Time_For_Kimchi.jpg/1280px-Brighton_Bibimbap_%28tofu%29_-_Time_For_Kimchi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Korean",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 7.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free"
+    ],
+    "allergens": [
+      "Sesame",
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "gochujang"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Firm Tofu",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Gochujang",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tamari Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "korean-tofu-rice-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare firm tofu, rice, cucumber.",
+          "Measure the remaining ingredients: carrot, gochujang, tamari sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "korean-tofu-rice-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Korean Tofu Rice Bowl",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Brighton_Bibimbap_(tofu)_-_Time_For_Kimchi.jpg",
+    "imageCredit": "Andy Li",
+    "imageLicense": "CC0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "kimchi-fried-rice",
+    "title": "Kimchi Fried Rice",
+    "description": "Korean-style kimchi fried rice with cooked rice, kimchi, eggs.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Kimchi_fried_rice_with_cheese.jpg/1280px-Kimchi_fried_rice_with_cheese.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Korean",
+    "category": "Main",
+    "minutes": 20,
+    "difficulty": "Easy",
+    "costPerPerson": 7,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Dairy Free"
+    ],
+    "allergens": [
+      "Egg",
+      "Sesame",
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "kimchi"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Cooked Rice",
+        "quantity": "3 cups"
+      },
+      {
+        "name": "Kimchi",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Eggs",
+        "quantity": "3"
+      },
+      {
+        "name": "Spring Onions",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Sesame Oil",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": "3 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "kimchi-fried-rice-prep",
+        "title": "Prepare ingredients",
+        "minutes": 6,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare cooked rice, kimchi, eggs.",
+          "Measure the remaining ingredients: spring onions, sesame oil, soy sauce."
+        ]
+      },
+      {
+        "id": "kimchi-fried-rice-cook",
+        "title": "Cook and assemble",
+        "minutes": 15,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Kimchi Fried Rice",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Kimchi_fried_rice_with_cheese.jpg",
+    "imageCredit": "L. W. Yang",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "korean-beef-lettuce-cups",
+    "title": "Korean Beef Lettuce Cups",
+    "description": "Korean-style korean beef lettuce cups with beef mince, lettuce, rice.",
+    "image": null,
+    "cuisine": "Korean",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 10,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "Gluten Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Beef Mince",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Lettuce",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Ginger",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "korean-beef-lettuce-cups-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare beef mince, lettuce, rice.",
+          "Measure the remaining ingredients: garlic, ginger, soy sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "korean-beef-lettuce-cups-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Korean Beef Lettuce Cups"
+  },
+  {
+    "id": "vietnamese-rice-noodle-salad",
+    "title": "Vietnamese Rice Noodle Salad",
+    "description": "Vietnamese-style vietnamese rice noodle salad with rice noodles, firm tofu, cucumber.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Vegan_Vietnamese_Rice_Noodle_Salad_with_Tofu_%287242348804%29.jpg/1280px-Vegan_Vietnamese_Rice_Noodle_Salad_with_Tofu_%287242348804%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Vietnamese",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 7.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Bowl"
+    ],
+    "ingredients": [
+      {
+        "name": "Rice Noodles",
+        "quantity": "250 g"
+      },
+      {
+        "name": "Firm Tofu",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Mint",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lime",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Tamari Sauce",
+        "quantity": "3 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "vietnamese-rice-noodle-salad-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare rice noodles, firm tofu, cucumber.",
+          "Measure the remaining ingredients: carrot, mint, lime, tamari sauce."
+        ]
+      },
+      {
+        "id": "vietnamese-rice-noodle-salad-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Prepare the main ingredients: rice noodles, firm tofu, cucumber.",
+          "Combine or assemble all ingredients in clean bowls or wrappers.",
+          "Serve immediately; refrigerate perishables until serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Vietnamese Rice Noodle Salad",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Vegan_Vietnamese_Rice_Noodle_Salad_with_Tofu_(7242348804).jpg",
+    "imageCredit": "tomatoes and friends",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "vietnamese-chicken-noodle-bowl",
+    "title": "Vietnamese Chicken Noodle Bowl",
+    "description": "Vietnamese-style vietnamese chicken noodle bowl with chicken breast, rice noodles, cucumber.",
+    "image": null,
+    "cuisine": "Vietnamese",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 9,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Fish"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Rice Noodles",
+        "quantity": "250 g"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Mint",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lime",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Fish Sauce",
+        "quantity": "As needed"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "vietnamese-chicken-noodle-bowl-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, rice noodles, cucumber.",
+          "Measure the remaining ingredients: carrot, mint, lime, fish sauce."
+        ]
+      },
+      {
+        "id": "vietnamese-chicken-noodle-bowl-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook rice or prepare the grain base according to packet directions.",
+          "Cook protein and vegetables until tender and any meat is fully cooked.",
+          "Season and assemble the bowl just before serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Vietnamese Chicken Noodle Bowl"
+  },
+  {
+    "id": "vietnamese-fresh-spring-rolls",
+    "title": "Vietnamese Fresh Spring Rolls",
+    "description": "Vietnamese-style vietnamese fresh spring rolls with rice paper, rice noodles, firm tofu.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Goi_cuon_Phuongnhu.JPG/1280px-Goi_cuon_Phuongnhu.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Vietnamese",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 8,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Bowl"
+    ],
+    "ingredients": [
+      {
+        "name": "Rice Paper",
+        "quantity": "9 sheets"
+      },
+      {
+        "name": "Rice Noodles",
+        "quantity": "250 g"
+      },
+      {
+        "name": "Firm Tofu",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Lettuce",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Cucumber",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Mint",
+        "quantity": "As needed"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "vietnamese-fresh-spring-rolls-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare rice paper, rice noodles, firm tofu.",
+          "Measure the remaining ingredients: lettuce, carrot, cucumber, mint."
+        ]
+      },
+      {
+        "id": "vietnamese-fresh-spring-rolls-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Prepare the main ingredients: rice paper, rice noodles, firm tofu.",
+          "Combine or assemble all ingredients in clean bowls or wrappers.",
+          "Serve immediately; refrigerate perishables until serving."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Vietnamese Fresh Spring Rolls",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Goi_cuon_Phuongnhu.JPG",
+    "imageCredit": "Phuongnhu",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "chinese-tomato-egg-stir-fry",
+    "title": "Chinese Tomato Egg Stir-Fry",
+    "description": "Chinese-style chinese tomato egg stir-fry with eggs, tomatoes, rice.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/19/Stir_Fried_Tomatoes_with_Scrambled_Eggs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Chinese",
+    "category": "Main",
+    "minutes": 20,
+    "difficulty": "Easy",
+    "costPerPerson": 6,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy"
+    ],
+    "allergens": [
+      "Egg"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Eggs",
+        "quantity": "3"
+      },
+      {
+        "name": "Tomatoes",
+        "quantity": "2"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Spring Onions",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "chinese-tomato-egg-stir-fry-prep",
+        "title": "Prepare ingredients",
+        "minutes": 6,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare eggs, tomatoes, rice.",
+          "Measure the remaining ingredients: spring onions, cooking oil."
+        ]
+      },
+      {
+        "id": "chinese-tomato-egg-stir-fry-cook",
+        "title": "Cook and assemble",
+        "minutes": 15,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Chinese Tomato Egg Stir-Fry",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Stir_Fried_Tomatoes_with_Scrambled_Eggs.jpg",
+    "imageCredit": "NNU-10-24100123",
+    "imageLicense": "CC BY-SA 3.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "chinese-garlic-bok-choy-tofu",
+    "title": "Chinese Garlic Bok Choy Tofu",
+    "description": "Chinese-style chinese garlic bok choy tofu with firm tofu, bok choy, garlic.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/70/TofuBokchoy.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Chinese",
+    "category": "Main",
+    "minutes": 25,
+    "difficulty": "Easy",
+    "costPerPerson": 7,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Soy"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Firm Tofu",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Bok Choy",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      },
+      {
+        "name": "Tamari Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "chinese-garlic-bok-choy-tofu-prep",
+        "title": "Prepare ingredients",
+        "minutes": 8,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare firm tofu, bok choy, garlic.",
+          "Measure the remaining ingredients: rice, tamari sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "chinese-garlic-bok-choy-tofu-cook",
+        "title": "Cook and assemble",
+        "minutes": 20,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Chinese Garlic Bok Choy Tofu",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:TofuBokchoy.jpg",
+    "imageCredit": "Roland from (optional)",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "chinese-chicken-vegetable-noodles",
+    "title": "Chinese Chicken Vegetable Noodles",
+    "description": "Chinese-style chinese chicken vegetable noodles with chicken breast, wheat noodles, broccoli.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Fried_noodles%2C_chicken_and_vegetables%2C_Adelaide.jpg/1280px-Fried_noodles%2C_chicken_and_vegetables%2C_Adelaide.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Chinese",
+    "category": "Main",
+    "minutes": 30,
+    "difficulty": "Easy",
+    "costPerPerson": 9,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "No Egg"
+    ],
+    "allergens": [
+      "Soy",
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Wheat Noodles",
+        "quantity": "300 g"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": "3 tbsp"
+      },
+      {
+        "name": "Cooking Oil",
+        "quantity": "1 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "chinese-chicken-vegetable-noodles-prep",
+        "title": "Prepare ingredients",
+        "minutes": 10,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, wheat noodles, broccoli.",
+          "Measure the remaining ingredients: carrot, soy sauce, cooking oil."
+        ]
+      },
+      {
+        "id": "chinese-chicken-vegetable-noodles-cook",
+        "title": "Cook and assemble",
+        "minutes": 25,
+        "difficulty": "Easy",
+        "steps": [
+          "Cook pasta or noodles according to packet directions.",
+          "Cook vegetables and protein separately until tender and any meat is fully cooked.",
+          "Combine with sauce, heat through and serve."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Chinese Chicken Vegetable Noodles",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Fried_noodles,_chicken_and_vegetables,_Adelaide.jpg",
+    "imageCredit": "philip.mallis",
+    "imageLicense": "CC BY-SA 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "moroccan-chickpea-stew",
+    "title": "Moroccan Chickpea Stew",
+    "description": "Moroccan-style moroccan chickpea stew with chickpeas, canned tomatoes, carrot.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Moroccan_Chickpea_and_Vegetable_Stew_%286750034613%29.jpg/1280px-Moroccan_Chickpea_and_Vegetable_Stew_%286750034613%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Moroccan",
+    "category": "Main",
+    "minutes": 35,
+    "difficulty": "Easy",
+    "costPerPerson": 6.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free",
+      "Gluten Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Chickpeas",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Canned Tomatoes",
+        "quantity": "400 g"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Zucchini",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Cumin",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Paprika",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Rice",
+        "quantity": "1.5 cups"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "moroccan-chickpea-stew-prep",
+        "title": "Prepare ingredients",
+        "minutes": 11,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chickpeas, canned tomatoes, carrot.",
+          "Measure the remaining ingredients: zucchini, cumin, paprika, rice."
+        ]
+      },
+      {
+        "id": "moroccan-chickpea-stew-cook",
+        "title": "Cook and assemble",
+        "minutes": 30,
+        "difficulty": "Easy",
+        "steps": [
+          "Heat a pot and cook aromatics or spices gently.",
+          "Add the remaining ingredients and enough liquid to simmer.",
+          "Simmer until vegetables or lentils are tender and any meat is fully cooked."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Moroccan Chickpea Stew",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Moroccan_Chickpea_and_Vegetable_Stew_(6750034613).jpg",
+    "imageCredit": "Jennifer from Vancouver, Canada",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "moroccan-chicken-couscous",
+    "title": "Moroccan Chicken Couscous",
+    "description": "Moroccan-style moroccan chicken couscous with chicken breast, couscous, carrot.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Chicken_Orange_Couscous-01.jpg/1280px-Chicken_Orange_Couscous-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "cuisine": "Moroccan",
+    "category": "Main",
+    "minutes": 40,
+    "difficulty": "Medium",
+    "costPerPerson": 9,
+    "servings": 3,
+    "dietaryTags": [
+      "Dairy Free",
+      "No Soy",
+      "No Egg"
+    ],
+    "allergens": [
+      "Wheat"
+    ],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot",
+      "Frying Pan"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breast",
+        "quantity": "450 g"
+      },
+      {
+        "name": "Couscous",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "2"
+      },
+      {
+        "name": "Chickpeas",
+        "quantity": "1 can"
+      },
+      {
+        "name": "Cumin",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Lemon",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "moroccan-chicken-couscous-prep",
+        "title": "Prepare ingredients",
+        "minutes": 13,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare chicken breast, couscous, carrot.",
+          "Measure the remaining ingredients: chickpeas, cumin, lemon, olive oil."
+        ]
+      },
+      {
+        "id": "moroccan-chicken-couscous-cook",
+        "title": "Cook and assemble",
+        "minutes": 35,
+        "difficulty": "Medium",
+        "steps": [
+          "Cook the main ingredients using the listed equipment.",
+          "Season to taste and cook vegetables until tender and any meat is fully cooked.",
+          "Combine ingredients and serve while fresh."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Moroccan Chicken Couscous",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Chicken_Orange_Couscous-01.jpg",
+    "imageCredit": "Evan",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  },
+  {
+    "id": "australian-pumpkin-soup",
+    "title": "Australian Pumpkin Soup",
+    "description": "Australian-style australian pumpkin soup with pumpkin, potatoes, onion.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/23/Pumpkin_soup_with_ginger_and_roasted_pumpkin_seeds.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "cuisine": "Australian",
+    "category": "Main",
+    "minutes": 35,
+    "difficulty": "Easy",
+    "costPerPerson": 5.5,
+    "servings": 3,
+    "dietaryTags": [
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free"
+    ],
+    "allergens": [],
+    "allergenReviewRequired": true,
+    "ingredientLabelChecks": [
+      "vegetable stock"
+    ],
+    "equipment": [
+      "Knife",
+      "Kitchen Counter",
+      "Stove",
+      "Pot"
+    ],
+    "ingredients": [
+      {
+        "name": "Pumpkin",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Potatoes",
+        "quantity": "3"
+      },
+      {
+        "name": "Onion",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Vegetable Stock",
+        "quantity": "As needed"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": "2 tbsp"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "australian-pumpkin-soup-prep",
+        "title": "Prepare ingredients",
+        "minutes": 11,
+        "difficulty": "Easy",
+        "steps": [
+          "Wash and prepare pumpkin, potatoes, onion.",
+          "Measure the remaining ingredients: vegetable stock, olive oil."
+        ]
+      },
+      {
+        "id": "australian-pumpkin-soup-cook",
+        "title": "Cook and assemble",
+        "minutes": 30,
+        "difficulty": "Easy",
+        "steps": [
+          "Heat a pot and cook aromatics or spices gently.",
+          "Add the remaining ingredients and enough liquid to simmer.",
+          "Simmer until vegetables or lentils are tender and any meat is fully cooked."
+        ]
+      }
+    ],
+    "imageSearchQuery": "Australian Pumpkin Soup",
+    "imageSourcePage": "https://commons.wikimedia.org/wiki/File:Pumpkin_soup_with_ginger_and_roasted_pumpkin_seeds.jpg",
+    "imageCredit": "photonome",
+    "imageLicense": "CC BY 2.0",
+    "imageMatchStatus": "Automatically matched; manually review"
+  }
+]

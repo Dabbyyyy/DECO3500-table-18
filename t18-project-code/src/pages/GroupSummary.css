@@ -1,0 +1,251 @@
+
+.group-summary-page {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fbf7f1;
+  color: #3f2d26;
+}
+
+.group-summary-page * {
+  box-sizing: border-box;
+}
+
+.group-summary-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 26px 22px 24px;
+}
+
+.summary-back {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 24px;
+  border: 1px solid #e8d7c7;
+  border-radius: 50%;
+  background: #fff;
+  color: #3f2d26;
+  font-size: 27px;
+}
+
+.summary-back:disabled {
+  opacity: 0.5;
+}
+
+.summary-eyebrow {
+  margin: 0 0 10px;
+  color: #bd4b16;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.group-summary-page h1 {
+  margin: 0 0 12px;
+  color: #35231a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.7px;
+}
+
+.summary-description {
+  margin: 0 0 23px;
+  color: #766358;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.summary-card {
+  padding: 17px;
+  border: 1px solid #eadbce;
+  border-radius: 15px;
+  background: #fff;
+}
+
+.summary-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f0e6dc;
+  font-size: 13px;
+}
+
+.summary-heading-icon {
+  color: #bd4b16;
+  font-size: 20px;
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0e6dc;
+}
+
+.summary-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.summary-row-icon {
+  width: 37px;
+  height: 37px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #f8e9de;
+  color: #bd4b16;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.summary-row-content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-row-content span {
+  color: #806a5a;
+  font-size: 11px;
+}
+
+.summary-row-content strong {
+  color: #35231a;
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.summary-explanation {
+  margin-top: 17px;
+  padding: 16px;
+  border: 1px solid #f0d7c2;
+  border-radius: 13px;
+  background: #fff0e5;
+}
+
+.summary-explanation-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+}
+
+.summary-explanation-title span {
+  color: #bd4b16;
+  font-size: 19px;
+}
+
+.summary-explanation p {
+  margin: 9px 0 0;
+  color: #705849;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.summary-members {
+  margin-top: 22px;
+}
+
+.summary-members > strong {
+  font-size: 13px;
+}
+
+.summary-member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.summary-member {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #eadbce;
+  border-radius: 11px;
+  background: #fff;
+  font-size: 12px;
+}
+
+.summary-member-avatar {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #e8d9ca;
+  color: #604839;
+  font-weight: 800;
+}
+
+.summary-member-check {
+  margin-left: auto;
+  color: #bd4b16;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.summary-error {
+  padding: 12px;
+  border-radius: 9px;
+  background: #f9e4da;
+  color: #a13c1e;
+  font-size: 12px;
+}
+
+.summary-footer {
+  flex-shrink: 0;
+  padding: 14px 22px 27px;
+  border-top: 1px solid #eadbce;
+  background: #fbf7f1;
+}
+
+.summary-continue {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px;
+  border: 0;
+  border-radius: 12px;
+  background: #bd4b16;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.summary-continue:disabled {
+  background: #d6c7ba;
+  color: #655448;
+}
+
+.summary-footer small {
+  display: block;
+  margin-top: 10px;
+  color: #806a5a;
+  font-size: 10px;
+  text-align: center;
+}
+
+@media (max-height: 580px) {
+  .group-summary-scroll {
+    padding-top: 14px;
+  }
+
+  .summary-footer {
+    padding-bottom: 12px;
+  }
+}

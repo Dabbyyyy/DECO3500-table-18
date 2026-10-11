@@ -1,16 +1,9 @@
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
 
+import { useEffect, useMemo, useRef, useState } from "react";
 import "./MealSelection.css";
 
-import {
-  findMeals,
-  getMealDetails,
-} from "../services/themealdbService";
+import { getRecommendedRecipes } from "../services/recipeService";
+import { getGroupSummary } from "../utils/groupPreferences";
 
 import {
   subscribeToRoom,
@@ -19,29 +12,37 @@ import {
   setSelectedRecipe,
 } from "../services/roomService";
 
-/* --------------------------------
-   Find the group's most common
-   selection for one preference
---------------------------------- */
+// Recipe image or fallback
+function RecipeVisual({ recipe, compact = false }) {
+  const [imageFailed, setImageFailed] = useState(false);
 
-function mostCommon(values) {
-  const filtered = values.filter(
-    (value) => value && value !== "Any"
-  );
+  useEffect(() => {
+    setImageFailed(false);
+  }, [recipe?.id, recipe?.image]);
 
-  if (filtered.length === 0) {
-    return "Any";
+  if (recipe?.image && !imageFailed) {
+    return (
+      <img
+        className="meal-photo"
+        src={recipe.image}
+        alt={recipe.title}
+        loading="lazy"
+        onError={() => setImageFailed(true)}
+      />
+    );
   }
 
-  const counts = {};
-
-  filtered.forEach((value) => {
-    counts[value] = (counts[value] || 0) + 1;
-  });
-
-  return Object.entries(counts).sort(
-    (a, b) => b[1] - a[1]
-  )[0][0];
+  return (
+    <div
+      className={`meal-illustration ${
+        compact ? "meal-illustration-small" : ""
+      }`}
+      aria-label={`${recipe?.title || "Meal"} illustration`}
+      role="img"
+    >
+      <span>🍲</span>
+    </div>
+  );
 }
 
 export default function MealSelection({
@@ -51,60 +52,57 @@ export default function MealSelection({
   onContinue,
   onBack,
 }) {
+  const [viewingRecipeId, setViewingRecipeId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [choosing, setChoosing] = useState(false);
   const [error, setError] = useState("");
 
   const requestStarted = useRef(false);
+  const navigationStarted = useRef(false);
 
+  const members = room.members || [];
   const isHost = room.memberId === room.hostId;
 
-  /* --------------------------------
-     Build group search profile
-  --------------------------------- */
+  const summary = useMemo(
+    () => getGroupSummary(members),
+    [members]
+  );
 
-  const searchProfile = useMemo(() => {
-    const readyMembers =
-      room.members?.filter(
-        (member) => member.preferences?.ready
-      ) || [];
+  const memberPreferences = useMemo(
+    () =>
+      members.map((member) => ({
+        name: member.name,
+        ...(member.preferences || {}),
+      })),
+    [members]
+  );
 
-    const source =
-      readyMembers.length > 0
-        ? readyMembers
-        : room.members || [];
+  const recipes = Array.isArray(room.mealSuggestions)
+    ? room.mealSuggestions
+    : [];
 
-    return {
-      area: mostCommon(
-        source.map(
-          (member) =>
-            member.preferences?.area
-        )
-      ),
+  const selectedRecipe = room.selectedRecipe || null;
 
-      category: mostCommon(
-        source.map(
-          (member) =>
-            member.preferences?.category
-        )
-      ),
+  // Everyone can browse independently.
+  const featuredRecipe =
+    recipes.find(
+      (recipe) => recipe.id === viewingRecipeId
+    ) ||
+    recipes.find(
+      (recipe) => recipe.id === selectedRecipe?.id
+    ) ||
+    recipes[0] ||
+    null;
 
-      ingredient: mostCommon(
-        source.map(
-          (member) =>
-            member.preferences?.ingredient
-        )
-      ),
-    };
-  }, [room.members]);
+  const alternatives = recipes.filter(
+    (recipe) => recipe.id !== featuredRecipe?.id
+  );
 
-  /* --------------------------------
-     Listen to Firebase room
-  --------------------------------- */
-
+  // Listen for shared Firebase navigation.
   useEffect(() => {
     if (!room.code) return;
 
-    return subscribeToRoom(
+    const unsubscribe = subscribeToRoom(
       room.code,
       (updatedRoom) => {
         if (!updatedRoom) return;
@@ -114,383 +112,520 @@ export default function MealSelection({
           memberId: previous.memberId,
         }));
 
-        if (updatedRoom.selectedRecipe) {
-          setMeal(updatedRoom.selectedRecipe);
-        }
+        if (
+          updatedRoom.screen === "tasks" &&
+          !navigationStarted.current
+        ) {
+          navigationStarted.current = true;
 
-        if (updatedRoom.screen === "tasks") {
+          if (updatedRoom.selectedRecipe) {
+            setMeal(updatedRoom.selectedRecipe);
+          }
+
           onContinue();
         }
 
         if (
-          updatedRoom.screen === "preferences"
+          updatedRoom.screen === "summary" &&
+          !navigationStarted.current
         ) {
+          navigationStarted.current = true;
           onBack();
         }
       }
     );
-  }, [
-    room.code,
-    setRoom,
-    setMeal,
-    onContinue,
-    onBack,
-  ]);
 
-  /* --------------------------------
-     Admin fetches recommendations
-  --------------------------------- */
+    return unsubscribe;
+  }, [room.code, setRoom, setMeal, onContinue, onBack]);
 
+  // Admin loads recommendations and shares them.
   useEffect(() => {
-    if (!isHost) return;
-
-    if (room.mealSuggestions?.length) {
-      return;
-    }
-
-    if (requestStarted.current) {
-      return;
-    }
+    if (!isHost || !room.code) return;
+    if (recipes.length > 0) return;
+    if (requestStarted.current) return;
 
     requestStarted.current = true;
 
-    async function loadSuggestions() {
+    async function loadRecommendations() {
+      setLoading(true);
+      setError("");
+
       try {
-        setLoading(true);
-        setError("");
-
-        const meals = await findMeals(
-          searchProfile
-        );
-
-        if (meals.length === 0) {
-          setError(
-            "No meals matched all three group filters. Go back and make one preference broader, such as choosing Any category or Any ingredient."
+        const recommendations =
+          await getRecommendedRecipes(
+            memberPreferences
           );
 
+        if (!recommendations.length) {
+          setError(
+            "No suitable recipes were found. Please review the group's preferences."
+          );
           return;
         }
 
         await setMealSuggestions(
           room.code,
-          meals,
-          searchProfile
+          recommendations,
+          {
+            source: "ktchn-api",
+            generatedAt: Date.now(),
+          }
         );
+
+        await setSelectedRecipe(
+          room.code,
+          recommendations[0]
+        );
+
+        setMeal(recommendations[0]);
       } catch (err) {
-        console.error(err);
+        console.error(
+          "Recipe API error:",
+          err
+        );
 
         setError(
           err.message ||
-            "Could not load meal suggestions."
+            "Could not load meal recommendations."
         );
       } finally {
         setLoading(false);
       }
     }
 
-    loadSuggestions();
+    loadRecommendations();
   }, [
     isHost,
     room.code,
-    room.mealSuggestions,
-    searchProfile.area,
-    searchProfile.category,
-    searchProfile.ingredient,
+    recipes.length,
+    memberPreferences,
+    setMeal,
   ]);
 
-  const recipes = room.mealSuggestions || [];
+  function viewRecipe(recipe) {
+    if (!recipe || choosing) return;
 
-  const selectedRecipe =
-    room.selectedRecipe || null;
-
-  /* --------------------------------
-     Select recipe
-  --------------------------------- */
-
-  async function chooseRecipe(recipe) {
-    if (!isHost) return;
-
-    try {
-      setLoading(true);
-      setError("");
-
-      const fullMeal =
-        await getMealDetails(
-          recipe.idMeal || recipe.id
-        );
-
-      await setSelectedRecipe(
-        room.code,
-        fullMeal
-      );
-
-      setMeal(fullMeal);
-    } catch (err) {
-      console.error(err);
-
-      setError(
-        "Could not load the selected meal."
-      );
-    } finally {
-      setLoading(false);
-    }
+    setViewingRecipeId(recipe.id);
+    setError("");
   }
 
-  async function continueWithRecipe() {
-    if (!isHost || !selectedRecipe) {
+  // Admin confirms the final recipe.
+  async function confirmRecipe() {
+    if (
+      !isHost ||
+      !featuredRecipe ||
+      choosing
+    ) {
       return;
     }
 
-    await changeRoomScreen(
-      room.code,
-      "tasks"
-    );
+    try {
+      setChoosing(true);
+      setError("");
+
+      await setSelectedRecipe(
+        room.code,
+        featuredRecipe
+      );
+
+      setMeal(featuredRecipe);
+
+      // Shared screen for both devices.
+      await changeRoomScreen(
+        room.code,
+        "tasks"
+      );
+
+      // Local fallback, in case the listener
+      // has not navigated yet.
+      if (!navigationStarted.current) {
+        navigationStarted.current = true;
+        onContinue();
+      }
+    } catch (err) {
+      console.error(
+        "Meal confirmation error:",
+        err
+      );
+
+      setError(
+        "Could not confirm this meal. Please try again."
+      );
+    } finally {
+      setChoosing(false);
+    }
   }
 
   async function goBack() {
-    if (!isHost) return;
+    if (!isHost || choosing) return;
 
-    await changeRoomScreen(
-      room.code,
-      "preferences"
-    );
+    try {
+      setChoosing(true);
+      setError("");
+
+      await changeRoomScreen(
+        room.code,
+        "summary"
+      );
+
+      if (!navigationStarted.current) {
+        navigationStarted.current = true;
+        onBack();
+      }
+    } catch (err) {
+      console.error(err);
+      setError(
+        "Could not return to the group summary."
+      );
+    } finally {
+      setChoosing(false);
+    }
   }
 
+  const cuisineLabel =
+    summary.cuisine.value === "Any"
+      ? "All cuisines"
+      : summary.cuisine.value;
+
   return (
-    <div className="meal-selection-page">
+    <main className="meal-selection-page">
+      <div className="meal-selection-scroll">
+        <button
+          type="button"
+          className="meal-back"
+          onClick={goBack}
+          disabled={!isHost || choosing}
+          aria-label="Back to group summary"
+        >
+          ‹
+        </button>
 
-      {/* =========================
-          HEADER
-      ========================== */}
+        <p className="meal-eyebrow">
+          CHOOSE A MEAL
+        </p>
 
-      <header className="meal-selection-header">
-        <div className="meal-header-content">
-          <span className="meal-eyebrow">
-            GROUP MEAL
-          </span>
+        <h1>Pick together.</h1>
 
-          <h1>Suggested meals</h1>
+        <p className="meal-description">
+          Explore the meals on your own phone,
+          then discuss your favourites with
+          your group.
+        </p>
 
-          <p>
-            Recommendations use your group's
-            cuisine, category and ingredient
-            choices.
-          </p>
-        </div>
+        <div className="meal-group-tags">
+          <span>{cuisineLabel}</span>
 
-        <div className="meal-room-code">
-          {room.code}
-        </div>
-      </header>
-
-      {/* =========================
-          FILTER SUMMARY
-      ========================== */}
-
-      <div className="meal-filter-bar">
-        <div className="meal-filter-inner">
-
-          <span className="meal-filter-chip">
-            <strong>Cuisine</strong>
-            {searchProfile.area}
-          </span>
-
-          <span className="meal-filter-chip">
-            <strong>Category</strong>
-            {searchProfile.category}
-          </span>
-
-          <span className="meal-filter-chip">
-            <strong>Ingredient</strong>
-            {searchProfile.ingredient}
-          </span>
-
-        </div>
-      </div>
-
-      {/* =========================
-          RESULTS
-      ========================== */}
-
-      <main className="meal-results">
-
-        {loading &&
-          recipes.length === 0 && (
-            <div className="meal-state">
-
-              <div className="meal-loader" />
-
-              <h2>Finding meals…</h2>
-
-              <p>
-                Matching everyone's preferences.
-              </p>
-
-            </div>
+          {summary.budgetLimit !== null && (
+            <span>
+              Up to ${summary.budgetLimit}/person
+            </span>
           )}
+
+          {summary.timeLimit !== null && (
+            <span>
+              Up to {summary.timeLimit} min
+            </span>
+          )}
+        </div>
+
+        {loading && recipes.length === 0 && (
+          <div className="meal-message">
+            <span className="meal-loading-icon">
+              🍳
+            </span>
+
+            <h2>Finding your meals…</h2>
+
+            <p>
+              Matching recipes with your
+              group's choices.
+            </p>
+          </div>
+        )}
 
         {!isHost &&
           recipes.length === 0 &&
           !error && (
-            <div className="meal-state">
-
-              <div className="meal-loader" />
-
+            <div className="meal-message">
               <h2>
-                Waiting for suggestions…
+                Waiting for recommendations
               </h2>
 
               <p>
-                The admin is finding meals for
-                the group.
+                The admin is finding recipes
+                for everyone.
               </p>
-
             </div>
           )}
 
         {error && (
-          <div className="meal-state">
-
-            <h2>No matching meals</h2>
+          <div
+            className="meal-error"
+            role="alert"
+          >
+            <strong>
+              Something went wrong
+            </strong>
 
             <p>{error}</p>
 
             {isHost && (
               <button
-                className="state-change-button"
+                type="button"
                 onClick={goBack}
               >
-                Change preferences
+                Review group preferences
               </button>
             )}
-
           </div>
         )}
 
-        {!error &&
-          recipes.length > 0 && (
-            <div className="recipe-grid">
+        {featuredRecipe && (
+          <>
+            <div className="meal-section-label">
+              <span>
+                RECOMMENDED FOR YOUR GROUP
+              </span>
 
-              {recipes.map(
-                (recipe, index) => {
-                  const recipeId =
-                    recipe.id ||
-                    recipe.idMeal;
+              <span className="meal-recommendation-badge">
+                {featuredRecipe.id ===
+                recipes[0]?.id
+                  ? "Top match"
+                  : "Exploring"}
+              </span>
+            </div>
 
-                  const selectedId =
-                    selectedRecipe?.id ||
-                    selectedRecipe?.idMeal;
+            <article className="meal-featured">
+              <div className="meal-featured-image">
+                <RecipeVisual
+                  recipe={featuredRecipe}
+                />
+              </div>
 
-                  const selected =
-                    String(selectedId) ===
-                    String(recipeId);
+              <div className="meal-featured-body">
+                <div className="meal-featured-heading">
+                  <div>
+                    <p className="meal-featured-cuisine">
+                      {featuredRecipe.cuisine}
+                    </p>
 
-                  return (
-                    <button
-                      type="button"
-                      key={`${recipeId}-${index}`}
-                      className={`recipe-card ${
-                        selected
-                          ? "selected"
-                          : ""
-                      }`}
-                      disabled={
-                        !isHost || loading
-                      }
-                      onClick={() =>
-                        chooseRecipe(recipe)
-                      }
-                    >
+                    <h2>
+                      {featuredRecipe.title}
+                    </h2>
+                  </div>
+                </div>
 
-                      <div className="recipe-image">
+                <p className="meal-featured-description">
+                  {featuredRecipe.description}
+                </p>
 
-                        <img
-                          src={recipe.image}
-                          alt={recipe.title}
-                        />
+                <div className="meal-meta">
+                  <span>
+                    ◷ {featuredRecipe.minutes} min
+                  </span>
 
-                        {selected && (
-                          <span className="selected-badge">
-                            Selected
-                          </span>
-                        )}
+                  <span>
+                    ★ {featuredRecipe.difficulty}
+                  </span>
 
-                      </div>
+                  <span>
+                    ♧ {members.length} cooks
+                  </span>
+                </div>
 
-                      <div className="recipe-info">
+                <div className="meal-equipment">
+                  <strong>
+                    Kitchen equipment
+                  </strong>
 
-                        <h3>
-                          {recipe.title}
-                        </h3>
+                  <p>
+                    {featuredRecipe.equipment?.join(
+                      " · "
+                    ) || "Not specified"}
+                  </p>
+                </div>
 
-                        <div className="recipe-meta">
+                <div className="meal-ingredients">
+                  <strong>Ingredients</strong>
 
-                          <span>
-                            {recipe.area ||
-                              searchProfile.area ||
-                              "Meal"}
-                          </span>
+                  <div className="meal-ingredient-list">
+                    {(
+                      featuredRecipe.ingredients ||
+                      []
+                    ).map(
+                      (ingredient, index) => (
+                        <span
+                          key={`${ingredient.name}-${index}`}
+                        >
+                          {ingredient.name}
+                        </span>
+                      )
+                    )}
+                  </div>
+                </div>
 
-                          {recipe.category && (
-                            <span>
-                              {
-                                recipe.category
-                              }
-                            </span>
-                          )}
+                <div className="meal-match-note">
+                  <span>✦</span>
 
+                  <div>
+                    <strong>
+                      Suggested for your group
+                    </strong>
+
+                    <p>
+                      {featuredRecipe.matchReasons
+                        ?.length
+                        ? featuredRecipe.matchReasons
+                            .slice(0, 3)
+                            .join(" · ")
+                        : "Ranked using your group's preferences."}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="meal-cost">
+                  <span>
+                    Estimated cost per person
+                  </span>
+
+                  <strong>
+                    $
+                    {Number(
+                      featuredRecipe.costPerPerson ||
+                        0
+                    ).toFixed(2)}
+                  </strong>
+                </div>
+              </div>
+            </article>
+
+            {alternatives.length > 0 && (
+              <section className="meal-alternatives">
+                <div className="meal-alternatives-heading">
+                  <h2>
+                    Other meals to consider
+                  </h2>
+
+                  <p>
+                    Tap any recipe to view its
+                    details. Everyone can
+                    explore independently.
+                  </p>
+                </div>
+
+                <div className="meal-alternative-list">
+                  {alternatives.map(
+                    (recipe) => (
+                      <button
+                        key={recipe.id}
+                        type="button"
+                        className="meal-alternative"
+                        onClick={() =>
+                          viewRecipe(recipe)
+                        }
+                        disabled={choosing}
+                      >
+                        <div className="meal-alternative-image">
+                          <RecipeVisual
+                            recipe={recipe}
+                            compact
+                          />
                         </div>
 
-                      </div>
+                        <div className="meal-alternative-content">
+                          <strong>
+                            {recipe.title}
+                          </strong>
 
-                    </button>
-                  );
-                }
-              )}
+                          <span>
+                            {recipe.minutes} min
+                            {" · "}
+                            {recipe.difficulty}
+                          </span>
 
+                          <small>
+                            $
+                            {Number(
+                              recipe.costPerPerson ||
+                                0
+                            ).toFixed(2)}
+                            /person
+                          </small>
+                        </div>
+
+                        <span className="meal-alternative-arrow">
+                          ›
+                        </span>
+                      </button>
+                    )
+                  )}
+                </div>
+              </section>
+            )}
+
+            <div
+              style={{
+                marginTop: "18px",
+                padding: "13px",
+                borderRadius: "11px",
+                background: "#f1e8dd",
+                color: "#705849",
+                fontSize: "11px",
+                lineHeight: 1.6,
+              }}
+            >
+              <strong
+                style={{
+                  display: "block",
+                  marginBottom: "4px",
+                  color: "#3f2d26",
+                }}
+              >
+                Discuss before deciding
+              </strong>
+
+              Compare the recipes with your
+              group. Only the admin can
+              confirm the final choice
+              after everyone agrees.
             </div>
-          )}
-
-      </main>
-
-      {/* =========================
-          FOOTER
-      ========================== */}
+          </>
+        )}
+      </div>
 
       <footer className="meal-selection-footer">
-
-        <button
-          className="meal-back-button"
-          disabled={!isHost}
-          onClick={goBack}
-        >
-          {isHost
-            ? "← Change preferences"
-            : "Admin controls navigation"}
-        </button>
-
         {isHost ? (
           <button
-            className="meal-continue-button"
+            type="button"
+            className="meal-continue"
             disabled={
-              !selectedRecipe || loading
+              !featuredRecipe || choosing
             }
-            onClick={continueWithRecipe}
+            onClick={confirmRecipe}
           >
-            Cook this meal →
+            {choosing
+              ? "Confirming..."
+              : featuredRecipe
+                ? `Choose ${featuredRecipe.title} →`
+                : "Choose a meal"}
           </button>
         ) : (
-          <div className="meal-waiting">
-
-            {selectedRecipe
-              ? `Admin selected ${selectedRecipe.title}`
-              : "Waiting for admin to choose a meal…"}
-
+          <div
+            style={{
+              padding: "13px",
+              borderRadius: "12px",
+              background: "#f1e8dd",
+              color: "#654b3d",
+              textAlign: "center",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            Explore recipes and discuss
+            with your group
           </div>
         )}
-
       </footer>
-
-    </div>
+    </main>
   );
 }

@@ -1,99 +1,43 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #e9e9e9;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #26211d;
-}
-
-button,
-input,
-select {
-  font: inherit;
-}
 
 .app-shell {
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
+  align-items: flex-start;
+  padding: 14px;
+  background: #e2e2e2;
 }
 
 .phone-app {
-  width: min(100%, 844px);
-  aspect-ratio: 844 / 390;
-  max-height: 100vh;
-
-  background: #fbf7f1;
+  width: min(100%, 390px);
+  height: calc(100dvh - 28px);
+  min-height: 480px;
+  position: relative;
   overflow: hidden;
-
-  border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  background: #fbf7f1;
+  color: #3f2d26;
+  border-radius: 4px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
 }
 
-/* Portrait warning */
-
+/* No portrait warning needed anymore */
 .portrait-message {
-  display: none;
+  display: none !important;
 }
 
-@media (orientation: portrait) and (max-width: 700px) {
-  .phone-app {
-    display: none;
-  }
-
+/* On actual phones, use the whole screen */
+@media (max-width: 600px) {
   .app-shell {
-    min-height: 100dvh;
     padding: 0;
-
-    background: #f6eee5;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #fbf7f1;
   }
 
-  .portrait-message {
+  .phone-app {
     width: 100%;
-    min-height: 100dvh;
-
-    padding: 40px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    background: #f6eee5;
-    color: #3f2d26;
-  }
-
-  .portrait-message h2 {
-    margin: 0 0 14px;
-
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 32px;
-    font-weight: 700;
-
-    color: #3f2d26;
-  }
-
-  .portrait-message p {
-    max-width: 320px;
-
-    margin: 0;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
-    line-height: 1.5;
-
-    color: #76665c;
+    height: 100dvh;
+    min-height: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
 }

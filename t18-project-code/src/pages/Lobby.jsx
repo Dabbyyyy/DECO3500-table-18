@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import "./Lobby.css";
 
 import {
   subscribeToRoom,
   changeRoomScreen,
 } from "../services/roomService";
-
 
 export default function Lobby({
   user,
@@ -14,310 +14,162 @@ export default function Lobby({
   onContinue,
   onBack,
 }) {
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState("");
+
   const members = room.members || [];
-
-  const isHost =
-    room.memberId === room.hostId;
-
-
-  // =========================
-  // LIVE FIREBASE ROOM
-  // =========================
+  const isHost = room.memberId === room.hostId;
 
   useEffect(() => {
-    if (!room.code) {
-      return;
-    }
+    if (!room.code) return;
 
+    return subscribeToRoom(room.code, (updatedRoom) => {
+      if (!updatedRoom) return;
 
-    const unsubscribe = subscribeToRoom(
-      room.code,
-      (updatedRoom) => {
-        if (!updatedRoom) {
-          return;
-        }
+      setRoom((previous) => ({
+        ...updatedRoom,
+        memberId: previous.memberId,
+      }));
 
-
-        setRoom((currentRoom) => ({
-          ...currentRoom,
-          ...updatedRoom,
-
-          // Keep this device's identity
-          memberId:
-            currentRoom.memberId,
-        }));
-
-
-        // If the host changes the shared
-        // room screen, everyone follows
-        if (
-          updatedRoom.screen ===
-          "preferences"
-        ) {
-          onContinue();
-        }
+      if (updatedRoom.screen === "preferences") {
+        onContinue();
       }
-    );
-
-
-    return unsubscribe;
-  }, [
-    room.code,
-    setRoom,
-    onContinue,
-  ]);
-
-
-  // =========================
-  // COPY ROOM CODE
-  // =========================
+    });
+  }, [room.code, setRoom, onContinue]);
 
   async function copyRoomCode() {
     try {
-      await navigator.clipboard.writeText(
-        room.code
-      );
-
-      alert(
-        `Room code ${room.code} copied!`
-      );
+      await navigator.clipboard.writeText(room.code);
+      setMessage("Session code copied!");
     } catch (error) {
-      console.error(
-        "Could not copy room code:",
-        error
-      );
-
-      alert(
-        `Room code: ${room.code}`
-      );
+      console.error(error);
+      setMessage(`Share this code: ${room.code}`);
     }
   }
-
-
-  // =========================
-  // ADMIN CONTINUE
-  // =========================
 
   async function handleContinue() {
-    if (!isHost) {
-      return;
-    }
-
+    if (!isHost || busy) return;
 
     try {
-      await changeRoomScreen(
-        room.code,
-        "preferences"
-      );
+      setBusy(true);
+      setMessage("");
 
-      // We do NOT manually call
-      // onContinue here.
-      //
-      // Firebase changes the screen,
-      // then every device receives
-      // the update through the listener.
+      await changeRoomScreen(room.code, "preferences");
     } catch (error) {
-      console.error(
-        "Could not continue:",
-        error
-      );
-
-      alert(
-        "Could not start the next step."
-      );
+      console.error(error);
+      setMessage("Could not continue. Please try again.");
+      setBusy(false);
     }
   }
 
-
   return (
-    <div className="lobby-page">
+    <main className="lobby-page">
+      <div className="lobby-scroll">
+        <button
+          type="button"
+          className="lobby-back"
+          onClick={onBack}
+          aria-label="Go back"
+        >
+          ‹
+        </button>
 
-      {/* LEFT */}
+        <p className="lobby-label">SESSION CODE</p>
 
-      <section className="lobby-left">
+        <button
+          type="button"
+          className="lobby-room-code"
+          onClick={copyRoomCode}
+          title="Tap to copy session code"
+        >
+          {room.code}
+          <span aria-hidden="true"> ⧉</span>
+        </button>
 
-        <div>
+        <h1>Cooking lobby</h1>
 
-          <button
-            className="lobby-back"
-            onClick={onBack}
-          >
-            ←
-          </button>
-
-
-          <p className="lobby-label">
-            SESSION CODE
-          </p>
-
-
-          <div className="room-code-row">
-
-            <h3>
-              {room.code}
-            </h3>
-
-
-            <button
-              className="copy-code"
-              onClick={copyRoomCode}
-            >
-              Copy
-            </button>
-
-          </div>
-
-
-          <h1>
-            Cooking lobby
-          </h1>
-
-
-          <p className="lobby-description">
-            Waiting for everyone to join before
-            picking tonight's meal.
-          </p>
-
-        </div>
-
-
-        <div>
-
-          <div className="lobby-tip">
-
-            {isHost ? (
-              <>
-                You are the room admin. Continue
-                when everyone has joined.
-              </>
-            ) : (
-              <>
-                Waiting for the room admin to
-                continue.
-              </>
-            )}
-
-          </div>
-
-
-          {isHost ? (
-
-            <button
-              className="lobby-continue"
-              onClick={handleContinue}
-            >
-              {members.length} joined · Continue
-            </button>
-
-          ) : (
-
-            <button
-              className="lobby-continue lobby-waiting-button"
-              disabled
-            >
-              {members.length} joined · Waiting for admin
-            </button>
-
-          )}
-
-        </div>
-
-      </section>
-
-
-      {/* RIGHT */}
-
-      <section className="lobby-right">
-
-        <p className="lobby-group-title">
-          Your cooking group
+        <p className="lobby-description">
+          Waiting for everyone to join before picking
+          tonight's meal.
         </p>
 
+        <div className="lobby-members">
+          {members.map((member, index) => {
+            const isCurrentUser =
+              member.id === room.memberId;
 
-        <div className="member-grid">
-
-          {members.map(
-            (member, index) => {
-
-              const memberIsHost =
-                member.id === room.hostId;
-
-
-              return (
+            return (
+              <div
+                key={member.id || index}
+                className={`lobby-member ${
+                  isCurrentUser ? "is-you" : ""
+                }`}
+              >
                 <div
-                  className="member-card"
-                  key={
-                    member.id || index
-                  }
+                  className={`lobby-avatar avatar-${
+                    index % 4
+                  }`}
                 >
-
-                  <div
-                    className={`member-avatar avatar-${
-                      index % 3
-                    }`}
-                  >
-                    {member.name
-                      ?.charAt(0)
-                      .toUpperCase()}
-                  </div>
-
-
-                  <div className="member-info">
-
-                    <strong>
-                      {member.name}
-                    </strong>
-
-
-                    <span>
-                      Hey {member.helperName}
-                    </span>
-
-                  </div>
-
-
-                  <span className="joined-badge">
-                    {memberIsHost
-                      ? "Admin"
-                      : "Joined"}
-                  </span>
-
+                  {member.name
+                    ?.charAt(0)
+                    .toUpperCase() || "?"}
                 </div>
-              );
-            }
-          )}
 
+                <div className="lobby-member-details">
+                  <strong>
+                    {isCurrentUser ? "You" : member.name}
+                  </strong>
 
-          {/* WAITING SLOT */}
+                  <span>
+                    Hey {member.helperName || "Helper"}
+                  </span>
+                </div>
 
-          <div className="member-card waiting-card">
+                <span className="lobby-member-status">
+                  Joined
+                </span>
+              </div>
+            );
+          })}
 
-            <div className="member-avatar waiting-avatar">
+          <div className="lobby-member lobby-empty">
+            <div className="lobby-avatar lobby-avatar-empty">
               ?
             </div>
 
-
-            <div className="member-info">
-
-              <strong>
-                Waiting...
-              </strong>
-
-              <span>
-                Share room code
-              </span>
-
+            <div className="lobby-member-details">
+              <span>Waiting...</span>
             </div>
-
-
-            <span className="waiting-dot" />
-
           </div>
-
         </div>
 
-      </section>
+        {message && (
+          <p className="lobby-message" role="status">
+            {message}
+          </p>
+        )}
+      </div>
 
-    </div>
+      <div className="lobby-bottom">
+        <div className="lobby-tip">
+          {isHost
+            ? "Each cook gets their own named assistant so voice commands never overlap."
+            : "Waiting for the session admin to continue once everyone has joined."}
+        </div>
+
+        <button
+          type="button"
+          className="lobby-continue"
+          disabled={!isHost || busy}
+          onClick={handleContinue}
+        >
+          {isHost
+            ? busy
+              ? "Continuing..."
+              : `Continue (${members.length})`
+            : `Waiting for admin (${members.length})`}
+        </button>
+      </div>
+    </main>
   );
 }

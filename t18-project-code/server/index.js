@@ -15,6 +15,16 @@ const PORT = process.env.PORT || 3001;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Node 20.12+ can load a local .env without another dependency.
+// Deployment environments can provide the same values directly.
+if (typeof process.loadEnvFile === "function") {
+  try {
+    process.loadEnvFile(path.join(__dirname, ".env"));
+  } catch {
+    // A local .env is optional. Never fall back to a client-side key.
+  }
+}
+
 app.use(cors());
 app.use(express.json());
 
@@ -129,6 +139,114 @@ app.post("/api/recipes/recommend", (req, res) => {
     res.status(500).json({
       error: "Could not generate recommendations.",
       message: error.message,
+    });
+  }
+});
+
+// Give short, contextual answers to hands-free cooking questions.
+// The API key stays on the Express server and is never returned to React.
+app.post("/api/cooking-help", async (req, res) => {
+  const {
+    question,
+    recipe = null,
+    task = null,
+    currentStep = null,
+    equipment = {},
+  } = req.body || {};
+
+  if (!question || typeof question !== "string") {
+    return res.status(400).json({
+      error: "A cooking question is required.",
+    });
+  }
+
+  if (!process.env.GEMINI_API_KEY) {
+    return res.status(503).json({
+      error: "Nova AI is not configured on the server.",
+      code: "AI_NOT_CONFIGURED",
+    });
+  }
+
+  const availableEquipment = Object.entries(equipment)
+    .filter(([, available]) => Boolean(available))
+    .map(([name]) => name);
+
+  const cookingContext = {
+    recipe: recipe
+      ? {
+          title: recipe.title || recipe.name,
+          ingredients: recipe.ingredients || [],
+          allergens: recipe.allergens || [],
+        }
+      : null,
+    task: task
+      ? {
+          title: task.title || task.name,
+          steps: task.steps || [],
+        }
+      : null,
+    currentStep,
+    availableEquipment,
+    question: question.slice(0, 500),
+  };
+
+  try {
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.GEMINI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: process.env.GEMINI_MODEL || "gemini-3.8-flash",
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are Nova, a hands-free cooking helper. Answer in no more than three short, practical sentences using the supplied recipe, current step, and equipment. Never change or advance a task. For food-safety questions, be cautious, recommend an appropriate food thermometer when relevant, and say when the cook should check authoritative local guidance rather than guessing.",
+            },
+            {
+              role: "user",
+              content: JSON.stringify(cookingContext),
+            },
+          ],
+          max_tokens: 180,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Gemini cooking helper error:", {
+        status: response.status,
+        requestId:
+          response.headers.get("x-request-id") ||
+          response.headers.get("x-goog-request-id"),
+        message: data?.error?.message,
+      });
+
+      return res.status(502).json({
+        error: "Nova could not answer right now.",
+      });
+    }
+
+    const answer = data.choices?.[0]?.message?.content?.trim();
+
+    if (!answer) {
+      return res.status(502).json({
+        error: "Nova returned an empty answer.",
+      });
+    }
+
+    return res.json({ answer });
+  } catch (error) {
+    console.error("Cooking helper request failed:", error);
+
+    return res.status(502).json({
+      error: "Nova could not connect to the AI service.",
     });
   }
 });

@@ -274,3 +274,35 @@
 
   color: #887d74;
 }
+
+@media (min-width: 700px) {
+  .all-complete-label,
+  .final-meal-card p {
+    font-size: 10px;
+  }
+
+  .all-complete-left h1 {
+    font-size: 40px;
+  }
+
+  .all-complete-description,
+  .new-session-button,
+  .final-meal-card > span {
+    font-size: 11px;
+  }
+
+  .final-meal-card h2 {
+    font-size: 24px;
+  }
+
+  .completed-task strong,
+  .complete-tick,
+  .together-message strong {
+    font-size: 10px;
+  }
+
+  .completed-task small,
+  .together-message p {
+    font-size: 9px;
+  }
+}

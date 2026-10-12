@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
 import Welcome from "./pages/Welcome";
@@ -11,11 +11,12 @@ import MealSelection from "./pages/MealSelection";
 import TaskSetup from "./pages/TaskSetup";
 import CookingMode from "./pages/CookingMode";
 import CookComplete from "./pages/CookComplete";
+import HelpingMode from "./pages/HelpingMode";
 import GroupProgress from "./pages/GroupProgress";
 import AllTasksComplete from "./pages/AllTasksComplete";
+import LandscapeGuard from "./components/LandscapeGuard";
 
 import {
-  subscribeToRoom,
   changeRoomScreen,
 } from "./services/roomService";
 
@@ -55,6 +56,14 @@ function App() {
 
   const [sharedTask, setSharedTask] =
     useState(null);
+
+  const isLandscapeFlow = [
+    "cooking",
+    "cookComplete",
+    "helping",
+    "progress",
+    "allComplete",
+  ].includes(screen);
 
   function openJoinRoom(mode) {
     setJoinMode(mode);
@@ -98,7 +107,11 @@ function App() {
 
   return (
     <div className="app-shell">
-      <div className="phone-app">
+      <div
+        className={`phone-app ${
+          isLandscapeFlow ? "phone-app-landscape" : ""
+        }`}
+      >
         {screen === "welcome" && (
           <Welcome
             onContinue={() =>
@@ -191,99 +204,117 @@ function App() {
               memberId: room.memberId,
             }}
             room={room}
+            setTaskAssignments={setTaskAssignments}
             onContinue={startCooking}
+            onRoomStart={() => setScreen("cooking")}
             onBack={backToMeal}
           />
         )}
 
         {screen === "cooking" && (
-          <CookingMode
-            meal={meal || room.selectedRecipe}
-            user={user}
-            room={room}
-            taskAssignments={
-              taskAssignments
-            }
-            setTaskAssignments={
-              setTaskAssignments
-            }
-            onComplete={() =>
-              setScreen("cookComplete")
-            }
-            onBack={() =>
-              setScreen("tasks")
-            }
-          />
+          <LandscapeGuard>
+            <CookingMode
+              meal={meal || room.selectedRecipe}
+              user={{
+                ...user,
+                memberId: room.memberId,
+              }}
+              room={room}
+              taskAssignments={taskAssignments}
+              setTaskAssignments={setTaskAssignments}
+              onComplete={() =>
+                setScreen("cookComplete")
+              }
+              onBack={() => setScreen("tasks")}
+              onProgress={() => setScreen("progress")}
+            />
+          </LandscapeGuard>
         )}
 
         {screen === "cookComplete" && (
-          <CookComplete
-            user={user}
-            meal={meal}
-            taskAssignments={
-              taskAssignments
-            }
-            setHelpingMember={
-              setHelpingMember
-            }
-            onHelp={() => {
-              setSharedTask(null);
-              setScreen("progress");
-            }}
-            onCleanup={() => {
-              setHelpingMember(null);
-              setSharedTask("cleanup");
-              setScreen("progress");
-            }}
-            onTable={() => {
-              setHelpingMember(null);
-              setSharedTask("table");
-              setScreen("progress");
-            }}
-            onProgress={() =>
-              setScreen("progress")
-            }
-          />
+          <LandscapeGuard>
+            <CookComplete
+              user={{
+                ...user,
+                memberId: room.memberId,
+              }}
+              meal={meal || room.selectedRecipe}
+              room={room}
+              taskAssignments={taskAssignments}
+              setHelpingMember={setHelpingMember}
+              onHelp={() => {
+                setSharedTask(null);
+                setScreen("helping");
+              }}
+              onCleanup={() => {
+                setHelpingMember(null);
+                setSharedTask("cleanup");
+                setScreen("progress");
+              }}
+              onTable={() => {
+                setHelpingMember(null);
+                setSharedTask("table");
+                setScreen("progress");
+              }}
+              onProgress={() => setScreen("progress")}
+              onAllComplete={() => setScreen("allComplete")}
+            />
+          </LandscapeGuard>
+        )}
+
+        {screen === "helping" && (
+          <LandscapeGuard>
+            <HelpingMode
+              user={{
+                ...user,
+                memberId: room.memberId,
+              }}
+              meal={meal || room.selectedRecipe}
+              room={room}
+              helpingMember={helpingMember}
+              onExit={() => {
+                setHelpingMember(null);
+                setScreen("cookComplete");
+              }}
+              onProgress={() => setScreen("progress")}
+              onAllComplete={() => setScreen("allComplete")}
+            />
+          </LandscapeGuard>
         )}
 
         {screen === "progress" && (
-          <GroupProgress
-            user={user}
-            meal={meal}
-            room={room}
-            taskAssignments={
-              taskAssignments
-            }
-            setTaskAssignments={
-              setTaskAssignments
-            }
-            helpingMember={
-              helpingMember
-            }
-            setHelpingMember={
-              setHelpingMember
-            }
-            sharedTask={sharedTask}
-            setSharedTask={setSharedTask}
-            onBack={() =>
-              setScreen("cookComplete")
-            }
-            onAllComplete={() =>
-              setScreen("allComplete")
-            }
-          />
+          <LandscapeGuard>
+            <GroupProgress
+              user={{
+                ...user,
+                memberId: room.memberId,
+              }}
+              meal={meal || room.selectedRecipe}
+              room={room}
+              taskAssignments={taskAssignments}
+              setTaskAssignments={setTaskAssignments}
+              helpingMember={helpingMember}
+              setHelpingMember={setHelpingMember}
+              sharedTask={sharedTask}
+              setSharedTask={setSharedTask}
+              onBack={() =>
+                setScreen(helpingMember ? "helping" : "cookComplete")
+              }
+              onAllComplete={() => setScreen("allComplete")}
+            />
+          </LandscapeGuard>
         )}
 
         {screen === "allComplete" && (
-          <AllTasksComplete
-            user={user}
-            meal={meal}
-            room={room}
-            taskAssignments={
-              taskAssignments
-            }
-            onRestart={restartSession}
-          />
+          <LandscapeGuard>
+            <AllTasksComplete
+              user={user}
+              meal={meal || room.selectedRecipe}
+              room={room}
+              taskAssignments={taskAssignments}
+              onRestart={restartSession}
+            />
+          </LandscapeGuard>
         )}
       </div>
     </div>

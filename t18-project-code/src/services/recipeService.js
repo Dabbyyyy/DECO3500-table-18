@@ -54,3 +54,13 @@ export async function getRecommendedRecipes(
 
   return data.recommendations || [];
 }
+
+export async function askCookingHelper(context) {
+  return fetchJSON("/api/cooking-help", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(context),
+  });
+}

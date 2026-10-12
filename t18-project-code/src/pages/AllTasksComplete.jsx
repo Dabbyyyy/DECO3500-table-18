@@ -66,7 +66,7 @@ export default function AllTasksComplete({
           <p>DINNER IS READY</p>
 
           <h2>
-            {meal?.name}
+            {meal?.title || meal?.name}
           </h2>
 
           <span>
@@ -95,7 +95,7 @@ export default function AllTasksComplete({
 
                 <div>
                   <strong>
-                    {task.name}
+                    {task.name || task.title}
                   </strong>
 
                   <small>

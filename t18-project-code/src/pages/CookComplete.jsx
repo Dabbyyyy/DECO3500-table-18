@@ -1,15 +1,39 @@
+import { useEffect } from "react";
+
 import "./CookComplete.css";
+import {
+  setCookingActivity,
+  subscribeToRoom,
+} from "../services/roomService";
 
 export default function CookComplete({
   user,
   meal,
+  room,
   taskAssignments,
   setHelpingMember,
   onHelp,
   onCleanup,
   onTable,
   onProgress,
+  onAllComplete,
 }) {
+  const roomCode = room.code || room.roomCode;
+  const memberId = room.memberId || user.memberId || user.id;
+
+  useEffect(() => {
+    if (!roomCode) return undefined;
+
+    return subscribeToRoom(roomCode, (updatedRoom) => {
+      if (updatedRoom?.screen === "allComplete") {
+        setCookingActivity(roomCode, memberId, null).catch(
+          console.error
+        );
+        onAllComplete?.();
+      }
+    });
+  }, [memberId, onAllComplete, roomCode]);
+
   // Find other cooks who are still working
   const unfinishedTasks = taskAssignments.filter(
     (task) =>
@@ -20,16 +44,44 @@ export default function CookComplete({
 
   const suggestedTask = unfinishedTasks[0];
 
-  function handleHelp() {
+  async function handleHelp() {
     if (!suggestedTask) return;
 
-    setHelpingMember({
+    const helpDetails = {
       name: suggestedTask.assignedTo,
       task: suggestedTask.name,
       taskId: suggestedTask.id,
+      taskData: suggestedTask,
+    };
+
+    await setCookingActivity(roomCode, memberId, {
+      type: "helping",
+      helperName: user.name,
+      targetMemberId: suggestedTask.assignedToId || null,
+      targetName: suggestedTask.assignedTo,
+      targetTaskId: suggestedTask.id,
+      targetTaskName:
+        suggestedTask.name || suggestedTask.title || "Cooking task",
+      status: "active",
     });
 
+    setHelpingMember(helpDetails);
+
     onHelp();
+  }
+
+  async function startSharedTask(type) {
+    await setCookingActivity(roomCode, memberId, {
+      type,
+      helperName: user.name,
+      status: "active",
+    });
+
+    if (type === "cleanup") {
+      onCleanup();
+    } else {
+      onTable();
+    }
   }
 
   return (
@@ -72,7 +124,7 @@ export default function CookComplete({
             <span>COOKING TOGETHER</span>
 
             <strong>
-              {meal?.name}
+              {meal?.title || meal?.name}
             </strong>
           </div>
 
@@ -137,7 +189,7 @@ export default function CookComplete({
                 <p>
                   They're still working on{" "}
                   <strong>
-                    {suggestedTask.name}
+                    {suggestedTask.name || suggestedTask.title}
                   </strong>.
                 </p>
 
@@ -185,7 +237,7 @@ export default function CookComplete({
 
           <button
             className="cook-action-card"
-            onClick={onCleanup}
+            onClick={() => startSharedTask("cleanup")}
           >
 
             <div className="cook-action-icon">
@@ -221,7 +273,7 @@ export default function CookComplete({
 
           <button
             className="cook-action-card"
-            onClick={onTable}
+            onClick={() => startSharedTask("table")}
           >
 
             <div className="cook-action-icon">

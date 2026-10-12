@@ -352,6 +352,17 @@
   color: #91877e;
 }
 
+.shared-complete-button {
+  padding: 6px 9px;
+  border: 1px solid #b9c8ad;
+  border-radius: 999px;
+  background: #eef4e9;
+  color: #66785a;
+  font-size: 7px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 
 /* BOTTOM */
 
@@ -407,4 +418,47 @@
   font-size: 6px;
 
   color: #80756c;
+}
+
+@media (min-width: 700px) {
+  .group-progress-label,
+  .progress-heading p {
+    font-size: 10px;
+  }
+
+  .group-progress-left h1 {
+    font-size: 38px;
+  }
+
+  .group-progress-description,
+  .large-progress-info span,
+  .large-progress-info strong {
+    font-size: 11px;
+  }
+
+  .progress-heading h2 {
+    font-size: 25px;
+  }
+
+  .progress-member-card {
+    padding: 11px 12px;
+  }
+
+  .progress-task-info strong {
+    font-size: 11px;
+  }
+
+  .progress-task-info > span,
+  .progress-task-info small,
+  .progress-status,
+  .you-badge,
+  .all-done-badge,
+  .helping-message,
+  .still-cooking-message {
+    font-size: 9px;
+  }
+
+  .all-complete-button {
+    font-size: 11px;
+  }
 }

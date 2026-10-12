@@ -1,16 +1,102 @@
+import { useEffect, useState } from "react";
+
 import "./GroupProgress.css";
 
 import ProgressBar from "../components/ProgressBar";
+import {
+  changeRoomScreen,
+  setCookingActivity,
+  subscribeToRoom,
+} from "../services/roomService";
 
 export default function GroupProgress({
   user,
   meal,
+  room,
   taskAssignments,
-  helpingMember,
+  setTaskAssignments,
   sharedTask,
   onBack,
   onAllComplete,
 }) {
+  const roomCode = room.code || room.roomCode;
+  const memberId = room.memberId || user.memberId || user.id;
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+    if (!roomCode) return undefined;
+
+    return subscribeToRoom(roomCode, (updatedRoom) => {
+      if (!updatedRoom) return;
+
+      const assignments = Array.isArray(
+        updatedRoom.cookingSetup?.assignments
+      )
+        ? updatedRoom.cookingSetup.assignments
+        : Object.values(
+            updatedRoom.cookingSetup?.assignments || {}
+          );
+
+      const mappedAssignments = assignments
+        .filter(Boolean)
+        .map((task, index) => {
+          const owner = updatedRoom.members.find(
+            (member) =>
+              String(member.id) === String(task.assignedToId)
+          );
+
+          return {
+            ...task,
+            id: String(task.id ?? `task-${index}`),
+            name: task.name || task.title || `Task ${index + 1}`,
+            assignedTo: owner?.name || task.assignedTo || null,
+            status: task.status || "waiting",
+          };
+        });
+
+      setTaskAssignments(mappedAssignments);
+
+      const roomActivities = Object.values(
+        updatedRoom.cookingActivities || {}
+      );
+
+      roomActivities.forEach((activity) => {
+        if (activity?.type !== "helping") return;
+
+        const targetTask = mappedAssignments.find(
+          (task) =>
+            String(task.id) === String(activity.targetTaskId)
+        );
+
+        if (targetTask?.status === "done") {
+          setCookingActivity(
+            roomCode,
+            activity.helperId,
+            null
+          ).catch(console.error);
+        }
+      });
+
+      setActivities(
+        roomActivities.filter((activity) => {
+          if (activity?.status !== "active") return false;
+          if (activity.type !== "helping") return true;
+
+          const targetTask = mappedAssignments.find(
+            (task) =>
+              String(task.id) === String(activity.targetTaskId)
+          );
+
+          return targetTask?.status !== "done";
+        })
+      );
+
+      if (updatedRoom.screen === "allComplete") {
+        onAllComplete();
+      }
+    });
+  }, [onAllComplete, roomCode, setTaskAssignments]);
+
   const completedTasks = taskAssignments.filter(
     (task) => task.status === "done"
   ).length;
@@ -26,18 +112,54 @@ export default function GroupProgress({
     totalTasks > 0 &&
     completedTasks === totalTasks;
 
+  const activeHelping = activities.filter((activity) => {
+    if (activity.type !== "helping") return false;
+
+    const targetTask = taskAssignments.find(
+      (task) =>
+        String(task.id) === String(activity.targetTaskId)
+    );
+
+    return targetTask && targetTask.status !== "done";
+  });
+
+  const sharedActivities = activities.filter(
+    (activity) =>
+      activity.type === "cleanup" || activity.type === "table"
+  );
+
+  function helperForTask(task) {
+    return activeHelping.find(
+      (activity) =>
+        String(activity.targetTaskId) === String(task.id)
+    );
+  }
+
   function getStatus(task) {
     if (task.status === "done") {
       return "Done";
     }
 
-    if (
-      helpingMember?.taskId === task.id
-    ) {
-      return `Getting help from ${user.name}`;
+    const helper = helperForTask(task);
+
+    if (helper) {
+      return `Getting help from ${helper.helperName}`;
     }
 
-    return "Cooking";
+    if (task.needsHelp) {
+      return "Needs help";
+    }
+
+    return task.status === "waiting" ? "Waiting" : "Cooking";
+  }
+
+  async function continueToFinished() {
+    await changeRoomScreen(roomCode, "allComplete");
+    onAllComplete();
+  }
+
+  async function finishSharedActivity(activity) {
+    await setCookingActivity(roomCode, activity.helperId, null);
   }
 
   return (
@@ -103,7 +225,7 @@ export default function GroupProgress({
             <span>TONIGHT'S MEAL</span>
 
             <strong>
-              {meal?.name}
+              {meal?.title || meal?.name}
             </strong>
           </div>
 
@@ -145,9 +267,7 @@ export default function GroupProgress({
             const isUser =
               task.assignedTo === user.name;
 
-            const beingHelped =
-              helpingMember?.taskId ===
-              task.id;
+            const helper = helperForTask(task);
 
             return (
               <div
@@ -185,9 +305,9 @@ export default function GroupProgress({
                     {task.name}
                   </span>
 
-                  {beingHelped && (
+                  {helper && (
                     <small>
-                      {user.name} is helping
+                      {helper.helperName} is helping
                     </small>
                   )}
 
@@ -212,61 +332,77 @@ export default function GroupProgress({
 
           {/* SHARED TASK */}
 
-          <div className="progress-member-card shared-progress-card">
+          {sharedActivities.length ? (
+            sharedActivities.map((activity) => (
+              <div
+                className="progress-member-card shared-progress-card"
+                key={`${activity.helperId}-${activity.type}`}
+              >
+                <div className="progress-task-icon">
+                  {activity.type === "table" ? "🍽️" : "🧽"}
+                </div>
 
-            <div className="progress-task-icon">
-              {sharedTask === "table"
-                ? "🍽️"
-                : "🧽"}
+                <div className="progress-task-info">
+                  <strong>
+                    {activity.type === "table"
+                      ? "Prepare table"
+                      : "Cleanup"}
+                  </strong>
+                  <span>{activity.helperName} is helping</span>
+                </div>
+
+                {String(activity.helperId) === String(memberId) ? (
+                  <button
+                    type="button"
+                    className="shared-complete-button"
+                    onClick={() => finishSharedActivity(activity)}
+                  >
+                    ✓ Mark done
+                  </button>
+                ) : (
+                  <div className="progress-status shared-status">
+                    In progress
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <div className="progress-member-card shared-progress-card">
+              <div className="progress-task-icon">
+                {sharedTask === "table" ? "🍽️" : "🧽"}
+              </div>
+              <div className="progress-task-info">
+                <strong>Shared tasks</strong>
+                <span>Available after your cooking task</span>
+              </div>
+              <div className="progress-status shared-status">
+                Unclaimed
+              </div>
             </div>
-
-            <div className="progress-task-info">
-
-              <strong>
-                {sharedTask === "table"
-                  ? "Prepare table"
-                  : sharedTask === "cleanup"
-                    ? "Cleanup"
-                    : "Shared tasks"}
-              </strong>
-
-              <span>
-                {sharedTask
-                  ? `${user.name} is helping`
-                  : "Available after your cooking task"}
-              </span>
-
-            </div>
-
-            <div className="progress-status shared-status">
-              {sharedTask
-                ? "In progress"
-                : "Unclaimed"}
-            </div>
-
-          </div>
+          )}
 
         </div>
 
 
         <div className="group-progress-bottom">
 
-          {helpingMember && (
-            <div className="helping-message">
-              🤝 {user.name} is helping{" "}
-              <strong>
-                {helpingMember.name}
-              </strong>{" "}
-              with {helpingMember.task}.
+          {activeHelping.map((activity) => (
+            <div
+              className="helping-message"
+              key={`${activity.helperId}-${activity.targetTaskId}`}
+            >
+              🤝 {activity.helperName} is helping{" "}
+              <strong>{activity.targetName}</strong> with{" "}
+              {activity.targetTaskName}.
             </div>
-          )}
+          ))}
 
 
           {allCookingDone ? (
 
             <button
               className="all-complete-button"
-              onClick={onAllComplete}
+              onClick={continueToFinished}
             >
               All tasks complete · Continue →
             </button>

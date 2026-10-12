@@ -160,7 +160,7 @@ app.post("/api/cooking-help", async (req, res) => {
     });
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     return res.status(503).json({
       error: "Nova AI is not configured on the server.",
       code: "AI_NOT_CONFIGURED",
@@ -192,19 +192,27 @@ app.post("/api/cooking-help", async (req, res) => {
 
   try {
     const response = await fetch(
-      "https://api.openai.com/v1/responses",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+          Authorization: `Bearer ${process.env.GEMINI_API_KEY}`,
         },
         body: JSON.stringify({
-          model: process.env.OPENAI_MODEL || "gpt-5.5",
-          instructions:
-            "You are Nova, a hands-free cooking helper. Answer in no more than three short, practical sentences using the supplied recipe, current step, and equipment. Never change or advance a task. For food-safety questions, be cautious, recommend an appropriate food thermometer when relevant, and say when the cook should check authoritative local guidance rather than guessing.",
-          input: JSON.stringify(cookingContext),
-          max_output_tokens: 180,
+          model: process.env.GEMINI_MODEL || "gemini-3.8-flash",
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are Nova, a hands-free cooking helper. Answer in no more than three short, practical sentences using the supplied recipe, current step, and equipment. Never change or advance a task. For food-safety questions, be cautious, recommend an appropriate food thermometer when relevant, and say when the cook should check authoritative local guidance rather than guessing.",
+            },
+            {
+              role: "user",
+              content: JSON.stringify(cookingContext),
+            },
+          ],
+          max_tokens: 180,
         }),
       }
     );
@@ -212,9 +220,11 @@ app.post("/api/cooking-help", async (req, res) => {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("OpenAI cooking helper error:", {
+      console.error("Gemini cooking helper error:", {
         status: response.status,
-        requestId: response.headers.get("x-request-id"),
+        requestId:
+          response.headers.get("x-request-id") ||
+          response.headers.get("x-goog-request-id"),
         message: data?.error?.message,
       });
 
@@ -223,12 +233,7 @@ app.post("/api/cooking-help", async (req, res) => {
       });
     }
 
-    const answer =
-      data.output_text ||
-      data.output
-        ?.flatMap((item) => item.content || [])
-        .find((content) => content.type === "output_text")
-        ?.text;
+    const answer = data.choices?.[0]?.message?.content?.trim();
 
     if (!answer) {
       return res.status(502).json({

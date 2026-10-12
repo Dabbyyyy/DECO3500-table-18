@@ -73,10 +73,22 @@ export default function useVoiceCommands({
 
     recognition.onerror = (event) => {
       setListening(false);
+      const messages = {
+        "not-allowed":
+          "Microphone permission is blocked. Allow it in your browser's site settings.",
+        "service-not-allowed":
+          "Voice recognition is blocked by this browser. Try Chrome or Edge.",
+        "audio-capture":
+          "No microphone was found. Check your microphone settings.",
+        "no-speech":
+          "No speech was detected. Tap the button and try again.",
+        network:
+          "Voice recognition could not reach the browser service. Check your connection.",
+      };
+
       setError(
-        event.error === "not-allowed"
-          ? "Microphone permission is blocked."
-          : "I couldn't hear that. Please try again."
+        messages[event.error] ||
+          "Voice recognition could not start. Try Chrome or Edge."
       );
     };
 
@@ -149,15 +161,51 @@ export default function useVoiceCommands({
     };
   }, []);
 
-  function startListening() {
-    if (!supported || !recognitionRef.current) return;
+  async function startListening() {
+    if (!supported || !recognitionRef.current) {
+      setError(
+        "Voice recognition is unavailable in this browser. Try Chrome or Edge."
+      );
+      return;
+    }
+
+    if (listening) {
+      recognitionRef.current.stop();
+      return;
+    }
 
     try {
       setTranscript("");
       setError("");
+
+      // Explicitly request microphone access so permission failures are
+      // visible instead of making the button appear unresponsive.
+      if (navigator.mediaDevices?.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
+        stream.getTracks().forEach((track) => track.stop());
+      }
+
       recognitionRef.current.start();
-    } catch {
-      // The browser throws if recognition is already active.
+    } catch (startError) {
+      setListening(false);
+
+      if (
+        startError?.name === "NotAllowedError" ||
+        startError?.name === "SecurityError"
+      ) {
+        setError(
+          "Microphone permission is blocked. Allow it in your browser's site settings."
+        );
+        return;
+      }
+
+      if (startError?.name !== "InvalidStateError") {
+        setError(
+          "Voice recognition could not start. Try Chrome or Edge."
+        );
+      }
     }
   }
 

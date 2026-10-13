@@ -5,7 +5,7 @@ export default function AllTasksComplete({
   meal,
   room,
   taskAssignments,
-  onRestart,
+  onContinue,
 }) {
   const cookNames = [
     ...new Set(
@@ -46,10 +46,11 @@ export default function AllTasksComplete({
 
 
         <button
+          type="button"
           className="new-session-button"
-          onClick={onRestart}
+          onClick={onContinue}
         >
-          Finish session
+          Continue to meal
         </button>
 
       </section>

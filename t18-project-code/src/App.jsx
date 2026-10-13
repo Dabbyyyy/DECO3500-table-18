@@ -14,6 +14,9 @@ import CookComplete from "./pages/CookComplete";
 import HelpingMode from "./pages/HelpingMode";
 import GroupProgress from "./pages/GroupProgress";
 import AllTasksComplete from "./pages/AllTasksComplete";
+import MealComplete from "./pages/MealComplete";
+import PhotoReview from "./pages/PhotoReview";
+import SharedMealFeed from "./pages/SharedMealFeed";
 import LandscapeGuard from "./components/LandscapeGuard";
 
 import {
@@ -48,6 +51,8 @@ function App() {
     useState(defaultPreferences);
 
   const [meal, setMeal] = useState(null);
+  const [reviewDraft, setReviewDraft] = useState(null);
+  const [reviewSaved, setReviewSaved] = useState(false);
   const [taskAssignments, setTaskAssignments] =
     useState([]);
 
@@ -86,6 +91,8 @@ function App() {
 
     setPreferences(defaultPreferences);
     setMeal(null);
+    setReviewDraft(null);
+    setReviewSaved(false);
     setTaskAssignments([]);
     setHelpingMember(null);
     setSharedTask(null);
@@ -312,9 +319,46 @@ function App() {
               meal={meal || room.selectedRecipe}
               room={room}
               taskAssignments={taskAssignments}
-              onRestart={restartSession}
+              onContinue={() => setScreen("mealComplete")}
             />
           </LandscapeGuard>
+        )}
+
+        {screen === "mealComplete" && (
+          <MealComplete
+            meal={meal || room.selectedRecipe}
+            room={room}
+            onAddPhoto={() => setScreen("photoReview")}
+            onShareFeedback={() => setScreen("photoReview")}
+            reviewSaved={reviewSaved}
+            onViewFeed={() => setScreen("mealFeed")}
+            onBack={() => setScreen("allComplete")}
+            onCookAgain={restartSession}
+            onEndSession={restartSession}
+          />
+        )}
+        {screen === "photoReview" && (
+          <PhotoReview
+            user={user}
+            meal={meal || room.selectedRecipe}
+            room={room}
+            draft={reviewDraft}
+            onDraftChange={setReviewDraft}
+            onBack={() => setScreen("mealComplete")}
+            onSaved={() => {
+              setReviewSaved(true);
+              setScreen("mealFeed");
+            }}
+          />
+        )}
+        {screen === "mealFeed" && (
+          <SharedMealFeed
+            room={room}
+            user={user}
+            onBack={() => setScreen("mealComplete")}
+            onCookTogether={restartSession}
+            justPosted={reviewSaved}
+          />
         )}
       </div>
     </div>

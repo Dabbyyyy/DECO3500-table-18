@@ -1,0 +1,135 @@
+.meal-complete-page {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+  scrollbar-width: auto;
+  padding: clamp(16px, 4dvh, 32px) 24px 24px;
+  background: #fbf7f1;
+  color: #3f2d26;
+  text-align: left;
+}
+
+
+.meal-complete-page > * { flex-shrink: 0; }
+
+.meal-complete-back {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0 0 3px;
+  border: 1px solid #e8d9ca;
+  border-radius: 50%;
+  background: #fff;
+  color: #3f2d26;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.meal-complete-header { margin: 20px 0 20px; }
+.meal-complete-label {
+  margin: 0 0 7px;
+  color: #766358;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+.meal-complete-header h1 {
+  margin: 0 0 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 3.8dvh, 32px);
+  line-height: 1.1;
+}
+.meal-complete-description {
+  margin: 0;
+  color: #766358;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.meal-complete-card {
+  overflow: hidden;
+  border: 1px solid #edb69a;
+  border-radius: 14px;
+  background: #fff;
+}
+.meal-complete-image {
+  position: relative;
+  overflow: hidden;
+  height: clamp(100px, 23dvh, 200px);
+  background: #f2e5d7;
+  display: grid;
+  place-items: center;
+}
+.meal-complete-image img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.meal-complete-image > span { font-size: 60px; }
+.meal-complete-details { position: relative; background: #fff; padding: 16px; }
+.meal-complete-team { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.meal-complete-team p { margin: 0; color: #766358; font-size: 11px; }
+.meal-complete-avatars { display: flex; flex-wrap: wrap; padding-left: 2px; }
+.meal-complete-avatar {
+  width: 30px;
+  height: 30px;
+  margin-left: -2px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background: #bd4b16;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+.meal-complete-avatar:nth-child(3n + 2) { background: #e4a72d; }
+.meal-complete-avatar:nth-child(3n) { background: #758364; }
+.meal-complete-details h2 {
+  margin: 0 0 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.meal-complete-card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.meal-complete-page button { font-family: inherit; }
+.meal-complete-card-actions button,
+.meal-complete-footer button {
+  min-height: 44px;
+  border-radius: 10px;
+  padding: 10px 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.meal-complete-primary { background: #bd4b16; border: 1px solid #bd4b16; color: #fff; }
+.meal-complete-secondary { background: #fff; border: 1px solid #e8d9ca; color: #3f2d26; }
+.meal-complete-feedback {
+  display: block;
+  padding: 0;
+  margin-top: 14px;
+  border: 0;
+  background: transparent;
+  color: #766358;
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.meal-complete-page button:disabled { cursor: not-allowed; }
+.meal-complete-secondary:disabled { color: #8a796e; background: #faf7f3; }
+.meal-complete-footer { display: grid; gap: 10px; margin-top: auto; padding-top: 32px; }
+.meal-complete-cook-again { background: #f4eee5; border: 1px solid #e8d9ca; color: #66564a; }
+.meal-complete-error { margin: 10px 0 0; color: #b3261e; font-size: 12px; }
+.meal-complete-page button:focus-visible { outline: 2px solid #3f2d26; outline-offset: 3px; }
+
+@media (max-height: 700px) {
+  .meal-complete-page { padding: 16px 20px; }
+  .meal-complete-back { width: 34px; height: 34px; }
+  .meal-complete-header { margin: 14px 0; }
+  .meal-complete-details { padding: 12px; }
+  .meal-complete-team { margin-bottom: 8px; }
+  .meal-complete-details h2 { margin-bottom: 10px; font-size: 21px; }
+  .meal-complete-feedback { margin-top: 10px; }
+  .meal-complete-footer { padding-top: 20px; gap: 8px; }
+}.meal-complete-review-saved { margin: 12px 0 0; color: #587047; font-size: 12px; }

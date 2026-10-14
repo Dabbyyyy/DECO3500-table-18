@@ -275,7 +275,17 @@ app.get("/api/recipes/:id", (req, res) => {
   }
 });
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, "0.0.0.0", (error) => {
+  if (error) {
+    if (error.code === "EADDRINUSE") {
+      console.error(`Cannot start Recipe API: port ${PORT} is already in use. Stop the other server on this port and try again.`);
+    } else {
+      console.error("Cannot start Recipe API:", error.message);
+    }
+    process.exitCode = 1;
+    return;
+  }
+
   console.log(
     `ktchn Recipe API running on port ${PORT}`
   );

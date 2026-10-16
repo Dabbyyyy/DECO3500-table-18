@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import "./CookingMode.css";
 
@@ -67,6 +68,10 @@ export default function CookingMode({
   onProgress,
 }) {
   const [message, setMessage] = useState("");
+  const lastSpokenStep = useRef(null);
+  const [timerMinutes, setTimerMinutes] = useState(5);
+  const [showTimer, setShowTimer] = useState(false);
+  const [helpRequests, setHelpRequests] = useState([]);
   const [timerRemaining, setTimerRemaining] = useState(null);
   const [timerRunning, setTimerRunning] = useState(false);
   const [helperBusy, setHelperBusy] = useState(false);
@@ -89,9 +94,27 @@ export default function CookingMode({
           updatedRoom.members
         )
       );
+
       setEquipment(updatedRoom.cookingSetup?.equipment || {});
+
+      const assignments = Array.isArray(
+        updatedRoom.cookingSetup?.assignments
+      )
+        ? updatedRoom.cookingSetup.assignments
+        : Object.values(
+            updatedRoom.cookingSetup?.assignments || {}
+          );
+
+      setHelpRequests(
+        assignments.filter(
+          (task) =>
+            task.needsHelp &&
+            task.status !== "done" &&
+            String(task.assignedToId) !== String(memberId)
+        )
+      );
     });
-  }, [roomCode, setTaskAssignments]);
+  }, [roomCode, setTaskAssignments, memberId]);
 
   const userTasks = useMemo(
     () =>
@@ -108,17 +131,36 @@ export default function CookingMode({
 
   const activeTask = userTasks[0];
   const totalSteps = activeTask?.steps?.length || 0;
+
   const currentStep = activeTask
     ? Math.max(
         0,
         Math.min(activeTask.currentStep || 0, totalSteps - 1)
       )
     : 0;
+
   const needsHelp = Boolean(activeTask?.needsHelp);
   const activeTaskId = activeTask?.id;
   const activeTaskStatus = activeTask?.status;
+
   const progress =
-    totalSteps > 0 ? ((currentStep + 1) / totalSteps) * 100 : 0;
+    totalSteps > 0
+      ? ((currentStep + 1) / totalSteps) * 100
+      : 0;
+
+  // Automatically speak when the active cooking step changes.
+  useEffect(() => {
+    if (!activeTaskId || !activeTask?.steps?.[currentStep]) {
+      return;
+    }
+
+    const key = `${activeTaskId}:${currentStep}`;
+
+    if (lastSpokenStep.current === key) return;
+
+    lastSpokenStep.current = key;
+    speak(activeTask.steps[currentStep]);
+  }, [activeTaskId, currentStep, activeTask?.steps]);
 
   useEffect(() => {
     if (!activeTaskId) return;
@@ -128,11 +170,7 @@ export default function CookingMode({
         status: "cooking",
       }).catch(console.error);
     }
-  }, [
-    activeTaskId,
-    activeTaskStatus,
-    roomCode,
-  ]);
+  }, [activeTaskId, activeTaskStatus, roomCode]);
 
   useEffect(() => {
     if (!timerRunning) return undefined;
@@ -140,7 +178,9 @@ export default function CookingMode({
     const interval = window.setInterval(() => {
       setTimerRemaining((remaining) => {
         if (remaining == null || remaining > 1) {
-          return remaining == null ? null : remaining - 1;
+          return remaining == null
+            ? null
+            : remaining - 1;
         }
 
         window.clearInterval(interval);
@@ -166,7 +206,11 @@ export default function CookingMode({
     );
 
     if (roomCode) {
-      await updateCookingTask(roomCode, activeTask.id, changes);
+      await updateCookingTask(
+        roomCode,
+        activeTask.id,
+        changes
+      );
     }
   }
 
@@ -175,7 +219,10 @@ export default function CookingMode({
 
     const nextStep = currentStep - 1;
     setMessage("");
-    saveTaskChanges({ currentStep: nextStep }).catch(console.error);
+
+    saveTaskChanges({
+      currentStep: nextStep,
+    }).catch(console.error);
   }
 
   function nextStep() {
@@ -184,7 +231,11 @@ export default function CookingMode({
     if (currentStep < totalSteps - 1) {
       const nextStep = currentStep + 1;
       setMessage("");
-      saveTaskChanges({ currentStep: nextStep }).catch(console.error);
+
+      saveTaskChanges({
+        currentStep: nextStep,
+      }).catch(console.error);
+
       return;
     }
 
@@ -192,7 +243,9 @@ export default function CookingMode({
   }
 
   function repeatInstruction() {
-    const instruction = activeTask?.steps?.[currentStep];
+    const instruction =
+      activeTask?.steps?.[currentStep];
+
     if (!instruction) return;
 
     setMessage(`Repeating: ${instruction}`);
@@ -202,7 +255,10 @@ export default function CookingMode({
   function requestHelp() {
     const nextState = !needsHelp;
 
-    saveTaskChanges({ needsHelp: nextState }).catch(console.error);
+    saveTaskChanges({
+      needsHelp: nextState,
+    }).catch(console.error);
+
     setMessage(
       nextState
         ? "Help requested. Your group can see it."
@@ -221,7 +277,9 @@ export default function CookingMode({
     });
 
     if (userTasks.length > 1) {
-      setMessage("Task complete. Your next task is ready.");
+      setMessage(
+        "Task complete. Your next task is ready."
+      );
       return;
     }
 
@@ -229,26 +287,43 @@ export default function CookingMode({
   }
 
   function startTimer(seconds) {
+    if (
+      !Number.isFinite(seconds) ||
+      seconds < 1 ||
+      seconds > 7200
+    ) {
+      setMessage(
+        "Choose a timer between 1 second and 2 hours."
+      );
+      return;
+    }
+
     setTimerRemaining(seconds);
     setTimerRunning(true);
-    setMessage(`Timer started for ${formatTimer(seconds)}.`);
+
+    setMessage(
+      `Timer started for ${formatTimer(seconds)}.`
+    );
+
     const spokenDuration =
       seconds < 60
         ? `${seconds} seconds`
         : `${Math.ceil(seconds / 60)} minutes`;
+
     speak(`Timer started for ${spokenDuration}.`);
   }
 
   async function answerQuestion(question) {
     const step = activeTask?.steps?.[currentStep];
-    const fallback = step
-      ? `For this step: ${step} Follow the recipe quantities and ask another cook if you are unsure.`
-      : "I couldn't find a current recipe step.";
 
     if (helperBusy) return;
 
     setHelperBusy(true);
-    setMessage("Nova is thinking...");
+
+    const helperName =
+      user.helperName || "Nova";
+
+    setMessage(`${helperName} is thinking...`);
 
     try {
       const result = await askCookingHelper({
@@ -259,21 +334,30 @@ export default function CookingMode({
         equipment,
       });
 
-      setMessage(`Nova: ${result.answer}`);
+      setMessage(
+        `${helperName}: ${result.answer}`
+      );
+
       speak(result.answer);
     } catch (error) {
-      console.error("Nova cooking helper failed:", error);
-      setMessage(`Nova: ${fallback}`);
-      speak(fallback);
+      console.error(
+        "Nova cooking helper failed:",
+        error
+      );
+
+      const errorMessage =
+        error?.message?.includes("not configured")
+          ? "The AI cooking helper needs a server API key. Please ask another cook for help."
+          : "I cannot reach the cooking assistant right now. Please ask another cook for help.";
+
+      setMessage(
+        `${helperName}: ${errorMessage}`
+      );
+
+      speak(errorMessage);
     } finally {
       setHelperBusy(false);
     }
-  }
-
-  function getStepState(index) {
-    if (index < currentStep) return "done";
-    if (index === currentStep) return "current";
-    return "next";
   }
 
   const {
@@ -284,6 +368,7 @@ export default function CookingMode({
     startListening,
   } = useVoiceCommands({
     helperName: user.helperName || "Nova",
+    autoStart: true,
     onNext: nextStep,
     onPrevious: previousStep,
     onRepeat: repeatInstruction,
@@ -296,11 +381,16 @@ export default function CookingMode({
     return (
       <main className="cooking-empty">
         <h2>No active task</h2>
+
         <p>
-          Your assigned tasks are complete, or no task has been assigned
-          to you yet.
+          Your assigned tasks are complete, or no task
+          has been assigned to you yet.
         </p>
-        <button type="button" onClick={onProgress || onBack}>
+
+        <button
+          type="button"
+          onClick={onProgress || onBack}
+        >
           View group progress
         </button>
       </main>
@@ -308,152 +398,250 @@ export default function CookingMode({
   }
 
   return (
-    <main className="cooking-page">
-      <section className="cooking-left">
-        <div>
-          <button
-            type="button"
-            className="cooking-back"
-            onClick={onBack}
-            aria-label="Back to task setup"
-          >
-            ←
-          </button>
+    <main className="cooking-page cooking-prototype">
+      <button
+        type="button"
+        className="cooking-back"
+        onClick={onBack}
+        aria-label="Back to task setup"
+      >
+        ‹
+      </button>
 
-          <p className="cooking-label">YOUR TASK</p>
-          <p className="helper-name">
-            HEY {(user.helperName || "NOVA").toUpperCase()}
-          </p>
-          <h1>{activeTask.name}</h1>
-
-          <div className="cooking-task-meta">
-            <span aria-hidden="true">{activeTask.icon || "🍳"}</span>
-            <p>
-              {activeTask.estimatedTime
-                ? `${activeTask.estimatedTime} min · `
-                : ""}
-              {activeTask.difficulty || "Easy"}
-            </p>
-          </div>
-        </div>
-
-        <div className="current-instruction">
-          <div className="instruction-number">{currentStep + 1}</div>
-          <div>
-            <span>
-              STEP {currentStep + 1} OF {totalSteps}
-            </span>
-            <h2>{activeTask.steps[currentStep]}</h2>
-          </div>
-        </div>
-
-        <VoiceButton
-          supported={supported}
-          listening={listening}
+      <div
+        className="cooking-utility-icons"
+        aria-label="Cooking tools"
+      >
+        <button
+          type="button"
+          title="Voice commands"
+          aria-label="Start voice commands"
           onClick={startListening}
-        />
+        >
+          ♩
+        </button>
 
-        {(transcript || voiceError) && (
-          <p className="voice-transcript" aria-live="polite">
-            {voiceError || `Heard: “${transcript}”`}
-          </p>
-        )}
+        <button
+          type="button"
+          title="Timer"
+          aria-label="Set timer"
+          onClick={() =>
+            setShowTimer((value) => !value)
+          }
+        >
+          ◷
+        </button>
 
-        {timerRemaining != null && (
-          <div className="cooking-timer" aria-live="polite">
-            <div>
-              <span>COOKING TIMER</span>
-              <strong>{formatTimer(timerRemaining)}</strong>
-            </div>
-            <button
-              type="button"
-              onClick={() => setTimerRunning((running) => !running)}
-              disabled={timerRemaining === 0}
-            >
-              {timerRunning ? "Pause" : "Resume"}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setTimerRemaining(null);
-                setTimerRunning(false);
-              }}
-            >
-              Clear
-            </button>
-          </div>
-        )}
+        <button
+          type="button"
+          title="Ask for help"
+          aria-label="Ask for help"
+          onClick={requestHelp}
+        >
+          ✋
+        </button>
+      </div>
 
-        <div className="cooking-controls">
+      <section className="cooking-centre">
+        <p className="cooking-eyebrow">
+          COOKING MODE · STEP {currentStep + 1} OF{" "}
+          {totalSteps}
+        </p>
+
+        <p className="cooking-task-label">
+          YOUR TASK · {activeTask.name}
+        </p>
+
+        <h1>
+          {activeTask.steps[currentStep]}
+        </h1>
+
+        <div className="cooking-prototype-controls">
           <button
+            className="primary"
             type="button"
-            className="previous-button"
-            onClick={previousStep}
-            disabled={currentStep === 0}
-          >
-            ← Previous
-          </button>
-          <button
-            type="button"
-            className="next-button"
             onClick={nextStep}
           >
             {currentStep === totalSteps - 1
               ? "Finish task ✓"
-              : "Next step →"}
+              : "Next →"}
+          </button>
+
+          <button
+            type="button"
+            onClick={repeatInstruction}
+          >
+            Repeat
+          </button>
+
+          <button
+            type="button"
+            onClick={previousStep}
+            disabled={currentStep === 0}
+          >
+            Previous
+          </button>
+
+          <button
+            type="button"
+            onClick={() =>
+              setShowTimer((value) => !value)
+            }
+          >
+            Timer
+          </button>
+
+          <button
+            type="button"
+            className={
+              needsHelp ? "help-active" : ""
+            }
+            onClick={requestHelp}
+          >
+            {needsHelp
+              ? "Help sent ✓"
+              : "Need help"}
+          </button>
+
+          <button
+            type="button"
+            onClick={onProgress}
+          >
+            Group progress
           </button>
         </div>
-      </section>
 
-      <section className="cooking-right">
-        <div className="cooking-progress-header">
-          <div>
-            <p>COOKING NOW</p>
-            <h2>{meal.title || meal.name}</h2>
-          </div>
-          <span>{Math.round(progress)}%</span>
+        <p className="cooking-voice-hint">
+          Voice commands{" "}
+          {listening ? "listening" : "available"} —
+          say “Hey {user.helperName || "Nova"},
+          next step” to keep your hands free.
+        </p>
+
+        <div className="cooking-voice-control">
+          <VoiceButton
+            supported={supported}
+            listening={listening}
+            onClick={startListening}
+          />
         </div>
 
-        <ProgressBar value={progress} />
+        {(transcript || voiceError) && (
+          <p
+            className="cooking-feedback"
+            aria-live="polite"
+          >
+            {voiceError ||
+              `Heard: “${transcript}”`}
+          </p>
+        )}
 
-        <div className="cooking-step-list">
-          {activeTask.steps.map((step, index) => (
-            <StepCard
-              key={`${activeTask.id}-${index}`}
-              step={step}
-              number={index + 1}
-              state={getStepState(index)}
-            />
-          ))}
-        </div>
+        {message && (
+          <p
+            className="cooking-feedback"
+            aria-live="polite"
+          >
+            {message}
+          </p>
+        )}
 
-        <div className="cooking-bottom">
-          <div className="quick-actions">
-            <button type="button" onClick={repeatInstruction}>
-              ↻ <span>Repeat</span>
-            </button>
+        {helpRequests.length > 0 && (
+          <p
+            className="cooking-feedback"
+            role="status"
+          >
+            Someone needs help.{" "}
             <button
               type="button"
-              className={needsHelp ? "help-active" : ""}
-              onClick={requestHelp}
+              onClick={onProgress}
             >
-              ? <span>{needsHelp ? "Help sent" : "I need help"}</span>
+              View group
             </button>
-            <button type="button" onClick={() => startTimer(300)}>
-              ◷ <span>5 min timer</span>
-            </button>
-            <button type="button" onClick={onProgress}>
-              ◉ <span>Group</span>
-            </button>
-          </div>
+          </p>
+        )}
 
-          {message && (
-            <div className="cooking-message" aria-live="polite">
-              {message}
-            </div>
-          )}
-        </div>
+        {showTimer && (
+          <div className="cooking-timer-popover">
+            <label htmlFor="ktchn-timer-minutes">
+              Timer (minutes)
+            </label>
+
+            <input
+              id="ktchn-timer-minutes"
+              type="number"
+              min="1"
+              max="120"
+              value={timerMinutes}
+              onChange={(event) =>
+                setTimerMinutes(
+                  Number(event.target.value)
+                )
+              }
+            />
+
+            <button
+              type="button"
+              onClick={() =>
+                startTimer(timerMinutes * 60)
+              }
+            >
+              Start
+            </button>
+
+            {timerRemaining !== null && (
+              <>
+                <strong>
+                  {formatTimer(timerRemaining)}
+                </strong>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setTimerRunning(
+                      (running) => !running
+                    )
+                  }
+                  disabled={timerRemaining === 0}
+                >
+                  {timerRunning
+                    ? "Pause"
+                    : "Resume"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTimerRemaining(null);
+                    setTimerRunning(false);
+                  }}
+                >
+                  Clear
+                </button>
+              </>
+            )}
+          </div>
+        )}
       </section>
+
+      <div className="cooking-floating-progress">
+        <span>Session progress</span>
+
+        <strong>
+          {Math.round(progress)}%
+        </strong>
+
+        <small>
+          {currentStep + 1} of {totalSteps} steps
+        </small>
+
+        <div className="cooking-progress-track">
+          <div
+            style={{
+              width: `${progress}%`,
+            }}
+          />
+        </div>
+      </div>
     </main>
   );
 }

@@ -14,14 +14,11 @@ import CookComplete from "./pages/CookComplete";
 import HelpingMode from "./pages/HelpingMode";
 import GroupProgress from "./pages/GroupProgress";
 import AllTasksComplete from "./pages/AllTasksComplete";
-import MealComplete from "./pages/MealComplete";
 import PhotoReview from "./pages/PhotoReview";
 import SharedMealFeed from "./pages/SharedMealFeed";
-import LandscapeGuard from "./components/LandscapeGuard";
 
-import {
-  changeRoomScreen,
-} from "./services/roomService";
+import LandscapeGuard from "./components/LandscapeGuard";
+import { changeRoomScreen } from "./services/roomService";
 
 const defaultPreferences = {
   dietary: ["No Allergies"],
@@ -33,7 +30,19 @@ const defaultPreferences = {
   ready: false,
 };
 
-function App() {
+function asArray(value) {
+  if (Array.isArray(value)) {
+    return value.filter(Boolean);
+  }
+
+  if (value && typeof value === "object") {
+    return Object.values(value).filter(Boolean);
+  }
+
+  return [];
+}
+
+export default function App() {
   const [screen, setScreen] = useState("welcome");
   const [joinMode, setJoinMode] = useState("create");
 
@@ -47,20 +56,19 @@ function App() {
     members: [],
   });
 
-  const [preferences, setPreferences] =
-    useState(defaultPreferences);
+  const [preferences, setPreferences] = useState(
+    defaultPreferences
+  );
 
   const [meal, setMeal] = useState(null);
   const [reviewDraft, setReviewDraft] = useState(null);
   const [reviewSaved, setReviewSaved] = useState(false);
-  const [taskAssignments, setTaskAssignments] =
-    useState([]);
 
-  const [helpingMember, setHelpingMember] =
-    useState(null);
+  const [taskAssignments, setTaskAssignments] = useState([]);
+  const [helpingMember, setHelpingMember] = useState(null);
 
-  const [sharedTask, setSharedTask] =
-    useState(null);
+  const [progressReturn, setProgressReturn] =
+    useState("cooking");
 
   const isLandscapeFlow = [
     "cooking",
@@ -70,9 +78,77 @@ function App() {
     "allComplete",
   ].includes(screen);
 
+  const currentMeal = meal || room.selectedRecipe;
+
+  const currentUser = {
+    ...user,
+    memberId:
+      room.memberId ||
+      user.memberId ||
+      user.id,
+  };
+
+  const memberId = currentUser.memberId;
+  const tasks = asArray(taskAssignments);
+
+  const myTasks = tasks.filter((task) => {
+    if (memberId && task.assignedToId) {
+      return (
+        String(task.assignedToId) ===
+        String(memberId)
+      );
+    }
+
+    return task.assignedTo === user.name;
+  });
+
+  const myTasksFinished =
+    myTasks.length > 0 &&
+    myTasks.every((task) => task.status === "done");
+
   function openJoinRoom(mode) {
     setJoinMode(mode);
     setScreen("join");
+  }
+
+  function openProgress(from) {
+    setProgressReturn(from);
+    setScreen("progress");
+  }
+
+  function returnFromProgress() {
+    if (
+      progressReturn === "helping" &&
+      helpingMember
+    ) {
+      setScreen("helping");
+      return;
+    }
+
+    if (myTasksFinished) {
+      setScreen("cookComplete");
+      return;
+    }
+
+    setScreen("cooking");
+  }
+
+  function openHelping(member) {
+    if (member) {
+      setHelpingMember(member);
+    }
+
+    setScreen("helping");
+  }
+
+  function exitHelping() {
+    setHelpingMember(null);
+
+    if (myTasksFinished) {
+      setScreen("cookComplete");
+    } else {
+      setScreen("cooking");
+    }
   }
 
   function restartSession() {
@@ -89,36 +165,81 @@ function App() {
       members: [],
     });
 
-    setPreferences(defaultPreferences);
+    setPreferences({ ...defaultPreferences });
     setMeal(null);
     setReviewDraft(null);
     setReviewSaved(false);
     setTaskAssignments([]);
     setHelpingMember(null);
-    setSharedTask(null);
+    setProgressReturn("cooking");
   }
 
   async function startCooking() {
     if (!room.code) return;
 
-    await changeRoomScreen(room.code, "cooking");
-    setScreen("cooking");
+    try {
+      await changeRoomScreen(
+        room.code,
+        "cooking"
+      );
+
+      setScreen("cooking");
+    } catch (error) {
+      console.error(
+        "Failed to start cooking:",
+        error
+      );
+    }
   }
 
   async function backToMeal() {
     if (!room.code) return;
 
-    await changeRoomScreen(room.code, "meal");
-    setScreen("meal");
+    try {
+      await changeRoomScreen(
+        room.code,
+        "meal"
+      );
+
+      setScreen("meal");
+    } catch (error) {
+      console.error(
+        "Failed to return to meal selection:",
+        error
+      );
+    }
+  }
+
+  function finishMyTasks() {
+    setScreen("cookComplete");
+  }
+
+  // Called by screens that have confirmed
+  // the group has finished all tasks.
+  function showAllComplete() {
+    setScreen("allComplete");
+  }
+
+  function openPhotoReview() {
+    setScreen("photoReview");
+  }
+
+  function finishReview() {
+    setReviewSaved(true);
+    setScreen("mealFeed");
   }
 
   return (
     <div className="app-shell">
       <div
         className={`phone-app ${
-          isLandscapeFlow ? "phone-app-landscape" : ""
+          isLandscapeFlow
+            ? "phone-app-landscape"
+            : ""
         }`}
       >
+        {/* WELCOME */}
+
         {screen === "welcome" && (
           <Welcome
             onContinue={() =>
@@ -129,6 +250,8 @@ function App() {
             }
           />
         )}
+
+        {/* JOIN ROOM */}
 
         {screen === "join" && (
           <JoinRoom
@@ -146,6 +269,8 @@ function App() {
           />
         )}
 
+        {/* LOBBY */}
+
         {screen === "lobby" && (
           <Lobby
             user={user}
@@ -159,6 +284,8 @@ function App() {
             }
           />
         )}
+
+        {/* PREFERENCES */}
 
         {screen === "preferences" && (
           <Preferences
@@ -176,6 +303,8 @@ function App() {
           />
         )}
 
+        {/* GROUP SUMMARY */}
+
         {screen === "summary" && (
           <GroupSummary
             room={room}
@@ -188,6 +317,8 @@ function App() {
             }
           />
         )}
+
+        {/* MEAL SELECTION */}
 
         {screen === "meal" && (
           <MealSelection
@@ -203,159 +334,139 @@ function App() {
           />
         )}
 
-       {screen === "tasks" && (
+        {/* TASK SETUP */}
+
+        {screen === "tasks" && (
           <TaskSetup
-            meal={meal || room.selectedRecipe}
-            user={{
-              ...user,
-              memberId: room.memberId,
-            }}
+            meal={currentMeal}
+            user={currentUser}
             room={room}
             setTaskAssignments={setTaskAssignments}
             onContinue={startCooking}
-            onRoomStart={() => setScreen("cooking")}
+            onRoomStart={() =>
+              setScreen("cooking")
+            }
             onBack={backToMeal}
           />
         )}
 
+        {/* COOKING MODE */}
+
         {screen === "cooking" && (
           <LandscapeGuard>
             <CookingMode
-              meal={meal || room.selectedRecipe}
-              user={{
-                ...user,
-                memberId: room.memberId,
-              }}
+              meal={currentMeal}
+              user={currentUser}
               room={room}
               taskAssignments={taskAssignments}
               setTaskAssignments={setTaskAssignments}
-              onComplete={() =>
-                setScreen("cookComplete")
+              onComplete={finishMyTasks}
+              onBack={() =>
+                setScreen("tasks")
               }
-              onBack={() => setScreen("tasks")}
-              onProgress={() => setScreen("progress")}
+              onProgress={() =>
+                openProgress("cooking")
+              }
             />
           </LandscapeGuard>
         )}
+
+        {/* MY TASKS FINISHED */}
 
         {screen === "cookComplete" && (
           <LandscapeGuard>
             <CookComplete
-              user={{
-                ...user,
-                memberId: room.memberId,
-              }}
-              meal={meal || room.selectedRecipe}
+              user={currentUser}
+              meal={currentMeal}
               room={room}
               taskAssignments={taskAssignments}
               setHelpingMember={setHelpingMember}
-              onHelp={() => {
-                setSharedTask(null);
-                setScreen("helping");
-              }}
-              onCleanup={() => {
-                setHelpingMember(null);
-                setSharedTask("cleanup");
-                setScreen("progress");
-              }}
-              onTable={() => {
-                setHelpingMember(null);
-                setSharedTask("table");
-                setScreen("progress");
-              }}
-              onProgress={() => setScreen("progress")}
-              onAllComplete={() => setScreen("allComplete")}
+              onHelp={() => openHelping()}
+              onProgress={() =>
+                openProgress("cookComplete")
+              }
+              onAllComplete={showAllComplete}
+              onBack={() =>
+                openProgress("cookComplete")
+              }
             />
           </LandscapeGuard>
         )}
+
+        {/* HELPING ANOTHER COOK */}
 
         {screen === "helping" && (
           <LandscapeGuard>
             <HelpingMode
-              user={{
-                ...user,
-                memberId: room.memberId,
-              }}
-              meal={meal || room.selectedRecipe}
+              user={currentUser}
+              meal={currentMeal}
               room={room}
               helpingMember={helpingMember}
-              onExit={() => {
-                setHelpingMember(null);
-                setScreen("cookComplete");
-              }}
-              onProgress={() => setScreen("progress")}
-              onAllComplete={() => setScreen("allComplete")}
+              onExit={exitHelping}
+              onProgress={() =>
+                openProgress("helping")
+              }
+              onAllComplete={showAllComplete}
             />
           </LandscapeGuard>
         )}
+
+        {/* GROUP PROGRESS */}
 
         {screen === "progress" && (
           <LandscapeGuard>
             <GroupProgress
-              user={{
-                ...user,
-                memberId: room.memberId,
-              }}
-              meal={meal || room.selectedRecipe}
+              user={currentUser}
+              meal={currentMeal}
               room={room}
               taskAssignments={taskAssignments}
-              setTaskAssignments={setTaskAssignments}
-              helpingMember={helpingMember}
               setHelpingMember={setHelpingMember}
-              sharedTask={sharedTask}
-              setSharedTask={setSharedTask}
-              onBack={() =>
-                setScreen(helpingMember ? "helping" : "cookComplete")
-              }
-              onAllComplete={() => setScreen("allComplete")}
+              onHelp={() => openHelping()}
+              onBack={returnFromProgress}
+              onAllComplete={showAllComplete}
             />
           </LandscapeGuard>
         )}
+
+        {/* EVERYONE FINISHED */}
 
         {screen === "allComplete" && (
           <LandscapeGuard>
             <AllTasksComplete
-              user={user}
-              meal={meal || room.selectedRecipe}
+              user={currentUser}
+              meal={currentMeal}
               room={room}
               taskAssignments={taskAssignments}
-              onContinue={() => setScreen("mealComplete")}
+              onContinue={openPhotoReview}
             />
           </LandscapeGuard>
         )}
 
-        {screen === "mealComplete" && (
-          <MealComplete
-            meal={meal || room.selectedRecipe}
-            room={room}
-            onAddPhoto={() => setScreen("photoReview")}
-            onShareFeedback={() => setScreen("photoReview")}
-            reviewSaved={reviewSaved}
-            onViewFeed={() => setScreen("mealFeed")}
-            onBack={() => setScreen("allComplete")}
-            onCookAgain={restartSession}
-            onEndSession={restartSession}
-          />
-        )}
+        {/* POST MEAL REVIEW */}
+
         {screen === "photoReview" && (
           <PhotoReview
-            user={user}
-            meal={meal || room.selectedRecipe}
+            user={currentUser}
+            meal={currentMeal}
             room={room}
             draft={reviewDraft}
             onDraftChange={setReviewDraft}
-            onBack={() => setScreen("mealComplete")}
-            onSaved={() => {
-              setReviewSaved(true);
-              setScreen("mealFeed");
-            }}
+            onBack={() =>
+              setScreen("allComplete")
+            }
+            onSaved={finishReview}
           />
         )}
+
+        {/* SHARED MEAL FEED */}
+
         {screen === "mealFeed" && (
           <SharedMealFeed
             room={room}
-            user={user}
-            onBack={() => setScreen("mealComplete")}
+            user={currentUser}
+            onBack={() =>
+              setScreen("allComplete")
+            }
             onCookTogether={restartSession}
             justPosted={reviewSaved}
           />
@@ -364,5 +475,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

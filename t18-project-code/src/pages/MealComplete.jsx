@@ -26,38 +26,14 @@ export default function MealComplete({
     ? room.members
     : Object.values(room?.members || {});
 
-  function saveMeal() {
-    if (!recipe) {
-      setSaveError("No selected recipe to save.");
-      return;
-    }
-
+  async function shareMeal() {
+    const text = `We cooked ${mealName} together! ${members.map((member) => member.name).join(", ")}`;
     try {
-      const existing = JSON.parse(
-        localStorage.getItem("ktchn-saved-meals") || "[]"
-      );
-
-      const savedMeal = {
-        recipeId: recipe.id,
-        title: mealName,
-        image: recipe.image || "",
-        members: members.map((member) => member.name),
-        savedAt: new Date().toISOString(),
-      };
-
-      localStorage.setItem(
-        "ktchn-saved-meals",
-        JSON.stringify([
-          ...(Array.isArray(existing) ? existing : []),
-          savedMeal,
-        ])
-      );
-
-      setSaved(true);
-      setSaveError("");
+      if (navigator.share) await navigator.share({ title: mealName, text });
+      else if (navigator.clipboard) { await navigator.clipboard.writeText(text); setSaved(true); }
+      else setSaveError("Sharing is not available in this browser.");
     } catch (error) {
-      console.error(error);
-      setSaveError("Could not save this meal.");
+      if (error?.name !== "AbortError") setSaveError("Couldn't share the meal.");
     }
   }
 
@@ -99,8 +75,8 @@ export default function MealComplete({
             <button type="button" className="meal-complete-primary" onClick={onAddPhoto} disabled={!onAddPhoto}>
               Add your photo
             </button>
-            <button type="button" className="meal-complete-secondary" onClick={saveMeal} disabled={saved || !recipe}>
-              {saved ? "✓ Saved" : "Save meal"}
+            <button type="button" className="meal-complete-secondary" onClick={shareMeal} disabled={!recipe}>
+              {saved ? "✓ Copied" : "Share meal"}
             </button>
           </div>
           <button type="button" className="meal-complete-feedback" onClick={onShareFeedback} disabled={!onShareFeedback}>

@@ -247,9 +247,72 @@ export async function setSelectedRecipe(roomCode, recipe) {
 // COOKING SETUP
 // ============================================
 
+// Divide existing recipe instructions into useful
+// per-member work when possible.
+// Never invent cooking instructions or split a
+// single instruction mid-action.
+
+function distributeRecipeTasks(tasks, memberCount) {
+  const result = tasks.map((task, index) => ({
+    ...task,
+    id: String(task.id ?? `task-${index}`),
+    steps: Array.isArray(task.steps)
+      ? task.steps
+      : [],
+  }));
+
+  const target = Math.min(
+    Math.max(memberCount, 1),
+    result.reduce(
+      (n, task) =>
+        n + Math.max(task.steps.length, 1),
+      0
+    )
+  );
+
+  while (result.length < target) {
+    const index = result.reduce(
+      (best, task, i) =>
+        task.steps.length > result[best].steps.length
+          ? i
+          : best,
+      0
+    );
+
+    const task = result[index];
+
+    if (task.steps.length < 2) break;
+
+    const midpoint = Math.ceil(
+      task.steps.length / 2
+    );
+
+    const second = {
+      ...task,
+      id: `${task.id}-part-${result.length}`,
+      name: `${
+        task.name || task.title || "Cooking"
+      } (part 2)`,
+      steps: task.steps.slice(midpoint),
+    };
+
+    result[index] = {
+      ...task,
+      name: `${
+        task.name || task.title || "Cooking"
+      } (part 1)`,
+      steps: task.steps.slice(0, midpoint),
+    };
+
+    result.splice(index + 1, 0, second);
+  }
+
+  return result;
+}
+
 // Initialise equipment and task assignments.
-// A transaction prevents a second device from
-// overwriting an existing setup for the recipe.
+// A transaction prevents another device from
+// overwriting an existing setup.
 
 export async function initializeCookingSetup(
   roomCode,
@@ -269,9 +332,16 @@ export async function initializeCookingSetup(
   await runTransaction(
     ref(database, `rooms/${roomCode}/cookingSetup`),
     (current) => {
+      // Preserve an existing setup for this recipe.
+      // Firebase may return assignments as an object
+      // rather than an array.
       if (
         current?.recipeId === String(recipe.id) &&
-        Array.isArray(current.assignments)
+        current.assignments &&
+        (
+          Array.isArray(current.assignments) ||
+          typeof current.assignments === "object"
+        )
       ) {
         return;
       }
@@ -289,7 +359,10 @@ export async function initializeCookingSetup(
           "Frying Pan": true,
         },
 
-        assignments: tasks.map((task, index) => ({
+        assignments: distributeRecipeTasks(
+          tasks,
+          people.length
+        ).map((task, index) => ({
           ...task,
           id: String(task.id ?? `task-${index}`),
           assignedToId: people.length
@@ -353,9 +426,13 @@ export async function assignCookingTask(
       `rooms/${roomCode}/cookingSetup/assignments`
     ),
     (current) => {
-      if (!Array.isArray(current)) return;
+      if (!current) return;
 
-      return current.map((task) =>
+      const tasks = Array.isArray(current)
+        ? current
+        : Object.values(current);
+
+      return tasks.map((task) =>
         String(task.id) === String(taskId)
           ? {
               ...task,
@@ -367,15 +444,23 @@ export async function assignCookingTask(
   );
 }
 
-// Update live cooking progress without replacing the task list.
-// Keeping this as a transaction prevents two cooks from overwriting
-// each other's progress when they act at the same time.
+// UPDATE COOKING TASK
+
+// Transactions prevent two cooks from
+// overwriting each other's progress.
+
 export async function updateCookingTask(
   roomCode,
   taskId,
   changes
 ) {
-  if (!roomCode || taskId == null || !changes) return;
+  if (
+    !roomCode ||
+    taskId == null ||
+    !changes
+  ) {
+    return;
+  }
 
   await runTransaction(
     ref(
@@ -402,9 +487,11 @@ export async function updateCookingTask(
   );
 }
 
-// Store what a finished cook is doing while the rest of the group
-// continues. One activity per member keeps help and shared tasks from
-// becoming stale or duplicated across devices.
+// COOKING ACTIVITY
+
+// Store what each finished cook is doing
+// while other members continue cooking.
+
 export async function setCookingActivity(
   roomCode,
   memberId,

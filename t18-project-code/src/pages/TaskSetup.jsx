@@ -20,19 +20,24 @@ const EQUIPMENT = [
   { name: "Frying Pan", type: "Equipment" },
 ];
 
+function asArray(value) {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  if (value && typeof value === "object") {
+    return Object.values(value).filter(Boolean);
+  }
+  return [];
+}
+
 function getMemberLabel(member, myId) {
   if (!member) return "Unclaimed";
 
-  const isMe = String(member.id) === String(myId);
-  return `${member.name || "Member"}${isMe ? " (You)" : ""}`;
+  const mine = String(member.id) === String(myId);
+
+  return `${member.name || "Member"}${mine ? " (You)" : ""}`;
 }
 
 function prepareAssignments(assignments, members) {
-  const tasks = Array.isArray(assignments)
-    ? assignments
-    : Object.values(assignments || {});
-
-  return tasks.filter(Boolean).map((task, index) => {
+  return asArray(assignments).map((task, index) => {
     const owner = members.find(
       (member) =>
         String(member.id) === String(task.assignedToId)
@@ -44,7 +49,7 @@ function prepareAssignments(assignments, members) {
       name: task.name || task.title || `Task ${index + 1}`,
       estimatedTime:
         task.estimatedTime ?? task.minutes ?? null,
-      assignedTo: owner?.name || task.assignedTo || null,
+      assignedTo: owner?.name || null,
       status: task.status || "waiting",
       currentStep: Number(task.currentStep) || 0,
       needsHelp: Boolean(task.needsHelp),
@@ -64,82 +69,81 @@ export default function TaskSetup({
   const [liveRoom, setLiveRoom] = useState(null);
   const [busy, setBusy] = useState(false);
   const [initializing, setInitializing] = useState(false);
+  const [initFinished, setInitFinished] = useState(false);
   const [error, setError] = useState("");
   const [showEveryone, setShowEveryone] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+
   const navigationStarted = useRef(false);
+  const initializationAttempt = useRef(null);
+  const callbacksRef = useRef({});
 
-  const roomCode = room.code || room.roomCode;
+  callbacksRef.current = {
+    setTaskAssignments,
+    onRoomStart,
+  };
 
-  // Listen directly to Firebase so changes appear
-  // immediately on every device.
+  const roomCode = room.code || room.roomCode || "";
+
+  // Subscribe once per room, not once per render.
   useEffect(() => {
     if (!roomCode) return;
 
+    navigationStarted.current = false;
     setLiveRoom(null);
 
     const unsubscribe = subscribeToRoom(
       roomCode,
       (updatedRoom) => {
-        if (updatedRoom) {
-          setLiveRoom(updatedRoom);
+        if (!updatedRoom) {
+          setError("This cooking room no longer exists.");
+          return;
+        }
 
-          if (
-            updatedRoom.screen === "cooking" &&
-            !navigationStarted.current
-          ) {
-            navigationStarted.current = true;
+        setLiveRoom(updatedRoom);
 
-            const updatedMembers = Array.isArray(
-              updatedRoom.members
+        if (
+          updatedRoom.screen === "cooking" &&
+          !navigationStarted.current
+        ) {
+          navigationStarted.current = true;
+
+          const members = asArray(updatedRoom.members);
+
+          callbacksRef.current.setTaskAssignments?.(
+            prepareAssignments(
+              updatedRoom.cookingSetup?.assignments,
+              members
             )
-              ? updatedRoom.members
-              : Object.values(updatedRoom.members || {});
+          );
 
-            setTaskAssignments?.(
-              prepareAssignments(
-                updatedRoom.cookingSetup?.assignments,
-                updatedMembers
-              )
-            );
-            onRoomStart?.();
-          }
+          callbacksRef.current.onRoomStart?.();
         }
       }
     );
 
     return () => unsubscribe();
-  }, [roomCode, onRoomStart, setTaskAssignments]);
+  }, [roomCode]);
 
   const currentRoom = liveRoom || room;
 
-  // The local member ID is not stored at the
-  // root of the Firebase room.
+  // Preserve the original local identity.
   const myId =
-    room.memberId ||
-    user.memberId ||
-    user.id ||
-    null;
+    room.memberId || user.memberId || user.id || null;
+
+  const hostId = currentRoom.hostId || room.hostId;
 
   const isHost = Boolean(
     myId &&
-      currentRoom.hostId &&
-      String(myId) === String(currentRoom.hostId)
+    hostId &&
+    String(myId) === String(hostId)
   );
 
-  const members = useMemo(() => {
-    const data = currentRoom.members;
-
-    if (Array.isArray(data)) {
-      return data.filter(Boolean);
-    }
-
-    if (data && typeof data === "object") {
-      return Object.values(data).filter(Boolean);
-    }
-
-    return [];
-  }, [currentRoom.members]);
+  const members = useMemo(
+    () => asArray(currentRoom.members),
+    [currentRoom.members]
+  );
 
   const selectedMeal =
     currentRoom.selectedRecipe || meal || null;
@@ -153,8 +157,10 @@ export default function TaskSetup({
 
   const setupReady = Boolean(
     setup &&
-      recipeId &&
-      String(setup.recipeId) === recipeId
+    recipeId &&
+    String(setup.recipeId) === recipeId &&
+    setup.equipment &&
+    setup.assignments
   );
 
   const stage = setupReady
@@ -162,47 +168,58 @@ export default function TaskSetup({
     : "equipment";
 
   const equipment = setupReady
-    ? setup.equipment || {}
+    ? setup.equipment
     : {};
 
-  const assignments = useMemo(() => {
-    if (!setupReady) return [];
-
-    const data = setup.assignments;
-
-    if (Array.isArray(data)) {
-      return data.filter(Boolean);
-    }
-
-    if (data && typeof data === "object") {
-      return Object.values(data).filter(Boolean);
-    }
-
-    return [];
-  }, [setupReady, setup?.assignments]);
+  const assignments = useMemo(
+    () => setupReady ? asArray(setup.assignments) : [],
+    [setupReady, setup?.assignments]
+  );
 
   const allTasksAssigned =
     assignments.length > 0 &&
-    assignments.every(
-      (task) => Boolean(task.assignedToId)
-    );
+    assignments.every((task) => Boolean(task.assignedToId));
 
-  // Initialise Firebase setup only when needed.
+  // Firebase setup initialization.
+  // Avoid repeated transactions caused by room snapshots.
   useEffect(() => {
     if (
       !isHost ||
       !roomCode ||
-      !selectedMeal ||
+      !recipeId ||
       !members.length ||
       setupReady
     ) {
+      if (setupReady) {
+        setInitializing(false);
+        setInitFinished(true);
+      }
       return;
     }
 
-    let cancelled = false;
+    const key = `${roomCode}:${recipeId}:${retryCount}`;
+
+    if (initializationAttempt.current === key) {
+      return;
+    }
+
+    initializationAttempt.current = key;
+
+    let active = true;
 
     setInitializing(true);
+    setInitFinished(false);
     setError("");
+
+    const timeout = setTimeout(() => {
+      if (!active) return;
+
+      setInitializing(false);
+      setInitFinished(true);
+      setError(
+        "Cooking setup is taking too long. Check your Firebase connection and try again."
+      );
+    }, 12000);
 
     initializeCookingSetup(
       roomCode,
@@ -210,33 +227,37 @@ export default function TaskSetup({
       members
     )
       .catch((err) => {
-        if (!cancelled) {
-          console.error(
-            "Cooking setup initialization failed:",
-            err
-          );
+        console.error(
+          "Cooking setup initialization failed:",
+          err
+        );
+
+        if (active) {
           setError(
-            err.message ||
-              "Could not prepare cooking setup."
+            err.message || "Could not prepare cooking setup."
           );
         }
       })
       .finally(() => {
-        if (!cancelled) {
+        clearTimeout(timeout);
+
+        if (active) {
           setInitializing(false);
+          setInitFinished(true);
         }
       });
 
     return () => {
-      cancelled = true;
+      active = false;
+      clearTimeout(timeout);
     };
   }, [
     isHost,
     roomCode,
     recipeId,
+    members.length,
     setupReady,
-    selectedMeal,
-    members,
+    retryCount,
   ]);
 
   async function perform(action) {
@@ -248,14 +269,25 @@ export default function TaskSetup({
     try {
       await action();
     } catch (err) {
-      console.error("Task setup error:", err);
+      console.error("Task setup action failed:", err);
+
       setError(
         err.message ||
-          "Something went wrong. Please try again."
+        "Something went wrong. Please try again."
       );
     } finally {
       setBusy(false);
     }
+  }
+
+  function retryInitialization() {
+    if (!isHost || initializing) return;
+
+    initializationAttempt.current = null;
+    setError("");
+    setInitializing(false);
+    setInitFinished(false);
+    setRetryCount((count) => count + 1);
   }
 
   async function proceed() {
@@ -267,16 +299,19 @@ export default function TaskSetup({
   }
 
   async function goBack() {
-    if (!isHost || busy) return;
+    if (busy) return;
 
     if (stage === "assignment") {
+      if (!isHost) return;
+
       await perform(() =>
         setCookingSetupStage(roomCode, "equipment")
       );
+
       return;
     }
 
-    if (typeof onBack === "function") {
+    if (isHost && typeof onBack === "function") {
       await perform(onBack);
     }
   }
@@ -290,6 +325,7 @@ export default function TaskSetup({
         taskId,
         memberId
       );
+
       setEditingTask(null);
     });
   }
@@ -310,11 +346,7 @@ export default function TaskSetup({
         members
       );
 
-      if (
-        typeof setTaskAssignments === "function"
-      ) {
-        setTaskAssignments(finalAssignments);
-      }
+      setTaskAssignments?.(finalAssignments);
 
       if (typeof onContinue === "function") {
         await onContinue();
@@ -337,10 +369,12 @@ export default function TaskSetup({
           <p className="kt-task-eyebrow">
             COOKING SETUP
           </p>
+
           <h1>No meal selected</h1>
+
           <p>
-            Please choose a recipe before
-            setting up your kitchen.
+            Please choose a recipe before setting up
+            your kitchen.
           </p>
         </header>
       </main>
@@ -429,7 +463,7 @@ export default function TaskSetup({
               })}
             </div>
 
-            {initializing && (
+            {initializing && !setupReady && (
               <p className="kt-task-hint">
                 Preparing your cooking setup...
               </p>
@@ -439,15 +473,14 @@ export default function TaskSetup({
               !initializing &&
               isHost && (
                 <p className="kt-task-hint">
-                  Waiting for the kitchen setup
-                  to load from Firebase.
+                  Kitchen setup is not ready yet.
                 </p>
               )}
 
             {!isHost && (
               <p className="kt-task-hint">
-                Waiting for the room admin to
-                confirm the kitchen equipment.
+                Waiting for the room admin to confirm
+                the kitchen equipment.
               </p>
             )}
           </section>
@@ -462,6 +495,24 @@ export default function TaskSetup({
               </p>
             )}
 
+            {isHost &&
+              !setupReady &&
+              !initializing && (
+                <button
+                  className="kt-task-outline"
+                  type="button"
+                  onClick={retryInitialization}
+                  disabled={busy}
+                  style={{
+                    width: "100%",
+                    marginBottom: "12px",
+                    padding: "12px",
+                  }}
+                >
+                  Retry Cooking Setup
+                </button>
+              )}
+
             <button
               className="kt-task-primary"
               type="button"
@@ -473,11 +524,15 @@ export default function TaskSetup({
               }
               onClick={proceed}
             >
-              {initializing
+              {initializing && !setupReady
                 ? "Preparing setup..."
-                : isHost
-                  ? "Proceed to Assign Tasks"
-                  : "Waiting for admin"}
+                : !isHost
+                  ? "Waiting for admin"
+                  : !setupReady
+                    ? "Setup not ready"
+                    : busy
+                      ? "Please wait..."
+                      : "Proceed to Assign Tasks"}
             </button>
           </footer>
         </>
@@ -492,9 +547,8 @@ export default function TaskSetup({
 
             <p>
               The app gives an initial task split,
-              and the rest is up to you!
-              Claim and reassign tasks as
-              you see fit.
+              and the rest is up to you! Claim and
+              reassign tasks as you see fit.
             </p>
           </header>
 
@@ -504,16 +558,23 @@ export default function TaskSetup({
                 .filter(
                   (task) =>
                     showEveryone ||
-                    (Boolean(myId) &&
+                    (
+                      myId &&
                       String(task.assignedToId) ===
-                        String(myId)) ||
+                        String(myId)
+                    ) ||
                     !task.assignedToId
                 )
-                .map((task) => {
-                  const mine =
-                    Boolean(myId) &&
+                .map((task, index) => {
+                  const taskId = String(
+                    task.id ?? `task-${index}`
+                  );
+
+                  const mine = Boolean(
+                    myId &&
                     String(task.assignedToId) ===
-                      String(myId);
+                      String(myId)
+                  );
 
                   const owner = members.find(
                     (member) =>
@@ -526,7 +587,7 @@ export default function TaskSetup({
                       className={`kt-assignment-card ${
                         mine ? "mine" : ""
                       }`}
-                      key={task.id}
+                      key={taskId}
                     >
                       <div className="kt-assignment-main">
                         <div className="kt-assignment-info">
@@ -585,14 +646,14 @@ export default function TaskSetup({
                             onClick={() => {
                               if (!task.assignedToId) {
                                 changeAssignment(
-                                  task.id,
+                                  taskId,
                                   myId
                                 );
                               } else {
                                 setEditingTask(
-                                  editingTask === task.id
+                                  editingTask === taskId
                                     ? null
-                                    : task.id
+                                    : taskId
                                 );
                               }
                             }}
@@ -604,40 +665,36 @@ export default function TaskSetup({
                         )}
                       </div>
 
-                      {editingTask === task.id && (
+                      {editingTask === taskId && (
                         <div className="kt-swap-panel">
-                          <p>
-                            Assign this task to:
-                          </p>
+                          <p>Assign this task to:</p>
 
                           <div className="kt-swap-choices">
-                            {members.map(
-                              (member) => (
-                                <button
-                                  key={member.id}
-                                  type="button"
-                                  disabled={busy}
-                                  onClick={() =>
-                                    changeAssignment(
-                                      task.id,
-                                      member.id
-                                    )
-                                  }
-                                >
-                                  {getMemberLabel(
-                                    member,
-                                    myId
-                                  )}
-                                </button>
-                              )
-                            )}
+                            {members.map((member) => (
+                              <button
+                                key={member.id}
+                                type="button"
+                                disabled={busy}
+                                onClick={() =>
+                                  changeAssignment(
+                                    taskId,
+                                    member.id
+                                  )
+                                }
+                              >
+                                {getMemberLabel(
+                                  member,
+                                  myId
+                                )}
+                              </button>
+                            ))}
 
                             <button
                               type="button"
                               disabled={busy}
                               onClick={() =>
                                 changeAssignment(
-                                  task.id,
+                                  taskId,
                                   null
                                 )
                               }
@@ -655,7 +712,7 @@ export default function TaskSetup({
                           disabled={busy}
                           onClick={() =>
                             changeAssignment(
-                              task.id,
+                              taskId,
                               null
                             )
                           }
@@ -713,8 +770,8 @@ export default function TaskSetup({
 
               {!assignments.length && (
                 <p className="kt-task-hint">
-                  No tasks are available for
-                  this recipe yet.
+                  No tasks are available for this
+                  recipe yet.
                 </p>
               )}
             </div>
@@ -741,9 +798,13 @@ export default function TaskSetup({
               }
               onClick={startCooking}
             >
-              {isHost
-                ? "Start Cooking"
-                : "Waiting for admin to start"}
+              {!isHost
+                ? "Waiting for admin to start"
+                : busy
+                  ? "Starting..."
+                  : !allTasksAssigned
+                    ? "Assign all tasks first"
+                    : "Start Cooking"}
             </button>
           </footer>
         </>

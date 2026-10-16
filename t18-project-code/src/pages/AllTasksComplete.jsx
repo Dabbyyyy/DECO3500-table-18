@@ -1,138 +1,148 @@
+
 import "./AllTasksComplete.css";
 
+function asArray(value) {
+  if (Array.isArray(value)) {
+    return value.filter(Boolean);
+  }
+
+  if (value && typeof value === "object") {
+    return Object.values(value).filter(Boolean);
+  }
+
+  return [];
+}
+
 export default function AllTasksComplete({
-  user,
-  meal,
-  room,
-  taskAssignments,
+  user = {},
+  meal = {},
+  room = {},
+  taskAssignments = [],
   onContinue,
 }) {
+  const tasks = asArray(taskAssignments);
+
+  const members = asArray(room.members);
+
+  const completedTasks = tasks.filter(
+    (task) => task.status === "done"
+  );
+
+  const allTasksFinished =
+    tasks.length > 0 &&
+    completedTasks.length === tasks.length;
+
   const cookNames = [
-    ...new Set(
-      taskAssignments
-        .map((task) => task.assignedTo)
-        .filter(Boolean)
-    ),
+    ...new Set([
+      ...members.map((member) => member.name),
+      ...tasks.map((task) => task.assignedTo),
+    ].filter(Boolean)),
   ];
 
+  const mealName =
+    meal.title ||
+    meal.name ||
+    room.selectedRecipe?.title ||
+    room.selectedRecipe?.name ||
+    "Your meal";
+
   return (
-    <div className="all-complete-page">
+    <main className="all-complete-page">
+      <div className="all-complete-decoration all-complete-decoration-one" />
+      <div className="all-complete-decoration all-complete-decoration-two" />
 
-      <section className="all-complete-left">
+      <section className="all-complete-content">
+        <p className="all-complete-label">
+          COOKING FINISHED
+        </p>
 
-        <div>
-
-          <p className="all-complete-label">
-            ALL TASKS COMPLETE
-          </p>
-
-          <div className="celebration-icon">
-            ✓
-          </div>
-
-          <h1>
-            Everything's
-            <br />
-            ready.
-          </h1>
-
-          <p className="all-complete-description">
-            Everyone has finished their part.
-            Bring everything together and enjoy
-            the meal you made as a group.
-          </p>
-
+        <div className="all-complete-check">
+          <span>✓</span>
         </div>
 
+        <h1>
+          Everyone's
+          <br />
+          ready!
+        </h1>
+
+        <p className="all-complete-description">
+          You've finished cooking together.
+          Your meal is ready to enjoy!
+        </p>
+
+        <div className="all-complete-members">
+          <div className="all-complete-avatars">
+            {cookNames.slice(0, 6).map((name, index) => (
+              <div
+                className="all-complete-avatar"
+                key={`${name}-${index}`}
+                title={name}
+              >
+                {name.charAt(0).toUpperCase()}
+              </div>
+            ))}
+          </div>
+
+          <p>
+            Made together by{" "}
+            <strong>
+              {cookNames.length > 0
+                ? cookNames.join(", ")
+                : user.name || "your group"}
+            </strong>
+          </p>
+        </div>
+
+        <div className="all-complete-meal-card">
+          <div className="all-complete-meal-icon">
+            {meal.icon || "🍽️"}
+          </div>
+
+          <div className="all-complete-meal-info">
+            <span>YOUR MEAL</span>
+            <h2>{mealName}</h2>
+          </div>
+
+          <span className="all-complete-meal-tick">
+            ✓ Ready
+          </span>
+        </div>
+
+        <div className="all-complete-reminder">
+          <div className="all-complete-reminder-icon">
+            ♡
+          </div>
+
+          <p>
+            <strong>Well done!</strong> Your meal is ready.
+            Set the table, share your meal with everyone,
+            and don't forget to clean up afterwards.
+          </p>
+        </div>
 
         <button
           type="button"
-          className="new-session-button"
+          className="all-complete-continue"
           onClick={onContinue}
+          disabled={!onContinue}
         >
-          Continue to meal
+          Post to feed
+          <span aria-hidden="true">→</span>
         </button>
 
+        <p className="all-complete-footer-note">
+          The cooking is done. Now it's time to enjoy
+          the moment together.
+        </p>
+
+        {!allTasksFinished && (
+          <p className="all-complete-sync-note">
+            {completedTasks.length} of {tasks.length}{" "}
+            cooking tasks are marked complete.
+          </p>
+        )}
       </section>
-
-
-      <section className="all-complete-right">
-
-        <div className="final-meal-card">
-
-          <div className="final-meal-icon">
-            {meal?.icon}
-          </div>
-
-          <p>DINNER IS READY</p>
-
-          <h2>
-            {meal?.title || meal?.name}
-          </h2>
-
-          <span>
-            Made together by{" "}
-            {cookNames.length > 0
-              ? cookNames.join(", ")
-              : user.name}
-          </span>
-
-        </div>
-
-
-        <div className="completed-task-list">
-
-          {taskAssignments.map((task) => (
-
-            <div
-              className="completed-task"
-              key={`${task.id}-${task.assignedTo}`}
-            >
-
-              <div>
-                <span>
-                  {task.icon}
-                </span>
-
-                <div>
-                  <strong>
-                    {task.name || task.title}
-                  </strong>
-
-                  <small>
-                    {task.assignedTo}
-                  </small>
-                </div>
-              </div>
-
-              <span className="complete-tick">
-                ✓ Done
-              </span>
-
-            </div>
-
-          ))}
-
-        </div>
-
-
-        <div className="together-message">
-          <span>🍽️</span>
-
-          <div>
-            <strong>
-              Time to eat together.
-            </strong>
-
-            <p>
-              The technology has done its job.
-              Now the focus goes back to the group.
-            </p>
-          </div>
-        </div>
-
-      </section>
-
-    </div>
+    </main>
   );
 }

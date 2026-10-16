@@ -10,6 +10,7 @@ export default function PhotoReview({ meal, room, user, draft, onDraftChange, on
   const [rating, setRating] = useState(draft?.rating || 0);
   const [tags, setTags] = useState(draft?.tags || []);
   const [caption, setCaption] = useState(draft?.caption || "");
+  const [taggedIds, setTaggedIds] = useState(draft?.taggedIds || []);
   const [preview, setPreview] = useState(() => draft?.photo ? URL.createObjectURL(draft.photo) : "");
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
@@ -19,14 +20,15 @@ export default function PhotoReview({ meal, room, user, draft, onDraftChange, on
   const cameraInput = useRef(null);
   const recipe = meal || room?.selectedRecipe;
   const mealName = recipe?.title || recipe?.name || "Our meal";
+  const roomMembers = Array.isArray(room?.members) ? room.members : Object.values(room?.members || {});
 
   useEffect(() => {
     return () => { if (preview) URL.revokeObjectURL(preview); };
   }, [preview]);
 
   useEffect(() => {
-    onDraftChange({ id: reviewId.current, photo, rating, tags, caption });
-  }, [photo, rating, tags, caption, onDraftChange]);
+    onDraftChange({ id: reviewId.current, photo, rating, tags, caption, taggedIds });
+  }, [photo, rating, tags, caption, taggedIds, onDraftChange]);
 
   function selectPhoto(event) {
     const file = event.target.files?.[0];
@@ -60,7 +62,8 @@ export default function PhotoReview({ meal, room, user, draft, onDraftChange, on
         recipeId: recipe?.id || null,
         mealName,
         recipeImage: recipe?.image || "",
-        members: members.map((member) => member.name || "A cook"),
+        members: members.filter((member) => taggedIds.includes(String(member.id))).map((member) => member.name || "A cook"),
+        taggedIds,
         photo,
         rating,
         tags,
@@ -88,7 +91,7 @@ export default function PhotoReview({ meal, room, user, draft, onDraftChange, on
           <section className="photo-review-section">
             <div className="photo-review-preview">
               {(preview || recipe?.image) && !photoError ? <img src={preview || recipe.image} alt={photo ? "Your finished meal" : mealName} onError={() => setPhotoError("This image could not be displayed. Choose another photo.")} /> : <p>Add a photo of your finished dish</p>}
-              <button type="button" className="photo-review-retake" onClick={() => cameraInput.current.click()}>▣ Retake</button>
+              <button type="button" className="photo-review-retake" onClick={() => cameraInput.current?.click()}>▣ Take / Retake</button>
             </div>
             {photoError && <p className="photo-review-error" role="alert">{photoError}</p>}
             <input ref={uploadInput} type="file" accept="image/*" onChange={selectPhoto} hidden />
@@ -116,7 +119,15 @@ export default function PhotoReview({ meal, room, user, draft, onDraftChange, on
             <textarea id="meal-review-caption" value={caption} onChange={(event) => setCaption(event.target.value)} maxLength={300} rows={3} placeholder="What made this meal special?" />
             <p className="photo-review-count">{caption.length}/300</p>
           </section>
-          <p className="photo-review-tagged">♧ Tagged: {(Array.isArray(room?.members) ? room.members : Object.values(room?.members || {})).map((member) => member.name || "A cook").join(", ") || "Your cooking team"}</p>
+          <section className="photo-review-section">
+            <h2>Tag your cooking team</h2>
+            <div className="photo-review-tags">
+              {roomMembers.map((member) => <label key={member.id} style={{display:"inline-flex",alignItems:"center",gap:6,marginRight:12}}>
+                <input type="checkbox" checked={taggedIds.includes(String(member.id))} onChange={(event) => setTaggedIds((current) => event.target.checked ? [...current, String(member.id)] : current.filter((id) => id !== String(member.id)))} />
+                {member.name || "Cook"}
+              </label>)}
+            </div>
+          </section>
         </fieldset>
         {error && <p className="photo-review-error" role="alert">{error}</p>}
         <footer className="photo-review-footer">

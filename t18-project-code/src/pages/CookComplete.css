@@ -1,370 +1,416 @@
-.cook-complete-page {
+
+/* =========================================
+   KTCHN — TASK FINISHED
+   Landscape prototype
+========================================= */
+
+.cc-page {
   width: 100%;
-  height: 100%;
-
-  display: grid;
-  grid-template-columns: 38% 62%;
-
-  background: #fbf7f1;
-  color: #3f2d26;
-}
-
-
-/* LEFT */
-
-.cook-complete-left {
-  padding: 28px 34px;
-
-  border-right: 1px solid #eee5db;
+  min-height: 100dvh;
+  padding: 22px 36px;
 
   display: flex;
   flex-direction: column;
+
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  background: #fbf7f1;
+  color: #3f2d26;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.cc-page *,
+.cc-page *::before,
+.cc-page *::after {
+  box-sizing: border-box;
+}
+
+/* TOP BAR */
+
+.cc-topbar {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
+.cc-back {
+  width: 36px;
+  height: 36px;
 
-.cook-complete-label {
-  margin: 0 0 10px;
+  display: grid;
+  place-items: center;
 
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  border: 1px solid #e8ddd1;
+  border-radius: 50%;
 
-  color: #d66324;
+  background: white;
+  color: #3f2d26;
+
+  font-size: 19px;
+  cursor: pointer;
 }
 
+.cc-back:hover {
+  background: #f3e8dc;
+}
 
-.cook-complete-check {
-  width: 38px;
-  height: 38px;
+.cc-session {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #a39589;
+}
 
-  margin-bottom: 11px;
+/* MAIN CONTENT */
+
+.cc-main {
+  width: min(760px, 100%);
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 22px;
+  text-align: center;
+}
+
+.cc-celebration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cc-checkmark {
+  width: 65px;
+  height: 65px;
+  margin-bottom: 14px;
 
   display: grid;
   place-items: center;
 
   border-radius: 50%;
+  background: #f6e4d6;
+  color: #d66324;
+
+  font-size: 33px;
+  font-weight: 700;
+}
+
+.cc-eyebrow {
+  margin: 0 0 8px;
+
+  color: #d66324;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.cc-celebration h1 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 700;
+
+  color: #3f2d26;
+}
+
+.cc-description {
+  max-width: 500px;
+  margin: 12px 0 0;
+
+  color: #8d7f73;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* SUMMARY */
+
+.cc-summary {
+  width: 100%;
+  padding: 18px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  border: 1px solid #e9ded3;
+  border-radius: 13px;
+  background: white;
+}
+
+.cc-summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.cc-summary-item strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  color: #c65c26;
+}
+
+.cc-summary-item span {
+  color: #938579;
+  font-size: 10px;
+}
+
+.cc-summary-divider {
+  width: 1px;
+  height: 38px;
+  background: #ece1d6;
+}
+
+/* HELP SECTION */
+
+.cc-help-section {
+  width: 100%;
+}
+
+.cc-help-section h2 {
+  margin: 0 0 7px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+
+  color: #46352b;
+}
+
+.cc-help-section > p {
+  margin: 0;
+
+  color: #938579;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.cc-help-list {
+  width: 100%;
+  margin-top: 14px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.cc-help-card {
+  padding: 12px 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  border: 1px solid #e9ded3;
+  border-radius: 11px;
+
+  background: white;
+  text-align: left;
+}
+
+.cc-member-avatar {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+  background: #f4e3d5;
+  color: #c35c28;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.cc-help-details {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cc-help-details strong {
+  color: #46352b;
+  font-size: 13px;
+}
+
+.cc-help-details span {
+  color: #95877b;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.cc-help-card button {
+  flex-shrink: 0;
+  padding: 9px 14px;
+
+  border: none;
+  border-radius: 999px;
 
   background: #d66324;
   color: white;
 
-  font-size: 17px;
-  font-weight: 700;
-}
-
-
-.cook-complete-left h1 {
-  margin: 0 0 10px;
-
-  font-family: Georgia, "Times New Roman", serif;
-
-  font-size: 28px;
-  line-height: 1;
-
-  color: #3f2d26;
-}
-
-
-.cook-complete-description {
-  max-width: 250px;
-
-  margin: 0;
-
-  font-size: 9px;
-  line-height: 1.5;
-
-  color: #81766d;
-}
-
-
-.cook-complete-meal {
-  padding: 9px 11px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 8px;
-
-  border: 1px solid #e7ddd4;
-  border-radius: 8px;
-
-  background: white;
-}
-
-
-.cook-complete-meal-icon {
-  width: 30px;
-  height: 30px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 7px;
-
-  background: #f4ebe1;
-
-  font-size: 14px;
-}
-
-
-.cook-complete-meal > div:last-child {
-  display: flex;
-  flex-direction: column;
-
-  gap: 2px;
-}
-
-
-.cook-complete-meal span {
-  font-size: 5px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-
-  color: #a0958c;
-}
-
-
-.cook-complete-meal strong {
-  font-size: 8px;
-
-  color: #4b4038;
-}
-
-
-/* RIGHT */
-
-.cook-complete-right {
-  padding: 26px 34px;
-
-  display: flex;
-  flex-direction: column;
-
-  overflow: hidden;
-}
-
-
-.cook-complete-heading {
-  margin-bottom: 9px;
-}
-
-
-.cook-complete-heading p {
-  margin: 0 0 2px;
-
-  font-size: 6px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-
-  color: #d66324;
-}
-
-
-.cook-complete-heading h2 {
-  margin: 0;
-
-  font-family: Georgia, "Times New Roman", serif;
-
-  font-size: 18px;
-
-  color: #3f2d26;
-}
-
-
-.cook-complete-heading > span {
-  display: block;
-
-  margin-top: 2px;
-
-  font-size: 7px;
-
-  color: #91867d;
-}
-
-
-/* ACTIONS */
-
-.cook-action-grid {
-  flex: 1;
-  min-height: 0;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-
-  gap: 7px;
-}
-
-
-.cook-action-card {
-  min-width: 0;
-
-  padding: 10px;
-
-  display: flex;
-  flex-direction: column;
-
-  border: 1px solid #e5dcd3;
-  border-radius: 9px;
-
-  background: white;
-
-  color: inherit;
-
-  text-align: left;
-
-  cursor: pointer;
-
-  transition: 0.15s ease;
-}
-
-
-button.cook-action-card:hover {
-  border-color: #d66324;
-
-  transform: translateY(-1px);
-}
-
-
-.recommended-action {
-  border-color: #d66324;
-
-  background: #fffaf6;
-}
-
-
-.cook-action-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-
-.cook-action-icon {
-  width: 28px;
-  height: 28px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 7px;
-
-  background: #f3ede6;
-
-  font-size: 13px;
-}
-
-
-.orange-icon {
-  background: #f7e5d8;
-}
-
-
-.recommended-label {
-  padding: 3px 5px;
-
-  border-radius: 20px;
-
-  background: #f5dfd1;
-
-  color: #c35b24;
-
-  font-size: 5px;
-  font-weight: 700;
-}
-
-
-.cook-action-content {
-  margin-top: 6px;
-
-  flex: 1;
-}
-
-
-.cook-action-content small {
-  font-size: 5px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-
-  color: #a0958c;
-}
-
-
-.cook-action-content h3 {
-  margin: 2px 0 3px;
-
-  font-family: Georgia, "Times New Roman", serif;
-
   font-size: 11px;
-
-  color: #453a33;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-
-.cook-action-content p {
-  margin: 0;
-
-  font-size: 6px;
-  line-height: 1.4;
-
-  color: #91867d;
+.cc-help-card button:hover {
+  background: #bd521d;
 }
 
+.cc-waiting-note {
+  margin-top: 15px !important;
+  padding: 13px 16px;
 
-.cook-action-footer {
-  margin-top: 5px;
+  border: 1px solid #e9ded3;
+  border-radius: 10px;
+
+  background: #fffaf5;
+}
+
+/* ACTION BUTTONS */
+
+.cc-actions {
+  width: 100%;
 
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-  font-size: 6px;
+.cc-primary,
+.cc-secondary {
+  min-width: 185px;
+  padding: 13px 22px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
   font-weight: 700;
-
-  color: #d66324;
+  cursor: pointer;
 }
 
-
-.cook-action-footer span {
-  font-size: 10px;
+.cc-primary {
+  border: none;
+  background: #d66324;
+  color: white;
 }
 
-
-.no-help-card {
-  opacity: 0.7;
-
-  cursor: default;
+.cc-primary:hover {
+  background: #bc521d;
 }
 
-@media (min-width: 700px) {
-  .cook-complete-label,
-  .cook-complete-heading p {
-    font-size: 10px;
+.cc-secondary {
+  border: 1px solid #dfb89f;
+  background: #fff8f2;
+  color: #b65322;
+}
+
+.cc-secondary:hover {
+  background: #fff0e5;
+}
+
+.cc-unfinished-note {
+  margin: 0;
+  color: #b65322;
+  font-size: 11px;
+}
+
+/* LANDSCAPE PHONE */
+
+@media (orientation: landscape) and (max-height: 550px) {
+  .cc-page {
+    padding: 12px 22px;
   }
 
-  .cook-complete-left h1 {
-    font-size: 38px;
+  .cc-main {
+    gap: 12px;
+    padding: 6px 0 12px;
   }
 
-  .cook-complete-description,
-  .cook-complete-heading > span {
-    font-size: 12px;
+  .cc-checkmark {
+    width: 43px;
+    height: 43px;
+    margin-bottom: 7px;
+    font-size: 23px;
   }
 
-  .cook-complete-heading h2 {
-    font-size: 26px;
+  .cc-eyebrow {
+    margin-bottom: 4px;
+    font-size: 9px;
   }
 
-  .cook-complete-meal span,
-  .cook-action-content small,
-  .recommended-label {
-    font-size: 8px;
+  .cc-celebration h1 {
+    font-size: 28px;
   }
 
-  .cook-complete-meal strong,
-  .cook-action-content p,
-  .cook-action-footer {
-    font-size: 10px;
+  .cc-description {
+    margin-top: 5px;
+    font-size: 11px;
   }
 
-  .cook-action-content h3 {
-    font-size: 16px;
+  .cc-summary {
+    padding: 10px 14px;
+  }
+
+  .cc-summary-item strong {
+    font-size: 18px;
+  }
+
+  .cc-help-section h2 {
+    font-size: 18px;
+  }
+
+  .cc-help-card {
+    padding: 8px 10px;
+  }
+
+  .cc-primary,
+  .cc-secondary {
+    padding: 10px 16px;
+  }
+}
+
+/* PORTRAIT FALLBACK */
+
+@media (orientation: portrait) {
+  .cc-page {
+    padding: 20px 18px 32px;
+  }
+
+  .cc-main {
+    padding-top: 28px;
+  }
+
+  .cc-summary {
+    padding: 16px 10px;
+  }
+
+  .cc-summary-item strong {
+    font-size: 20px;
+  }
+
+  .cc-summary-item span {
+    font-size: 9px;
+  }
+
+  .cc-actions {
+    flex-direction: column;
+  }
+
+  .cc-primary,
+  .cc-secondary {
+    width: 100%;
   }
 }

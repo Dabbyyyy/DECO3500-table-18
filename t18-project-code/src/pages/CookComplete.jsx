@@ -1,349 +1,310 @@
-import { useEffect } from "react";
 
+import { useEffect, useMemo, useState } from "react";
+import { subscribeToRoom } from "../services/roomService";
 import "./CookComplete.css";
-import {
-  setCookingActivity,
-  subscribeToRoom,
-} from "../services/roomService";
+
+function asArray(value) {
+  if (Array.isArray(value)) return value.filter(Boolean);
+
+  if (value && typeof value === "object") {
+    return Object.values(value).filter(Boolean);
+  }
+
+  return [];
+}
 
 export default function CookComplete({
-  user,
-  meal,
-  room,
-  taskAssignments,
-  setHelpingMember,
-  onHelp,
-  onCleanup,
-  onTable,
+  user = {},
+  room = {},
+  taskAssignments = [],
   onProgress,
+  onHelp,
+  setHelpingMember,
   onAllComplete,
+  onBack,
 }) {
-  const roomCode = room.code || room.roomCode;
-  const memberId = room.memberId || user.memberId || user.id;
+  const [liveRoom, setLiveRoom] = useState(null);
+
+  const roomCode = room.code || room.roomCode || "";
+  const memberId =
+    room.memberId || user.memberId || user.id || "";
 
   useEffect(() => {
     if (!roomCode) return undefined;
 
     return subscribeToRoom(roomCode, (updatedRoom) => {
-      if (updatedRoom?.screen === "allComplete") {
-        setCookingActivity(roomCode, memberId, null).catch(
-          console.error
-        );
-        onAllComplete?.();
+      if (updatedRoom) {
+        setLiveRoom(updatedRoom);
       }
     });
-  }, [memberId, onAllComplete, roomCode]);
+  }, [roomCode]);
 
-  // Find other cooks who are still working
-  const unfinishedTasks = taskAssignments.filter(
-    (task) =>
-      task.status !== "done" &&
-      task.assignedTo &&
-      task.assignedTo !== user.name
+  const members = useMemo(
+    () => asArray(liveRoom?.members || room.members),
+    [liveRoom?.members, room.members]
   );
 
-  const suggestedTask = unfinishedTasks[0];
+  const tasks = useMemo(
+    () =>
+      asArray(
+        liveRoom?.cookingSetup?.assignments ??
+          taskAssignments
+      ),
+    [liveRoom?.cookingSetup?.assignments, taskAssignments]
+  );
 
-  async function handleHelp() {
-    if (!suggestedTask) return;
+  const myTasks = tasks.filter(
+    (task) =>
+      String(task.assignedToId) === String(memberId)
+  );
 
-    const helpDetails = {
-      name: suggestedTask.assignedTo,
-      task: suggestedTask.name,
-      taskId: suggestedTask.id,
-      taskData: suggestedTask,
-    };
+  const myCompletedTasks = myTasks.filter(
+    (task) => task.status === "done"
+  );
 
-    await setCookingActivity(roomCode, memberId, {
-      type: "helping",
-      helperName: user.name,
-      targetMemberId: suggestedTask.assignedToId || null,
-      targetName: suggestedTask.assignedTo,
-      targetTaskId: suggestedTask.id,
-      targetTaskName:
-        suggestedTask.name || suggestedTask.title || "Cooking task",
-      status: "active",
+  const myTasksFinished =
+    myTasks.length > 0 &&
+    myCompletedTasks.length === myTasks.length;
+
+  const completedCount = tasks.filter(
+    (task) => task.status === "done"
+  ).length;
+
+  const allFinished =
+    tasks.length > 0 && completedCount === tasks.length;
+
+  const otherCooks = members
+    .filter(
+      (member) =>
+        String(member.id) !== String(memberId)
+    )
+    .map((member) => {
+      const memberTasks = tasks.filter(
+        (task) =>
+          String(task.assignedToId) === String(member.id)
+      );
+
+      const unfinishedTask = memberTasks.find(
+        (task) => task.status !== "done"
+      );
+
+      return {
+        ...member,
+        unfinishedTask,
+        needsHelp: memberTasks.some(
+          (task) =>
+            task.needsHelp && task.status !== "done"
+        ),
+        finished:
+          memberTasks.length > 0 &&
+          memberTasks.every(
+            (task) => task.status === "done"
+          ),
+      };
     });
 
-    setHelpingMember(helpDetails);
+  const cooksNeedingHelp = otherCooks.filter(
+    (member) => member.needsHelp
+  );
 
-    onHelp();
-  }
+  const cooksStillCooking = otherCooks.filter(
+    (member) => Boolean(member.unfinishedTask)
+  );
 
-  async function startSharedTask(type) {
-    await setCookingActivity(roomCode, memberId, {
-      type,
-      helperName: user.name,
-      status: "active",
+  function offerHelp(member) {
+    if (!member.unfinishedTask) return;
+
+    setHelpingMember?.({
+      name: member.name,
+      memberId: member.id,
+      task: member.unfinishedTask.name ||
+        member.unfinishedTask.title ||
+        "Cooking task",
+      taskId: member.unfinishedTask.id,
+      taskData: member.unfinishedTask,
     });
 
-    if (type === "cleanup") {
-      onCleanup();
-    } else {
-      onTable();
-    }
+    onHelp?.();
   }
 
   return (
-    <div className="cook-complete-page">
+    <main className="cc-page">
+      <header className="cc-topbar">
+        <button
+          type="button"
+          className="cc-back"
+          onClick={onBack}
+          aria-label="Back"
+        >
+          ←
+        </button>
 
-      {/* LEFT SIDE */}
+        <span className="cc-session">
+          {roomCode || "KTCHN SESSION"}
+        </span>
+      </header>
 
-      <section className="cook-complete-left">
+      <section className="cc-main">
+        <div className="cc-celebration">
+          <div className="cc-checkmark">✓</div>
 
-        <div>
-          <p className="cook-complete-label">
-            YOUR TASK IS DONE
+          <p className="cc-eyebrow">
+            TASK FINISHED
           </p>
-
-          <div className="cook-complete-check">
-            ✓
-          </div>
 
           <h1>
-            Nice work,
-            <br />
-            {user.name}!
+            {allFinished
+              ? "Everyone's done!"
+              : "You're all done!"}
           </h1>
 
-          <p className="cook-complete-description">
-            Your part is finished, but the group may
-            still be cooking. You can help someone else
-            or get the shared space ready.
+          <p className="cc-description">
+            {allFinished
+              ? "All cooking tasks are complete. Your meal is ready!"
+              : "Nice work! You've finished your cooking tasks. Let's see how the rest of your group is doing."}
           </p>
         </div>
 
-
-        <div className="cook-complete-meal">
-
-          <div className="cook-complete-meal-icon">
-            {meal?.icon}
+        <div className="cc-summary">
+          <div className="cc-summary-item">
+            <strong>{myCompletedTasks.length}</strong>
+            <span>
+              Your completed tasks
+            </span>
           </div>
 
-          <div>
-            <span>COOKING TOGETHER</span>
+          <div className="cc-summary-divider" />
 
+          <div className="cc-summary-item">
             <strong>
-              {meal?.title || meal?.name}
+              {completedCount}/{tasks.length}
             </strong>
+            <span>
+              Group tasks finished
+            </span>
           </div>
 
+          <div className="cc-summary-divider" />
+
+          <div className="cc-summary-item">
+            <strong>
+              {members.length}
+            </strong>
+            <span>
+              Group members
+            </span>
+          </div>
         </div>
 
-      </section>
+        {!allFinished && (
+          <section className="cc-help-section">
+            <h2>What's next?</h2>
 
+            <p>
+              You can help another cook or wait
+              until everyone finishes.
+            </p>
 
-      {/* RIGHT SIDE */}
+            {cooksNeedingHelp.length > 0 && (
+              <div className="cc-help-list">
+                {cooksNeedingHelp.map((member) => (
+                  <article
+                    className="cc-help-card"
+                    key={member.id}
+                  >
+                    <div className="cc-member-avatar">
+                      {(member.name || "?")
+                        .charAt(0)
+                        .toUpperCase()}
+                    </div>
 
-      <section className="cook-complete-right">
+                    <div className="cc-help-details">
+                      <strong>
+                        {member.name || "Cook"}
+                      </strong>
 
-        <div className="cook-complete-heading">
+                      <span>
+                        Needs help with{" "}
+                        {member.unfinishedTask?.name ||
+                          member.unfinishedTask?.title ||
+                          "cooking"}
+                      </span>
+                    </div>
 
-          <p>WHAT NOW?</p>
+                    <button
+                      type="button"
+                      onClick={() => offerHelp(member)}
+                    >
+                      Help →
+                    </button>
+                  </article>
+                ))}
+              </div>
+            )}
 
-          <h2>
-            Keep the group moving.
-          </h2>
+            {cooksNeedingHelp.length === 0 &&
+              cooksStillCooking.length > 0 && (
+                <p className="cc-waiting-note">
+                  {cooksStillCooking.length}{" "}
+                  {cooksStillCooking.length === 1
+                    ? "person is"
+                    : "people are"}{" "}
+                  still cooking. You can check their
+                  progress or offer to help.
+                </p>
+              )}
 
-          <span>
-            Choose what you'd like to do next.
-          </span>
+            {cooksNeedingHelp.length === 0 &&
+              cooksStillCooking.length === 0 && (
+                <p className="cc-waiting-note">
+                  Waiting for the group to finish.
+                </p>
+              )}
+          </section>
+        )}
 
-        </div>
-
-
-        <div className="cook-action-grid">
-
-          {/* HELP */}
-
-          {suggestedTask ? (
-
+        <div className="cc-actions">
+          {allFinished ? (
             <button
-              className="cook-action-card recommended-action"
-              onClick={handleHelp}
+              type="button"
+              className="cc-primary"
+              onClick={onAllComplete}
             >
-
-              <div className="cook-action-top">
-
-                <div className="cook-action-icon orange-icon">
-                  🤝
-                </div>
-
-                <span className="recommended-label">
-                  RECOMMENDED
-                </span>
-
-              </div>
-
-
-              <div className="cook-action-content">
-
-                <small>
-                  HELP ANOTHER COOK
-                </small>
-
-                <h3>
-                  Help {suggestedTask.assignedTo}
-                </h3>
-
-                <p>
-                  They're still working on{" "}
-                  <strong>
-                    {suggestedTask.name || suggestedTask.title}
-                  </strong>.
-                </p>
-
-              </div>
-
-
-              <div className="cook-action-footer">
-                Help out
-                <span>→</span>
-              </div>
-
+              Continue →
             </button>
-
           ) : (
+            <>
+              <button
+                type="button"
+                className="cc-primary"
+                onClick={onProgress}
+              >
+                View group progress →
+              </button>
 
-            <div className="cook-action-card no-help-card">
-
-              <div className="cook-action-icon">
-                ✓
-              </div>
-
-              <div className="cook-action-content">
-
-                <small>
-                  GROUP UPDATE
-                </small>
-
-                <h3>
-                  Everyone is done
-                </h3>
-
-                <p>
-                  There are no other cooking tasks
-                  waiting for help.
-                </p>
-
-              </div>
-
-            </div>
-
+              {cooksNeedingHelp.length === 0 &&
+                cooksStillCooking.length > 0 && (
+                  <button
+                    type="button"
+                    className="cc-secondary"
+                    onClick={() =>
+                      offerHelp(cooksStillCooking[0])
+                    }
+                  >
+                    Offer to help
+                  </button>
+                )}
+            </>
           )}
-
-
-          {/* CLEANUP */}
-
-          <button
-            className="cook-action-card"
-            onClick={() => startSharedTask("cleanup")}
-          >
-
-            <div className="cook-action-icon">
-              🧽
-            </div>
-
-            <div className="cook-action-content">
-
-              <small>
-                SHARED TASK
-              </small>
-
-              <h3>
-                Start cleanup
-              </h3>
-
-              <p>
-                Clear used tools and make space while
-                the others finish cooking.
-              </p>
-
-            </div>
-
-            <div className="cook-action-footer">
-              Start
-              <span>→</span>
-            </div>
-
-          </button>
-
-
-          {/* TABLE */}
-
-          <button
-            className="cook-action-card"
-            onClick={() => startSharedTask("table")}
-          >
-
-            <div className="cook-action-icon">
-              🍽️
-            </div>
-
-            <div className="cook-action-content">
-
-              <small>
-                SHARED TASK
-              </small>
-
-              <h3>
-                Prepare the table
-              </h3>
-
-              <p>
-                Get plates and cutlery ready for
-                everyone.
-              </p>
-
-            </div>
-
-            <div className="cook-action-footer">
-              Prepare
-              <span>→</span>
-            </div>
-
-          </button>
-
-
-          {/* PROGRESS */}
-
-          <button
-            className="cook-action-card"
-            onClick={onProgress}
-          >
-
-            <div className="cook-action-icon">
-              ◉
-            </div>
-
-            <div className="cook-action-content">
-
-              <small>
-                GROUP AWARENESS
-              </small>
-
-              <h3>
-                View group progress
-              </h3>
-
-              <p>
-                See what everyone is doing and how
-                close dinner is.
-              </p>
-
-            </div>
-
-            <div className="cook-action-footer">
-              View progress
-              <span>→</span>
-            </div>
-
-          </button>
-
         </div>
 
+        {!myTasksFinished && (
+          <p className="cc-unfinished-note">
+            You still have unfinished cooking tasks.
+            Return to cooking to complete them.
+          </p>
+        )}
       </section>
-
-    </div>
+    </main>
   );
 }

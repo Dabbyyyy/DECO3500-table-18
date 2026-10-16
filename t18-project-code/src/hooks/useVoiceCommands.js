@@ -17,6 +17,7 @@ function getTimerSeconds(command) {
 
 export default function useVoiceCommands({
   helperName,
+  autoStart = false,
   onNext,
   onPrevious,
   onRepeat,
@@ -25,6 +26,9 @@ export default function useVoiceCommands({
   onQuestion,
 }) {
   const recognitionRef = useRef(null);
+  const autoStartRef = useRef(autoStart);
+  const stoppedRef = useRef(false);
+  const restartRef = useRef(null);
   const handlersRef = useRef({});
 
   const [listening, setListening] = useState(false);
@@ -60,7 +64,7 @@ export default function useVoiceCommands({
     }
 
     const recognition = new SpeechRecognition();
-    recognition.continuous = false;
+    recognition.continuous = true;
     recognition.interimResults = false;
     recognition.lang = "en-AU";
 
@@ -69,10 +73,20 @@ export default function useVoiceCommands({
       setListening(true);
     };
 
-    recognition.onend = () => setListening(false);
+    recognition.onend = () => {
+      setListening(false);
+      if (autoStartRef.current && !stoppedRef.current) {
+        restartRef.current = window.setTimeout(() => {
+          try { recognition.start(); } catch { /* browser may block automatic restart */ }
+        }, 900);
+      }
+    };
 
     recognition.onerror = (event) => {
       setListening(false);
+      if (["not-allowed", "service-not-allowed", "audio-capture"].includes(event.error)) {
+        stoppedRef.current = true;
+      }
       const messages = {
         "not-allowed":
           "Microphone permission is blocked. Allow it in your browser's site settings.",
@@ -100,15 +114,13 @@ export default function useVoiceCommands({
       setTranscript(command);
 
       const handlers = handlersRef.current;
-      const helper = handlers.helperName?.toLowerCase();
-      let instruction = command;
-
-      if (helper && command.includes(helper)) {
-        instruction = command
-          .replace(`hey ${helper}`, "")
-          .replace(helper, "")
-          .trim();
-      }
+      const helper = (handlers.helperName || "nova").toLowerCase().trim();
+      // Never respond to another person's helper name or unnamed speech.
+      const wakePattern = new RegExp(`(?:^|\\b)hey\\s+${helper.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i");
+      const match = command.match(wakePattern);
+      if (!match) return;
+      const instruction = command.slice(match.index + match[0].length).trim();
+      if (!instruction) return;
 
       if (
         instruction.includes("next") ||
@@ -154,8 +166,18 @@ export default function useVoiceCommands({
     };
 
     recognitionRef.current = recognition;
+    if (autoStartRef.current) {
+      // Permission may require an earlier user gesture; retry via mic button.
+      restartRef.current = window.setTimeout(() => {
+        if (!stoppedRef.current) {
+          try { recognition.start(); } catch { /* browser gesture required */ }
+        }
+      }, 350);
+    }
 
     return () => {
+      stoppedRef.current = true;
+      window.clearTimeout(restartRef.current);
       recognition.abort();
       recognitionRef.current = null;
     };
@@ -187,6 +209,7 @@ export default function useVoiceCommands({
         stream.getTracks().forEach((track) => track.stop());
       }
 
+      stoppedRef.current = false;
       recognitionRef.current.start();
     } catch (startError) {
       setListening(false);

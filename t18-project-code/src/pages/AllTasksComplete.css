@@ -1,308 +1,540 @@
-.all-complete-page {
-  width: 100%;
-  height: 100%;
 
-  display: grid;
-  grid-template-columns: 38% 62%;
+/* =========================================
+   KTCHN — ALL TASKS COMPLETE
+   Final cooking celebration
+========================================= */
+
+.all-complete-page {
+  position: relative;
+
+  width: 100%;
+  min-height: 100dvh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 28px 36px;
+
+  overflow: hidden;
+  box-sizing: border-box;
 
   background: #fbf7f1;
   color: #3f2d26;
+
+  font-family: Arial, Helvetica, sans-serif;
 }
 
+.all-complete-page *,
+.all-complete-page *::before,
+.all-complete-page *::after {
+  box-sizing: border-box;
+}
 
-/* LEFT */
+/* DECORATIVE BACKGROUND */
 
-.all-complete-left {
-  padding: 31px 34px;
+.all-complete-decoration {
+  position: absolute;
 
-  border-right: 1px solid #eee5db;
+  width: 240px;
+  height: 240px;
+
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.all-complete-decoration-one {
+  top: -140px;
+  left: -100px;
+
+  background: #f5e9dc;
+}
+
+.all-complete-decoration-two {
+  right: -130px;
+  bottom: -160px;
+
+  width: 300px;
+  height: 300px;
+
+  background: #f4e5d5;
+}
+
+/* MAIN CONTENT */
+
+.all-complete-content {
+  position: relative;
+  z-index: 1;
+
+  width: min(540px, 100%);
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
+  align-items: center;
 
+  text-align: center;
+}
 
 .all-complete-label {
-  margin: 0 0 11px;
-
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  margin: 0 0 15px;
 
   color: #d66324;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
 }
 
+/* CELEBRATION ICON */
 
-.celebration-icon {
-  width: 42px;
-  height: 42px;
+.all-complete-check {
+  width: 62px;
+  height: 62px;
 
-  margin-bottom: 12px;
+  margin-bottom: 15px;
 
   display: grid;
   place-items: center;
 
   border-radius: 50%;
 
-  background: #d66324;
-  color: white;
+  background: #e8eee1;
+  color: #708a5b;
+}
 
-  font-size: 19px;
+.all-complete-check span {
+  font-size: 30px;
   font-weight: 700;
 }
 
+/* TITLE */
 
-.all-complete-left h1 {
-  margin: 0 0 10px;
+.all-complete-content h1 {
+  margin: 0;
 
   font-family: Georgia, "Times New Roman", serif;
-
-  font-size: 30px;
-  line-height: 1;
+  font-size: clamp(34px, 4.4vw, 56px);
+  font-weight: 700;
+  line-height: 1.05;
 
   color: #3f2d26;
 }
 
-
 .all-complete-description {
-  max-width: 245px;
+  max-width: 380px;
 
-  margin: 0;
+  margin: 13px 0 0;
 
-  font-size: 9px;
-  line-height: 1.5;
+  color: #8c7e73;
 
-  color: #81766d;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
+/* GROUP MEMBERS */
 
-.new-session-button {
-  width: 100%;
-
-  padding: 11px;
-
-  border: none;
-  border-radius: 7px;
-
-  background: #d66324;
-  color: white;
-
-  font-size: 8px;
-  font-weight: 700;
-
-  cursor: pointer;
-}
-
-
-/* RIGHT */
-
-.all-complete-right {
-  padding: 25px 34px;
-
+.all-complete-members {
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   gap: 8px;
 
-  overflow: hidden;
+  margin-top: 19px;
 }
 
+.all-complete-avatars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.final-meal-card {
-  padding: 12px;
-
-  border: 1px solid #e2d7cc;
-  border-radius: 10px;
-
-  background: white;
-
-  text-align: center;
+  padding-left: 9px;
 }
 
+.all-complete-avatar {
+  width: 35px;
+  height: 35px;
 
-.final-meal-icon {
-  width: 37px;
-  height: 37px;
-
-  margin: 0 auto 5px;
+  margin-left: -9px;
 
   display: grid;
   place-items: center;
 
-  border-radius: 9px;
+  border: 3px solid #fbf7f1;
+  border-radius: 50%;
 
-  background: #f4ebe1;
+  background: #edc9ae;
+  color: #86451f;
 
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.all-complete-avatar:nth-child(2n) {
+  background: #e6d8bf;
+  color: #786149;
+}
+
+.all-complete-avatar:nth-child(3n) {
+  background: #dce5d2;
+  color: #62744e;
+}
+
+.all-complete-members p {
+  margin: 0;
+
+  color: #93867a;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.all-complete-members strong {
+  color: #594a40;
+}
+
+/* MEAL CARD */
+
+.all-complete-meal-card {
+  width: 100%;
+
+  margin-top: 19px;
+  padding: 14px 17px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  border: 1px solid #e8ded2;
+  border-radius: 13px;
+
+  background: #ffffff;
+
+  text-align: left;
+}
+
+.all-complete-meal-icon {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  background: #f6e9dc;
+  font-size: 23px;
+}
+
+.all-complete-meal-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.all-complete-meal-info span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #ad9a89;
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.all-complete-meal-info h2 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 19px;
+  line-height: 1.3;
+
+  color: #45352c;
+}
+
+.all-complete-meal-tick {
+  flex-shrink: 0;
+
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  background: #edf2e8;
+  color: #6a8058;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* FINAL REMINDER */
+
+.all-complete-reminder {
+  width: 100%;
+
+  margin-top: 12px;
+  padding: 13px 16px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  border: 1px solid #eadfd2;
+  border-radius: 12px;
+
+  background: #f4ede3;
+
+  text-align: left;
+}
+
+.all-complete-reminder-icon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+  color: #d66324;
+
+  font-size: 19px;
+}
+
+.all-complete-reminder p {
+  margin: 0;
+
+  color: #796b60;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.all-complete-reminder strong {
+  color: #4e4036;
+}
+
+/* CONTINUE BUTTON */
+
+.all-complete-continue {
+  width: 100%;
+
+  margin-top: 18px;
+  padding: 14px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: #d66324;
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.all-complete-continue:hover:not(:disabled) {
+  background: #bb511d;
+  transform: translateY(-1px);
+}
+
+.all-complete-continue:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.all-complete-continue span {
   font-size: 18px;
 }
 
+/* FOOTER NOTES */
 
-.final-meal-card p {
-  margin: 0;
+.all-complete-footer-note {
+  margin: 11px 0 0;
 
-  font-size: 5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  color: #a09488;
 
-  color: #d66324;
+  font-size: 10px;
+  line-height: 1.5;
 }
 
+.all-complete-sync-note {
+  margin: 8px 0 0;
 
-.final-meal-card h2 {
-  margin: 2px 0;
-
-  font-family: Georgia, "Times New Roman", serif;
-
-  font-size: 16px;
-
-  color: #3f2d26;
+  color: #b35b29;
+  font-size: 10px;
 }
 
+/* SMALL LANDSCAPE SCREENS */
 
-.final-meal-card > span {
-  font-size: 6px;
+@media (orientation: landscape) and (max-height: 550px) {
+  .all-complete-page {
+    padding: 14px 22px;
+    overflow-y: auto;
+    align-items: flex-start;
+  }
 
-  color: #91867d;
-}
+  .all-complete-content {
+    width: min(560px, 100%);
+    margin: auto;
+  }
 
+  .all-complete-label {
+    margin-bottom: 7px;
+    font-size: 9px;
+  }
 
-/* TASKS */
+  .all-complete-check {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 7px;
+  }
 
-.completed-task-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  .all-complete-check span {
+    font-size: 22px;
+  }
 
-  gap: 5px;
-}
+  .all-complete-content h1 {
+    font-size: 30px;
+  }
 
-
-.completed-task {
-  padding: 7px 8px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 7px;
-
-  border: 1px solid #e8e0d8;
-  border-radius: 7px;
-
-  background: white;
-}
-
-
-.completed-task > div {
-  display: flex;
-  align-items: center;
-
-  gap: 6px;
-}
-
-
-.completed-task > div > span {
-  font-size: 13px;
-}
-
-
-.completed-task > div > div {
-  display: flex;
-  flex-direction: column;
-}
-
-
-.completed-task strong {
-  font-size: 6px;
-
-  color: #4b4038;
-}
-
-
-.completed-task small {
-  font-size: 5px;
-
-  color: #9a9087;
-}
-
-
-.complete-tick {
-  flex-shrink: 0;
-
-  font-size: 5px;
-  font-weight: 700;
-
-  color: #718164;
-}
-
-
-/* FINAL MESSAGE */
-
-.together-message {
-  margin-top: auto;
-
-  padding: 8px 10px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 8px;
-
-  border-radius: 8px;
-
-  background: #f3ede4;
-}
-
-
-.together-message > span {
-  font-size: 17px;
-}
-
-
-.together-message strong {
-  font-size: 7px;
-
-  color: #554a42;
-}
-
-
-.together-message p {
-  margin: 1px 0 0;
-
-  font-size: 6px;
-  line-height: 1.35;
-
-  color: #887d74;
-}
-
-@media (min-width: 700px) {
-  .all-complete-label,
-  .final-meal-card p {
+  .all-complete-description {
+    margin-top: 6px;
     font-size: 10px;
   }
 
-  .all-complete-left h1 {
-    font-size: 40px;
+  .all-complete-members {
+    margin-top: 10px;
+    gap: 4px;
   }
 
-  .all-complete-description,
-  .new-session-button,
-  .final-meal-card > span {
+  .all-complete-avatar {
+    width: 27px;
+    height: 27px;
+    font-size: 10px;
+  }
+
+  .all-complete-members p {
+    font-size: 9px;
+  }
+
+  .all-complete-meal-card {
+    margin-top: 10px;
+    padding: 9px 12px;
+  }
+
+  .all-complete-meal-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+  }
+
+  .all-complete-meal-info h2 {
+    font-size: 15px;
+  }
+
+  .all-complete-reminder {
+    margin-top: 8px;
+    padding: 9px 12px;
+  }
+
+  .all-complete-reminder p {
+    font-size: 9px;
+  }
+
+  .all-complete-continue {
+    margin-top: 10px;
+    padding: 10px 16px;
     font-size: 11px;
   }
 
-  .final-meal-card h2 {
-    font-size: 24px;
-  }
-
-  .completed-task strong,
-  .complete-tick,
-  .together-message strong {
-    font-size: 10px;
-  }
-
-  .completed-task small,
-  .together-message p {
+  .all-complete-footer-note {
+    margin-top: 6px;
     font-size: 9px;
+  }
+}
+
+/* PORTRAIT FALLBACK */
+
+@media (orientation: portrait) {
+  .all-complete-page {
+    min-height: 100dvh;
+    padding: 35px 20px;
+    overflow-y: auto;
+  }
+
+  .all-complete-content h1 {
+    font-size: 44px;
+  }
+
+  .all-complete-meal-card {
+    padding: 13px;
+  }
+
+  .all-complete-meal-info h2 {
+    font-size: 17px;
+  }
+}
+
+/* FIX: Allow the completion page to scroll */
+
+.all-complete-page {
+  min-height: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.all-complete-content {
+  height: auto;
+  min-height: min-content;
+  padding-bottom: 45px;
+  box-sizing: border-box;
+}
+
+/* Keep the Post to Feed button visible */
+
+.all-complete-continue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  z-index: 5;
+  margin: 24px auto 12px;
+  min-height: 48px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* Allow scrolling on shorter screens */
+
+@media (max-height: 750px) {
+  .all-complete-content {
+    padding-top: 28px;
+    padding-bottom: 40px;
+  }
+
+  .all-complete-content h1 {
+    margin-top: 10px;
+    margin-bottom: 12px;
+  }
+
+  .all-complete-continue {
+    margin-top: 18px;
   }
 }

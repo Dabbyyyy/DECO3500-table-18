@@ -1,218 +1,68 @@
-.helping-page {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 38% 62%;
+
+/* =========================================
+   KTCHN — HELPING MODE
+   Reuses CookingMode.css layout
+========================================= */
+
+.helping-prototype {
   background: #fbf7f1;
-  color: #3f2d26;
 }
 
-.helping-left,
-.helping-right {
-  min-width: 0;
-  padding: clamp(18px, 3vw, 34px);
+.helping-prototype .cooking-centre {
+  width: min(760px, 78%);
 }
 
-.helping-left {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-right: 1px solid #eee5db;
-}
-
-.helping-back {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 20px;
-  border: 1px solid #e4dbd2;
-  border-radius: 50%;
-  background: #fff;
-  color: #3f2d26;
-}
-
-.helping-label,
-.helping-header p {
-  margin-bottom: 7px;
+.helping-prototype .cooking-eyebrow {
   color: #d66324;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
 }
 
-.helping-left h1 {
-  margin-bottom: 14px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(28px, 4vw, 44px);
-  line-height: 1.02;
+.helping-prototype .cooking-task-label {
+  color: #97877a;
 }
 
-.helping-description {
-  max-width: 330px;
+.helping-prototype-note {
+  max-width: 500px;
+  margin: -6px 0 20px;
   color: #81766d;
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 1.6;
+  text-align: center;
 }
 
-.helping-meal-card {
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid #e7ddd4;
-  border-radius: 10px;
-  background: #fff;
+.helping-prototype .cooking-prototype-controls {
+  gap: 8px;
 }
 
-.helping-meal-card > span {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 8px;
-  background: #f7e5d8;
+.helping-prototype .cooking-prototype-controls button {
+  white-space: nowrap;
 }
 
-.helping-meal-card div {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+.helping-prototype .cooking-floating-progress {
+  bottom: 25px;
 }
 
-.helping-meal-card small {
-  color: #a0958c;
-  font-size: 8px;
-  font-weight: 800;
-}
-
-.helping-meal-card strong {
-  font-size: 12px;
-}
-
-.helping-right {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow: hidden;
-}
-
-.helping-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-
-.helping-header h2 {
-  margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(22px, 3vw, 32px);
-}
-
-.helping-header > strong {
-  color: #d66324;
-  font-size: 13px;
-}
-
-.helping-current-step {
-  padding: 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border: 1px solid #d66324;
-  border-radius: 10px;
-  background: #fffaf6;
-}
-
-.helping-current-step > span {
-  width: 38px;
-  height: 38px;
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #d66324;
-  color: #fff;
-  font-weight: 800;
-}
-
-.helping-current-step small {
-  color: #a0958c;
-  font-size: 9px;
-  font-weight: 800;
-}
-
-.helping-current-step h3 {
-  margin: 4px 0 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 16px;
-}
-
-.helping-step-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  overflow-y: auto;
-}
-
-.helping-actions {
-  margin-top: auto;
-}
-
-.helping-actions > div:last-child {
-  margin-top: 8px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 7px;
-}
-
-.helping-actions > div:last-child button,
-.helping-empty button {
-  padding: 10px;
-  border: 1px solid #e0d5cb;
-  border-radius: 8px;
-  background: #fff;
-  color: #5b5048;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.helping-actions > div:last-child button:last-child {
-  border-color: #d66324;
-  background: #d66324;
-  color: #fff;
-}
-
-.helping-message {
-  margin: 6px 0 0;
-  padding: 7px 9px;
-  border-radius: 6px;
-  background: #f3ede4;
-  color: #746960;
-  font-size: 10px;
-}
-
-.helping-empty {
-  width: 100%;
-  height: 100%;
-  padding: 40px;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  background: #fbf7f1;
-  color: #3f2d26;
-}
-
-@media (max-height: 520px) and (orientation: landscape) {
-  .helping-left,
-  .helping-right {
-    padding-top: 14px;
-    padding-bottom: 14px;
+@media (orientation: landscape) and (max-height: 550px) {
+  .helping-prototype .cooking-centre {
+    width: min(760px, 80%);
   }
 
-  .helping-back {
-    margin-bottom: 8px;
+  .helping-prototype-note {
+    margin: -4px 0 10px;
+    font-size: 11px;
   }
 
-  .helping-description {
-    margin-bottom: 8px;
+  .helping-prototype .cooking-prototype-controls button {
+    padding: 7px 11px;
+    font-size: 11px;
+  }
+}
+
+@media (orientation: portrait) {
+  .helping-prototype .cooking-centre {
+    width: 100%;
+  }
+
+  .helping-prototype-note {
+    font-size: 13px;
   }
 }

@@ -1,11 +1,13 @@
+```markdown
 # Prototype Evaluation
 
 ## 1. Overview
 
 This document records the evaluation of our prototype as part of the iterative design process.
 
-The purpose of the evaluation was to investigate whether the prototype effectively supports the core experience identified through our research and experience requirement studies.
-The evaluation should be focussed on the usability and usefulness of the prototype and whether the prototype addressed the problems identified during our earlier research.
+The purpose of the evaluation was to investigate how the prototype supports the social and mobile aspects of collaborative cooking identified through our research and experience requirement studies.
+
+The evaluation focuses on how KTCHN could support social interaction, collaboration, shared awareness, and coordination between participants during meal preparation, as well as how mobile interactions could support these activities within a shared kitchen environment.
 
 ---
 
@@ -13,14 +15,16 @@ The evaluation should be focussed on the usability and usefulness of the prototy
 
 The evaluation aims to investigate:
 
-- Whether users could understand how to participate in a shared cooking session.
-- Whether users could understand their assigned cooking tasks.
-- Whether users could understand what other participants were doing.
-- Whether shared progress helped users coordinate during cooking.
-- Whether the cooking instructions were clear and easy to follow.
-- Whether the interaction supported collaboration rather than requiring one person to manage the entire cooking process.
-- Whether any parts of the prototype caused confusion, friction, or unnecessary interaction.
-- What changes should be made to the prototype based on user feedback.
+- Whether the proposed shared cooking session supports social participation and interaction between users.
+- Whether task allocation supports collaboration and shared responsibility during cooking.
+- Whether shared progress helps participants remain aware of one another's activities.
+- Whether the proposed interactions encourage participants to coordinate their work rather than cook independently.
+- Whether features such as helping other participants support collaboration within the group.
+- Whether hands-free interaction could support mobile use while participants are engaged in cooking activities.
+- Whether the proposed kitchen-scanning concept connects the digital experience with the physical kitchen environment.
+- Whether speculative features such as finding nearby friends and social media feed features could support the formation of a shared cooking session.
+- Whether personalisation could make interactions with the cooking assistant more natural within the shared activity.
+- What changes should be made to the prototype to better support social interaction and mobile collaboration.
 
 ---
 
@@ -30,7 +34,7 @@ The evaluation aims to investigate:
 
 **Date evaluated:** [15 September 2026]
 
-**Prototype link:** [Link](docs\design\table 18 low fi prototype.pdf)
+**Prototype link:** [Link](docs/design/table%2018%20low%20fi%20prototype.pdf)
 
 ### Features included in this evaluation
 
@@ -50,8 +54,9 @@ The following components were simulated rather than fully implemented:
 - Scan Kitchen
 - Personalised Voice Commands
 - Cooking Lobby
+- Upload Picture and Social Media Feed
 
-These components were simulated because they were not central to the interaction being evaluated.
+These components were simulated because they were not central to the interactions being evaluated.
 
 ### **2. Prototype:** High Fidelity / version 1.0
 
@@ -67,7 +72,7 @@ These components were simulated because they were not central to the interaction
 - Cooking Mode
 - Group Progress
 - Help Others
-
+- Post Dish
 
 ---
 
@@ -79,7 +84,7 @@ These components were simulated because they were not central to the interaction
 
 **Participant type:** Target Users / Developers
 
-**Recruitment:** The initial evaluation of both the prototypes was conducted internally within the team and cross referenced while analysis existing user interviews and research literature.
+**Recruitment:** The initial evaluation of both prototypes was conducted internally within the team and cross-referenced while analysing existing user interviews and research literature.
 
 > Participant identities are anonymised in this documentation.
 
@@ -87,47 +92,33 @@ These components were simulated because they were not central to the interaction
 
 ### 4.2 Evaluation Approach
 
-We used an informal semi-structured feedback approach to evaluate the prototypes. As the prototypes consisted of low fidelity OneNote sketches and high fidelity Figma wireframes, and the evaluation focused on gathering people's opinions and initial reactions to the proposed features and interaction ideas rather than measuring usability or task performance.
+We used an informal semi-structured feedback approach to evaluate the prototypes. As the prototypes consisted of low-fidelity OneNote sketches and high-fidelity Figma wireframes, the evaluation focused on gathering people's opinions and initial reactions to the proposed social and mobile interactions rather than measuring usability or task performance.
 
 Participants were shown a scenario representing a typical collaborative cooking situation:
 
 > "You and several friends who live together want to cook a meal together. You have decided what you want to cook and are about to start preparing the meal in a shared kitchen. The app is intended to help you organise the cooking session, divide the cooking tasks, follow your individual instructions, see the group's progress, and help other participants when you finish your own task."
 
-Participants were then walked through the relevant screens and feature concepts in the prototype and asked for their opinions, including whether the proposed interactions were understandable, useful, or confusing. Feedback was also gathered on specific concepts such as task assignment and swapping, the cooking lobby, meal preferences, shared cooking progress, hands-free interaction, helping other participants, and the proposed kitchen-scanning concept.
+Participants were then walked through the relevant screens and feature concepts in the prototype and asked for their opinions on how the proposed interactions could support collaboration, social participation, and coordination during cooking. Feedback was gathered on specific concepts such as task assignment and swapping, the cooking lobby, meal preferences, shared cooking progress, hands-free interaction, helping other participants, and the proposed kitchen-scanning concept.
 
 ### 4.3 Evaluation Questions
 
 The evaluation investigated the following questions:
 
-1. Can users understand how to join and participate in a shared cooking session?
-
-2. Can users understand how a cooking lobby could be used to organise a group before cooking?
-
-3. Can users understand how meal preferences could be used when selecting a meal for the group?
-
-4. Can users understand how the meal is divided into individual cooking tasks?
-
-5. Do users understand what their assigned task requires them to do?
-
-6. Can users understand the option to claim or swap cooking tasks?
-
-7. Are the individual cooking instructions clear and easy to follow?
-
-8. Would users find hands-free interaction, such as saying "Next step", useful while cooking?
-
-9. Can users understand how the system could allow them to help another participant after completing their own task?
-
-10. Can users understand the purpose of the shared group progress view?
-
-11. Does showing the status of other participants help users understand what is happening during the cooking session?
-
-12. Does the proposed experience support collaboration between participants rather than making each person feel like they are cooking independently?
-
-13. Does the proposed kitchen-scanning concept make sense as a way of supporting coordination in a shared kitchen?
-
-14. Which parts of the proposed experience are confusing, unnecessary, or difficult to understand?
-
-15. What changes should be made to the prototype before developing the next iteration?
+1. Does joining a shared cooking session provide a clear way for participants to come together for a collaborative activity?
+2. Does the cooking lobby support the social organisation of a group before cooking begins?
+3. Could meal preferences support collaborative decision-making when selecting a meal for the group?
+4. Does dividing a meal into individual cooking tasks support shared responsibility between participants?
+5. Does the proposed task allocation approach balance system guidance with participants' ability to make their own decisions?
+6. Would allowing participants to swap cooking tasks support collaboration and accommodate individual preferences?
+7. Could hands-free interaction support mobile use while participants are actively cooking?
+8. Does the option to help another participant encourage cooperation after completing an individual task?
+9. Does the shared group progress view support awareness of other participants' activities?
+10. Does showing the status of other participants help coordinate interdependent cooking activities?
+11. Does the proposed experience support collaboration between participants rather than making each person feel like they are cooking independently?
+12. Could the proposed kitchen-scanning concept connect the digital cooking experience with the physical shared kitchen?
+13. Could a "Find Friends" interaction help users connect with other participants who are available to cook together?
+14. Could personalised voice commands make interactions with the cooking assistant more suitable for a shared cooking environment?
+15. What changes should be made to the prototype to better support social interaction and mobile collaboration?
 
 ---
 
@@ -135,56 +126,61 @@ The evaluation investigated the following questions:
 
 #### Finding 1: No "Claim Task" Option
 
-**Observation:** Since user interviews indicate that task division is inconsistent while cooking colaboritvely and the app giving them a baseline division of tasks with an option to **swap** tasks if needed.
+**Observation:** Since user interviews indicate that task division is inconsistent while cooking collaboratively, the app should provide a baseline division of tasks with an option to **swap** tasks if needed. This could reduce the need for participants to negotiate every task individually while still allowing them to coordinate and make adjustments together.
 
 **Implication:**
 
-The app should initially divide tasks automatically instead of having a "CLAIM" button and later if the useres with to change their tasks they can swap between themseleves seamlessly.
+The app should initially divide tasks automatically instead of having a "CLAIM" button. If users wish to change their tasks, they can swap them between themselves. This approach is intended to support shared responsibility while allowing participants to negotiate the distribution of work.
 
 ---
 
-#### Finding 2: Changes to Personalised Voice Commands 
+#### Finding 2: Changes to Personalised Voice Commands
 
-**Observation:** Instead of having the app trains itself to recognise the specific user's voice, which would be a technical endevour likely beyond the scope of the project, the team decided to give users the option to "name" their app and thus give unique voice commands accordingly which is much more plausible to implement given our prent project scope.
+**Observation:** Instead of having the app train itself to recognise the specific user's voice, which would be a technical endeavour likely beyond the scope of the project, the team decided to give users the option to "name" their app and thus give unique voice commands accordingly. This is a more plausible approach to implement within the current project scope and explores how personalisation could make the mobile cooking interaction more natural.
 
 **Implication:**
 
-Personalised voice commands as a feature will now be replaced by the ability to rename the app for each user and have the app reconise voice commands directed at said name.
+Personalised voice commands as a feature will now be replaced by the ability to rename the app for each user and have the app recognise voice commands directed at said name. This design aims to support hands-free interaction while users are engaged in cooking activities.
 
 ---
 
 #### Finding 3: Find Friends View
 
-**Observation:** The team identified the need to implement a "Find Friends" menu in order to make it easy for users to find each other when they're gathered in the kitchen and ready to cook
+**Observation:** The team identified the need to implement a "Find Friends" menu to make it easy for users to find each other when they are gathered in the kitchen and ready to cook. This interaction would support the social aspect of KTCHN by helping participants connect before entering a shared cooking session.
 
 **Implication:**
 
-The team is now thinking to implement the "Find Friends" menu in the form of a map interface that highlights oither online users in the vicinity and this would be the menu right befor the cooking lobby.
+The team is now considering implementing the "Find Friends" menu as a map interface that highlights other online users in the vicinity. This would be the menu right before the cooking lobby and is intended to support the process of forming a group for collaborative cooking.
 
 ---
 
 ## 6. Analysis
 
-The evaluation findings were analysed against the experience requirements identified from our earlier research.
+The evaluation findings were analysed against the social and mobile experience requirements identified from our earlier research.
 
 ### Key insights
 
 Based on the evaluation, we identified the following key insights:
 
-1. **Task assignment should provide an initial structure while remaining flexible.**  
-   The prototype should provide users with an initial division of cooking tasks rather than requiring participants to manually claim tasks. However, users should still be able to swap tasks between themselves when necessary. This supports the project's goal of reducing uncertainty around role while at the same time allowing participants to adapt the division of work to their preferences and circumstances.
+1. **Task assignment should provide an initial structure while supporting collaboration.**
 
-2. **Personalisation should be achievable within the scope of the prototype.**  
-   The original concept of training the system to recognise each user's individual voice was identified as technically ambitious for the current project scope. The design was therefore revised to explore a simpler form of personalisation, where users can give their cooking assistant a custom name and use that name when issuing commands.
+   The prototype should provide users with an initial division of cooking tasks rather than requiring participants to manually claim tasks. However, users should still be able to swap tasks between themselves when necessary. This approach is intended to reduce uncertainty around individual responsibilities while allowing participants to coordinate and adapt the division of work to their preferences and circumstances.
 
-3. **Joining a cooking session requires a clear social interaction before the lobby.**  
-   The current prototype assumes that users can join a cooking group, but the process of finding and connecting with other participants was not sufficiently defined. This led to the proposed addition of a "Find Friends" interaction before the cooking lobby.
+2. **Personalisation should support mobile interaction within the project scope.**
 
-4. **The physical context of the kitchen remains an important part of the concept.**  
-   The proposed kitchen-scanning interaction connects the digital cooking experience with the physical environment in which the cooking takes place. However, the interaction needs to remain focused on supporting coordination rather than making computer vision the central purpose of the application.
+   The original concept of training the system to recognise each user's individual voice was identified as technically ambitious for the current project scope. The design was therefore revised to explore a simpler form of personalisation, where users can give their cooking assistant a custom name and use that name when issuing commands. This explores how hands-free interaction could support cooking activities without requiring users to repeatedly interact with their devices manually.
 
-5. **The prototype is moving towards a balance between automation and user control.**  
-   The proposed changes suggest that the system should handle repetitive organisational work, such as providing an initial task division, while allowing participants to make their own adjustments when necessary.
+3. **Joining a cooking session requires a clear social interaction before the lobby.**
+
+   The current prototype assumes that users can join a cooking group, but the process of finding and connecting with other participants was not sufficiently defined. This led to the proposed addition of a "Find Friends" interaction before the cooking lobby. This interaction is intended to make it easier for users to connect with others and begin a shared cooking activity.
+
+4. **The physical context of the kitchen remains an important part of the mobile experience.**
+
+   The proposed kitchen-scanning interaction connects the digital cooking experience with the physical environment in which the cooking takes place. However, the interaction needs to remain focused on supporting coordination and awareness within the shared kitchen rather than making computer vision the central purpose of the application.
+
+5. **The prototype is moving towards a balance between shared coordination and user control.**
+
+   The proposed changes suggest that the system should handle repetitive organisational work, such as providing an initial task division, while allowing participants to make their own adjustments when necessary. This approach aims to support collaboration without removing participants' control over how they contribute to the shared cooking activity.
 
 ---
 
@@ -192,20 +188,25 @@ Based on the evaluation, we identified the following key insights:
 
 The evaluation had the following limitations:
 
-1. **Several proposed interactions have not yet been technically implemented.**  
-   Features such as task assignment, voice interaction, kitchen scanning, and finding nearby friends are currently represented as design concepts only. Therefore, this evaluation cannot establish their technical feasibility or performance.
+1. **Several proposed social and mobile interactions have not yet been technically implemented.**
 
-2. **The revised task assignment approach has not yet been validated with users.**  
-   The decision to automatically provide an initial task division and allow users to swap tasks is a design decision based on the current project direction. Further user testing is required to determine whether users actually prefer this approach over claiming tasks themselves.
+   Features such as task assignment, voice interaction, kitchen scanning, and finding nearby friends are currently represented as design concepts only. Therefore, this evaluation cannot establish their technical feasibility or performance in a real shared cooking environment.
 
-3. **The proposed "Find Friends" map requires further investigation.**  
-   A map showing nearby users is currently just  a proposed solution. Further testing is required to determine whether a map is the most appropriate way for users to find cooking partners. The design would also need to consider privacy and whether users are comfortable with their location or proximity being visible to others.
+2. **The revised task assignment approach has not yet been validated with users.**
 
-4. **The feedback does not yet provide evidence of long-term use.**  
-   The current evaluation focuses on understanding and refining the prototype. It does not establish whether the proposed features would change how frequently students cook together or how they behave during real collaborative cooking sessions.
+   The decision to automatically provide an initial task division and allow users to swap tasks is a design decision based on the current project direction. Further evaluation is required to determine whether users find this approach appropriate for supporting shared responsibility and collaboration.
 
-5. **The evaluation does not yet test the complete cooking experience.**  
-   The prototype currently represents individual parts of the proposed workflow. Further evaluation is required to assess how these interactions work together from finding participants and joining a cooking session through to completing the meal.
+3. **The proposed "Find Friends" map requires further investigation.**
+
+   A map showing nearby users is currently just a proposed solution. Further evaluation is required to determine whether a map is the most appropriate way for users to find cooking partners and initiate a shared cooking activity. The design would also need to consider privacy and whether users are comfortable with their location or proximity being visible to others.
+
+4. **The feedback does not yet provide evidence of long-term social engagement.**
+
+   The current evaluation focuses on exploring and refining the proposed social and mobile interactions. It does not establish whether the features would change how frequently students cook together, strengthen social connections, or influence behaviour during real collaborative cooking sessions.
+
+5. **The evaluation does not yet examine the complete collaborative cooking experience.**
+
+   The prototype currently represents individual parts of the proposed workflow. Further evaluation is required to assess how these interactions work together, from finding participants and joining a cooking session through to coordinating tasks and completing the meal.
 
 These limitations should be considered when interpreting the findings.
 
@@ -220,4 +221,5 @@ Based on the evaluation, the next iteration will focus on:
 3. User Accounts and Friend List System
 4. Cooking Lobby Redesign
 
-The prototype will continue to be refined through the design process based on user feedback and evaluation findings.
+The prototype will continue to be refined through the design process based on user feedback and evaluation findings, with a focus on supporting social interaction, shared awareness, and mobile coordination during collaborative cooking.
+```

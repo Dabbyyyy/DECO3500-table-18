@@ -10,18 +10,9 @@ import {
   runTransaction,
 } from "firebase/database";
 
-import {
-  getStorage,
-  ref as storageRef,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
+import { database } from "../firebase";
 
-import app, { database } from "../firebase";
-
-const storage = getStorage(app);
-const UPLOAD_TIMEOUT_MS = 180000;
-
+// Get the Firebase path for the cooking room.
 function roomPath(room) {
   const code = room?.code || room?.roomCode;
 
@@ -39,116 +30,32 @@ function roomPath(room) {
   return `rooms/${code}/mealPosts`;
 }
 
-function readableUploadError(error) {
-  const code = error?.code || "";
-
-  if (code === "storage/unauthorized") {
-    return new Error(
-      "Firebase Storage denied the photo upload. Check your Storage security rules and authentication."
-    );
-  }
-
-  if (code === "storage/unauthenticated") {
-    return new Error(
-      "Firebase Storage requires authentication. This app is not signed in to Firebase Authentication."
-    );
-  }
-
-  if (code === "storage/quota-exceeded") {
-    return new Error(
-      "Firebase Storage quota exceeded. Check your Firebase plan and usage."
-    );
-  }
-
-  if (code === "storage/retry-limit-exceeded") {
-    return new Error(
-      "Firebase Storage could not finish the upload. Check your connection and Storage configuration."
-    );
-  }
-
-  if (code === "storage/canceled") {
-    return new Error(
-      "The photo upload was cancelled."
-    );
-  }
-
-  if (code.startsWith("storage/")) {
-    return new Error(
-      `Firebase photo upload failed (${code}). Check the browser console for details.`
-    );
-  }
-
-  return error instanceof Error
-    ? error
-    : new Error("Photo upload failed.");
-}
-
-async function uploadMealPhoto(photo, path) {
-  const destination = storageRef(storage, path);
-
-  const uploadTask = uploadBytesResumable(
-    destination,
-    photo,
-    {
-      contentType:
-        photo.type || "application/octet-stream",
-    }
+// Get the current member's ID.
+function getMemberId(room, user) {
+  return (
+    room?.memberId ||
+    user?.memberId ||
+    user?.id ||
+    null
   );
-
-  await new Promise((resolve, reject) => {
-    let settled = false;
-    let timeout;
-
-    function finish(error) {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timeout);
-
-      if (error) {
-        reject(error);
-      } else {
-        resolve();
-      }
-    }
-
-    timeout = setTimeout(() => {
-      finish(
-        new Error(
-          "Photo upload timed out after 3 minutes. Check Firebase Storage permissions and your connection."
-        )
-      );
-      uploadTask.cancel();
-    }, UPLOAD_TIMEOUT_MS);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const percentage = Math.round(
-          (snapshot.bytesTransferred /
-            Math.max(snapshot.totalBytes, 1)) *
-            100
-        );
-
-        console.info(
-          `Meal photo upload: ${percentage}%`
-        );
-      },
-      (error) => {
-        console.error(
-          "Firebase Storage upload error:",
-          error.code,
-          error.message
-        );
-
-        finish(readableUploadError(error));
-      },
-      () => finish()
-    );
-  });
-
-  return getDownloadURL(destination);
 }
 
+// Get an existing recipe image URL.
+// No Firebase Storage uploads are used.
+function getRecipeImage(review) {
+  const image =
+    review?.recipeImage ||
+    review?.image ||
+    review?.imageUrl ||
+    review?.image_url ||
+    "";
+
+  return typeof image === "string" ? image : "";
+}
+
+// Post a completed meal review.
+// Saves text, ratings and an existing recipe image URL
+// directly to Firebase Realtime Database.
 export async function postMealReview(
   review,
   room,
@@ -156,10 +63,7 @@ export async function postMealReview(
 ) {
   const path = roomPath(room);
 
-  const memberId =
-    room?.memberId ||
-    user?.memberId ||
-    user?.id;
+  const memberId = getMemberId(room, user);
 
   if (!memberId) {
     throw new Error(
@@ -167,37 +71,68 @@ export async function postMealReview(
     );
   }
 
-  let image = review.recipeImage || "";
+  if (!review?.id) {
+    throw new Error(
+      "Meal review ID is missing."
+    );
+  }
+
+  const rating = Number(review.rating);
+
+  if (
+    !Number.isInteger(rating) ||
+    rating < 1 ||
+    rating > 5
+  ) {
+    throw new Error(
+      "Choose a rating between 1 and 5 stars."
+    );
+  }
+
+  const image = getRecipeImage(review);
+
+  const post = {
+    id: review.id,
+
+    recipeId: review.recipeId || "",
+
+    mealName: review.mealName || "Our meal",
+
+    members: review.members || [],
+
+    rating,
+
+    tags: review.tags || [],
+
+    caption: String(
+      review.caption || ""
+    ).trim().slice(0, 300),
+
+    // Reuse the existing recipe image.
+    // This is only a URL or image path.
+    image,
+    recipeImage: image,
+
+    // No photo upload.
+    hasUserPhoto: false,
+
+    authorId: memberId,
+
+    authorName: user?.name || "A cook",
+
+    createdAt:
+      Date.parse(review.savedAt) || Date.now(),
+  };
 
   try {
-    if (review.photo) {
-      image = await uploadMealPhoto(
-        review.photo,
-        `meal-photos/${
-          room.code || room.roomCode
-        }/${memberId}/${review.id}`
-      );
-    }
-
-    const post = {
-      id: review.id,
-      recipeId: review.recipeId || "",
-      mealName: review.mealName || "Our meal",
-      members: review.members || [],
-      rating: review.rating,
-      tags: review.tags || [],
-      caption: review.caption || "",
-      image,
-      hasUserPhoto: Boolean(review.photo),
-      authorId: memberId,
-      authorName: user?.name || "A cook",
-      createdAt:
-        Date.parse(review.savedAt) || Date.now(),
-    };
-
     await update(
       ref(database, `${path}/${review.id}`),
       post
+    );
+
+    console.info(
+      "Meal review posted successfully:",
+      review.id
     );
 
     return post;
@@ -208,26 +143,25 @@ export async function postMealReview(
     );
 
     if (
-      error?.code?.startsWith("storage/")
-    ) {
-      throw readableUploadError(error);
-    }
-
-    if (
       /permission/i.test(
         `${error?.code || ""} ${error?.message || ""}`
-      ) &&
-      !/Storage/i.test(error?.message || "")
+      )
     ) {
       throw new Error(
         "Firebase denied access to the meal feed. Check your Realtime Database rules."
       );
     }
 
-    throw error;
+    throw new Error(
+      error?.message ||
+      "Could not post your meal review."
+    );
   }
 }
 
+// Subscribe to the cooking group's meal feed.
+// Updates automatically when a meal is posted,
+// liked or commented on.
 export function subscribeMealFeed(
   room,
   onPosts,
@@ -249,23 +183,33 @@ export function subscribeMealFeed(
         id,
       }));
 
-      onPosts(
-        posts.sort(
-          (a, b) => b.createdAt - a.createdAt
-        )
+      posts.sort(
+        (a, b) =>
+          Number(b.createdAt || 0) -
+          Number(a.createdAt || 0)
       );
+
+      onPosts(posts);
     },
-    onError
+    (error) => {
+      console.error(
+        "Meal feed subscription failed:",
+        error
+      );
+
+      onError?.(error);
+    }
   );
 }
 
+// Add a comment to a meal post.
 export async function addMealComment(
   room,
   postId,
   user,
   text
 ) {
-  const body = text.trim();
+  const body = String(text || "").trim();
 
   if (!body || body.length > 300) {
     throw new Error(
@@ -273,10 +217,7 @@ export async function addMealComment(
     );
   }
 
-  const memberId =
-    room?.memberId ||
-    user?.memberId ||
-    user?.id;
+  const memberId = getMemberId(room, user);
 
   if (!memberId) {
     throw new Error(
@@ -284,29 +225,47 @@ export async function addMealComment(
     );
   }
 
-  await push(
-    ref(
-      database,
-      `${roomPath(room)}/${postId}/comments`
-    ),
-    {
-      text: body,
-      authorId: memberId,
-      authorName: user?.name || "A cook",
-      createdAt: Date.now(),
-    }
-  );
+  if (!postId) {
+    throw new Error(
+      "Meal post ID is missing."
+    );
+  }
+
+  try {
+    await push(
+      ref(
+        database,
+        `${roomPath(room)}/${postId}/comments`
+      ),
+      {
+        text: body,
+
+        authorId: memberId,
+
+        authorName: user?.name || "A cook",
+
+        createdAt: Date.now(),
+      }
+    );
+  } catch (error) {
+    console.error(
+      "Could not add meal comment:",
+      error
+    );
+
+    throw new Error(
+      "Could not send your comment. Check your connection and try again."
+    );
+  }
 }
 
+// Like or unlike a meal post.
 export async function toggleMealLike(
   room,
   postId,
   user
 ) {
-  const memberId =
-    room?.memberId ||
-    user?.memberId ||
-    user?.id;
+  const memberId = getMemberId(room, user);
 
   if (!memberId) {
     throw new Error(
@@ -314,18 +273,37 @@ export async function toggleMealLike(
     );
   }
 
-  const result = await runTransaction(
-    ref(
-      database,
-      `${roomPath(room)}/${postId}/likes/${memberId}`
-    ),
-    (current) =>
-      current
-        ? null
-        : { name: user?.name || "A cook" }
-  );
+  if (!postId) {
+    throw new Error(
+      "Meal post ID is missing."
+    );
+  }
 
-  if (!result.committed) {
+  try {
+    const result = await runTransaction(
+      ref(
+        database,
+        `${roomPath(room)}/${postId}/likes/${memberId}`
+      ),
+      (current) =>
+        current
+          ? null
+          : {
+              name: user?.name || "A cook",
+            }
+    );
+
+    if (!result.committed) {
+      throw new Error(
+        "Could not update your like."
+      );
+    }
+  } catch (error) {
+    console.error(
+      "Could not toggle meal like:",
+      error
+    );
+
     throw new Error(
       "Could not update your like. Please try again."
     );

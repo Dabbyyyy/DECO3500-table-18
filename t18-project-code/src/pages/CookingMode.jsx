@@ -1,5 +1,9 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  speak,
+  stopSpeaking,
+} from "../services/speechService";
 
 import "./CookingMode.css";
 
@@ -39,15 +43,6 @@ function normaliseAssignments(assignments, members = []) {
   });
 }
 
-function speak(message) {
-  if (!("speechSynthesis" in window) || !message) return;
-
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(message);
-  utterance.lang = "en-AU";
-  utterance.rate = 0.95;
-  window.speechSynthesis.speak(utterance);
-}
 
 function formatTimer(seconds) {
   const minutes = Math.floor(seconds / 60);
@@ -286,6 +281,7 @@ export default function CookingMode({
     onComplete();
   }
 
+  
   function startTimer(seconds) {
     if (
       !Number.isFinite(seconds) ||
@@ -298,8 +294,12 @@ export default function CookingMode({
       return;
     }
 
+    setTimerMinutes(Math.ceil(seconds / 60));
     setTimerRemaining(seconds);
     setTimerRunning(true);
+
+    // Automatically show the countdown panel.
+    setShowTimer(true);
 
     setMessage(
       `Timer started for ${formatTimer(seconds)}.`
@@ -312,6 +312,7 @@ export default function CookingMode({
 
     speak(`Timer started for ${spokenDuration}.`);
   }
+
 
   async function answerQuestion(question) {
     const step = activeTask?.steps?.[currentStep];
@@ -360,6 +361,7 @@ export default function CookingMode({
     }
   }
 
+  
   const {
     supported,
     listening,
@@ -374,8 +376,9 @@ export default function CookingMode({
     onRepeat: repeatInstruction,
     onHelp: requestHelp,
     onTimer: startTimer,
-    onQuestion: answerQuestion,
+    onProgress: () => onProgress?.(),
   });
+
 
   if (!meal || !activeTask) {
     return (

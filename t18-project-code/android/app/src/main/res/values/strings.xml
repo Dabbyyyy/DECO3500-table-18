@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ktchn</string>
+    <string name="title_activity_main">ktchn</string>
+    <string name="package_name">com.ktchn.app</string>
+    <string name="custom_url_scheme">com.ktchn.app</string>
+</resources>

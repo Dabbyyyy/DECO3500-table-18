@@ -23,3 +23,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment files
+.env.*
+!.env.example
+
+# Android signing keys
+*.jks
+*.keystore
+
+# Android local configuration
+android/local.properties

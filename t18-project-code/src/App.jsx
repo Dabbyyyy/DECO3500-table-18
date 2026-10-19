@@ -1,6 +1,10 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import {
+  setLandscape,
+  setPortrait,
+} from "./utils/screenOrientation";
 
 import Welcome from "./pages/Welcome";
 import JoinRoom from "./pages/JoinRoom";
@@ -77,6 +81,14 @@ export default function App() {
     "progress",
     "allComplete",
   ].includes(screen);
+
+  useEffect(() => {
+    if (isLandscapeFlow) {
+      void setLandscape();
+    } else {
+      void setPortrait();
+    }
+  }, [isLandscapeFlow]);
 
   const currentMeal = meal || room.selectedRecipe;
 

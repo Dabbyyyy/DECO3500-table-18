@@ -484,3 +484,97 @@
     width: 100%;
   }
 }
+
+
+/* =========================================
+   KTCHN — GROUP PROGRESS SCROLL FIX
+   Android landscape + portrait
+========================================= */
+
+.gp-page {
+  height: 100dvh;
+  min-height: 0;
+  max-height: 100dvh;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+
+  flex: 1 1 auto;
+  box-sizing: border-box;
+}
+
+/* Prevent child sections from shrinking
+   instead of allowing the page to scroll. */
+
+.gp-topbar,
+.gp-heading,
+.gp-overview,
+.gp-members-section,
+.gp-footer {
+  flex-shrink: 0;
+}
+
+/* Footer follows the content naturally. */
+
+.gp-footer {
+  margin: 0 auto;
+  padding-bottom: 12px;
+}
+
+/* Improve Android landscape layout. */
+
+@media (orientation: landscape) and (max-height: 550px) {
+  .gp-page {
+    height: 100dvh;
+    max-height: 100dvh;
+    min-height: 0;
+
+    padding: 12px 20px 22px;
+    gap: 12px;
+
+    overflow-y: auto;
+  }
+
+  .gp-overview {
+    width: 100%;
+  }
+
+  .gp-members-section {
+    width: 100%;
+  }
+
+  .gp-member-grid {
+    grid-template-columns: repeat(
+      2,
+      minmax(0, 1fr)
+    );
+  }
+
+  .gp-footer {
+    width: 100%;
+    padding-bottom: 18px;
+  }
+}
+
+/* Portrait support */
+
+@media (orientation: portrait) {
+  .gp-page {
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: auto;
+  }
+
+  .gp-member-grid {
+    grid-template-columns: 1fr;
+  }
+}

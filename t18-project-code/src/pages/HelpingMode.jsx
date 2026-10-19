@@ -1,5 +1,9 @@
 
 import { useEffect, useRef, useState } from "react";
+import {
+  speak,
+  stopSpeaking,
+} from "../services/speechService";
 import "./CookingMode.css";
 import "./HelpingMode.css";
 
@@ -11,16 +15,6 @@ import {
   subscribeToRoom,
 } from "../services/roomService";
 
-function speak(text) {
-  if (!text || !("speechSynthesis" in window)) return;
-
-  window.speechSynthesis.cancel();
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "en-AU";
-  utterance.rate = 0.95;
-  window.speechSynthesis.speak(utterance);
-}
 
 export default function HelpingMode({
   room,

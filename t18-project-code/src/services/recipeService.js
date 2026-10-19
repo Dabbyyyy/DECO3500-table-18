@@ -1,66 +1,54 @@
 
-async function fetchJSON(url, options = {}) {
-  const response = await fetch(url, options);
+import recipes from "../data/recipes.json";
 
-  let data;
+import {
+  recommendRecipes,
+} from "./recommendationService.js";
 
-  try {
-    data = await response.json();
-  } catch {
-    throw new Error("The recipe API returned an invalid response.");
-  }
-
-  if (!response.ok) {
-    throw new Error(
-      data.error || data.message || "Recipe API request failed."
-    );
-  }
-
-  return data;
-}
-
+// Return all recipes from the bundled database.
 export async function getRecipes() {
-  return fetchJSON("/api/recipes");
+  return recipes;
 }
 
+// Find a recipe by its ID.
 export async function getRecipeDetails(id) {
-  return fetchJSON(
-    `/api/recipes/${encodeURIComponent(id)}`
+  const recipe = recipes.find(
+    (item) => item.id === id
   );
+
+  if (!recipe) {
+    throw new Error(`Recipe not found: ${id}`);
+  }
+
+  return recipe;
 }
 
+// Get all available cuisines.
 export async function getCuisines() {
-  const data = await fetchJSON("/api/cuisines");
-  return data.cuisines || [];
+  return [
+    ...new Set(
+      recipes
+        .map((recipe) => recipe.cuisine)
+        .filter(Boolean)
+    ),
+  ].sort();
 }
 
+// Recommend recipes based on members and equipment.
 export async function getRecommendedRecipes(
   members,
   equipment = null
 ) {
-  const data = await fetchJSON(
-    "/api/recipes/recommend",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        members,
-        equipment,
-      }),
-    }
+  return recommendRecipes(
+    recipes,
+    members,
+    equipment
   );
-
-  return data.recommendations || [];
 }
 
-export async function askCookingHelper(context) {
-  return fetchJSON("/api/cooking-help", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(context),
-  });
+// AI question answering is no longer supported.
+export async function askCookingHelper() {
+  throw new Error(
+    "AI cooking questions are no longer supported."
+  );
 }

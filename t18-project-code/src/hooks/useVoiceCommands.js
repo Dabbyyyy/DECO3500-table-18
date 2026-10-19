@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Capacitor } from "@capacitor/core";
 import { SpeechRecognition as NativeSpeech } from "@capacitor-community/speech-recognition";
@@ -16,10 +15,11 @@ function getTimerSeconds(command) {
   const unit = match[2];
 
   const multiplier =
-    unit === "hour" ? 3600 :
-    unit === "minute" ? 60 : 1;
+    unit === "hour" ? 3600 : unit === "minute" ? 60 : 1;
 
-  return Math.min(Math.round(amount * multiplier), 7200);
+  const seconds = Math.round(amount * multiplier);
+
+  return seconds >= 1 && seconds <= 7200 ? seconds : null;
 }
 
 export default function useVoiceCommands({
@@ -30,6 +30,10 @@ export default function useVoiceCommands({
   onRepeat,
   onHelp,
   onTimer,
+  onTimerPause,
+  onTimerResume,
+  onTimerReset,
+  onTimerRemaining,
   onProgress,
   onQuestion,
 }) {
@@ -37,12 +41,7 @@ export default function useVoiceCommands({
   const handlersRef = useRef({});
   const listeningRef = useRef(false);
   const mountedRef = useRef(false);
-  const listenerHandlesRef = useRef([]);
-
-  const lastCommandRef = useRef({
-    command: "",
-    time: 0,
-  });
+  const lastCommandRef = useRef({ command: "", time: 0 });
 
   const [listening, setListening] = useState(false);
   const [transcript, setTranscript] = useState("");
@@ -53,7 +52,7 @@ export default function useVoiceCommands({
       isNative ||
       Boolean(
         window.SpeechRecognition ||
-        window.webkitSpeechRecognition
+          window.webkitSpeechRecognition
       )
   );
 
@@ -65,6 +64,10 @@ export default function useVoiceCommands({
       onRepeat,
       onHelp,
       onTimer,
+      onTimerPause,
+      onTimerResume,
+      onTimerReset,
+      onTimerRemaining,
       onProgress,
       onQuestion,
     };
@@ -72,10 +75,7 @@ export default function useVoiceCommands({
 
   const updateListening = useCallback((value) => {
     listeningRef.current = value;
-
-    if (mountedRef.current) {
-      setListening(value);
-    }
+    if (mountedRef.current) setListening(value);
   }, []);
 
   const handleCommand = useCallback((rawText) => {
@@ -85,9 +85,7 @@ export default function useVoiceCommands({
 
     if (!command) return;
 
-    if (mountedRef.current) {
-      setTranscript(command);
-    }
+    if (mountedRef.current) setTranscript(command);
 
     const handlers = handlersRef.current;
     const helper = String(
@@ -109,6 +107,7 @@ export default function useVoiceCommands({
 
     const instruction = command
       .slice(match.index + match[0].length)
+      .replace(/^[,.:!?\s]+/, "")
       .trim();
 
     if (!instruction) return;
@@ -118,13 +117,44 @@ export default function useVoiceCommands({
 
     // Group progress
     if (
-      instruction.includes("group progress") ||
-      instruction.includes("show progress") ||
-      instruction.includes("everyone's progress") ||
-      instruction.includes("everyone progress")
+      /group progress|group status|team progress|show progress|everyone'?s? progress/.test(
+        instruction
+      )
     ) {
       actionName = "progress";
       action = () => handlers.onProgress?.();
+    }
+
+    // Timer controls (before general navigation commands)
+    else if (
+      /timer|countdown|time left|remaining time/.test(instruction)
+    ) {
+      const seconds = getTimerSeconds(instruction);
+
+      if (/\b(pause|hold|stop)\b/.test(instruction)) {
+        actionName = "timer-pause";
+        action = () => handlers.onTimerPause?.();
+      } else if (
+        /\b(resume|unpause|continue)\b/.test(instruction)
+      ) {
+        actionName = "timer-resume";
+        action = () => handlers.onTimerResume?.();
+      } else if (
+        /\b(reset|restart)\b/.test(instruction) && !seconds
+      ) {
+        actionName = "timer-reset";
+        action = () => handlers.onTimerReset?.();
+      } else if (
+        /how much|how long|time left|remaining|check|status/.test(
+          instruction
+        )
+      ) {
+        actionName = "timer-remaining";
+        action = () => handlers.onTimerRemaining?.();
+      } else if (seconds) {
+        actionName = `timer:${seconds}`;
+        action = () => handlers.onTimer?.(seconds);
+      }
     }
 
     // Next step
@@ -155,16 +185,6 @@ export default function useVoiceCommands({
       action = () => handlers.onRepeat?.();
     }
 
-    // Timer
-    else if (instruction.includes("timer")) {
-      const seconds = getTimerSeconds(instruction);
-
-      if (seconds) {
-        actionName = `timer:${seconds}`;
-        action = () => handlers.onTimer?.(seconds);
-      }
-    }
-
     // Help request
     else if (
       instruction.includes("need help") ||
@@ -177,7 +197,7 @@ export default function useVoiceCommands({
 
     if (!action) return;
 
-    // Prevent duplicate partial recognition results.
+    // Prevent duplicate results from partial recognition.
     const now = Date.now();
 
     if (
@@ -221,7 +241,6 @@ export default function useVoiceCommands({
           "partialResults",
           (data) => {
             if (disposed) return;
-
             const result = data.matches?.[0];
             if (result) handleCommand(result);
           }
@@ -233,6 +252,23 @@ export default function useVoiceCommands({
         }
 
         handles.push(partialListener);
+
+        const finalListener = await NativeSpeech.addListener(
+          "result",
+          (data) => {
+            if (disposed) return;
+            if (data.matches?.[0]) {
+              handleCommand(data.matches[0]);
+            }
+          }
+        );
+
+        if (disposed) {
+          await finalListener.remove();
+          return;
+        }
+
+        handles.push(finalListener);
 
         const stateListener = await NativeSpeech.addListener(
           "listeningState",
@@ -248,9 +284,11 @@ export default function useVoiceCommands({
         }
 
         handles.push(stateListener);
-        listenerHandlesRef.current = handles;
       } catch (setupError) {
-        console.error("Native speech setup failed:", setupError);
+        console.error(
+          "Native speech setup failed:",
+          setupError
+        );
 
         if (!disposed) {
           setError("Could not initialise speech recognition.");
@@ -269,7 +307,6 @@ export default function useVoiceCommands({
       }
 
       browserRecognition = new BrowserRecognition();
-
       browserRecognition.lang = "en-AU";
       browserRecognition.continuous = false;
       browserRecognition.interimResults = false;
@@ -292,7 +329,8 @@ export default function useVoiceCommands({
 
         const messages = {
           "not-allowed": "Microphone permission was denied.",
-          "service-not-allowed": "Speech recognition is blocked.",
+          "service-not-allowed":
+            "Speech recognition is blocked.",
           "audio-capture": "No microphone was found.",
           "no-speech": "No speech detected. Try again.",
           network: "Speech recognition network error.",
@@ -300,7 +338,7 @@ export default function useVoiceCommands({
 
         setError(
           messages[event.error] ||
-          "Voice recognition could not start."
+            "Voice recognition could not start."
         );
       };
 
@@ -339,8 +377,6 @@ export default function useVoiceCommands({
         for (const handle of handles) {
           void handle.remove().catch(console.error);
         }
-
-        listenerHandlesRef.current = [];
       }
     };
   }, [handleCommand, updateListening]);
@@ -361,7 +397,10 @@ export default function useVoiceCommands({
           recognitionRef.current?.stop();
         }
       } catch (stopError) {
-        console.error("Could not stop recognition:", stopError);
+        console.error(
+          "Could not stop recognition:",
+          stopError
+        );
       }
 
       updateListening(false);
@@ -400,19 +439,25 @@ export default function useVoiceCommands({
         });
       } else {
         if (!recognitionRef.current) {
-          setError("Browser speech recognition is unavailable.");
+          setError(
+            "Browser speech recognition is unavailable."
+          );
           return;
         }
 
         recognitionRef.current.start();
       }
     } catch (startError) {
-      console.error("Speech recognition failed:", startError);
+      console.error(
+        "Speech recognition failed:",
+        startError
+      );
+
       updateListening(false);
 
       setError(
         startError?.message ||
-        "Could not start voice recognition."
+          "Could not start voice recognition."
       );
     }
   }, [supported, updateListening]);

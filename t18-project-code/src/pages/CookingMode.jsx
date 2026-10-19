@@ -1,14 +1,7 @@
-
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  speak,
-  stopSpeaking,
-} from "../services/speechService";
-
+import { speak } from "../services/speechService";
 import "./CookingMode.css";
 
-import ProgressBar from "../components/ProgressBar";
-import StepCard from "../components/StepCard";
 import VoiceButton from "../components/VoiceButton";
 import useVoiceCommands from "../hooks/useVoiceCommands";
 import {
@@ -43,10 +36,10 @@ function normaliseAssignments(assignments, members = []) {
   });
 }
 
-
 function formatTimer(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainder = seconds % 60;
+
   return `${String(minutes).padStart(2, "0")}:${String(
     remainder
   ).padStart(2, "0")}`;
@@ -64,11 +57,14 @@ export default function CookingMode({
 }) {
   const [message, setMessage] = useState("");
   const lastSpokenStep = useRef(null);
+
   const [timerMinutes, setTimerMinutes] = useState(5);
   const [showTimer, setShowTimer] = useState(false);
-  const [helpRequests, setHelpRequests] = useState([]);
   const [timerRemaining, setTimerRemaining] = useState(null);
+  const [timerInitial, setTimerInitial] = useState(null);
   const [timerRunning, setTimerRunning] = useState(false);
+
+  const [helpRequests, setHelpRequests] = useState([]);
   const [helperBusy, setHelperBusy] = useState(false);
   const [equipment, setEquipment] = useState(
     room.cookingSetup?.equipment || {}
@@ -90,7 +86,9 @@ export default function CookingMode({
         )
       );
 
-      setEquipment(updatedRoom.cookingSetup?.equipment || {});
+      setEquipment(
+        updatedRoom.cookingSetup?.equipment || {}
+      );
 
       const assignments = Array.isArray(
         updatedRoom.cookingSetup?.assignments
@@ -143,7 +141,7 @@ export default function CookingMode({
       ? ((currentStep + 1) / totalSteps) * 100
       : 0;
 
-  // Automatically speak when the active cooking step changes.
+  // Read instructions when the cooking step changes.
   useEffect(() => {
     if (!activeTaskId || !activeTask?.steps?.[currentStep]) {
       return;
@@ -157,6 +155,7 @@ export default function CookingMode({
     speak(activeTask.steps[currentStep]);
   }, [activeTaskId, currentStep, activeTask?.steps]);
 
+  // Mark an assigned task as cooking.
   useEffect(() => {
     if (!activeTaskId) return;
 
@@ -167,27 +166,28 @@ export default function CookingMode({
     }
   }, [activeTaskId, activeTaskStatus, roomCode]);
 
+  // Countdown timer.
   useEffect(() => {
     if (!timerRunning) return undefined;
 
     const interval = window.setInterval(() => {
       setTimerRemaining((remaining) => {
-        if (remaining == null || remaining > 1) {
-          return remaining == null
-            ? null
-            : remaining - 1;
-        }
-
-        window.clearInterval(interval);
-        setTimerRunning(false);
-        setMessage("Timer finished!");
-        speak("Your cooking timer is finished.");
-        return 0;
+        if (remaining == null) return null;
+        return Math.max(0, remaining - 1);
       });
     }, 1000);
 
     return () => window.clearInterval(interval);
   }, [timerRunning]);
+
+  // Announce timer completion.
+  useEffect(() => {
+    if (timerRemaining !== 0 || !timerRunning) return;
+
+    setTimerRunning(false);
+    setMessage("Timer finished!");
+    speak("Your cooking timer is finished.");
+  }, [timerRemaining, timerRunning]);
 
   async function saveTaskChanges(changes) {
     if (!activeTask) return;
@@ -212,11 +212,10 @@ export default function CookingMode({
   function previousStep() {
     if (currentStep <= 0) return;
 
-    const nextStep = currentStep - 1;
     setMessage("");
 
     saveTaskChanges({
-      currentStep: nextStep,
+      currentStep: currentStep - 1,
     }).catch(console.error);
   }
 
@@ -224,23 +223,20 @@ export default function CookingMode({
     if (!activeTask) return;
 
     if (currentStep < totalSteps - 1) {
-      const nextStep = currentStep + 1;
       setMessage("");
 
       saveTaskChanges({
-        currentStep: nextStep,
+        currentStep: currentStep + 1,
       }).catch(console.error);
 
       return;
     }
 
-    finishTask();
+    finishTask().catch(console.error);
   }
 
   function repeatInstruction() {
-    const instruction =
-      activeTask?.steps?.[currentStep];
-
+    const instruction = activeTask?.steps?.[currentStep];
     if (!instruction) return;
 
     setMessage(`Repeating: ${instruction}`);
@@ -278,10 +274,10 @@ export default function CookingMode({
       return;
     }
 
-    onComplete();
+    onComplete?.();
   }
 
-  
+  // Start a timer from either the UI or voice.
   function startTimer(seconds) {
     if (
       !Number.isFinite(seconds) ||
@@ -296,9 +292,8 @@ export default function CookingMode({
 
     setTimerMinutes(Math.ceil(seconds / 60));
     setTimerRemaining(seconds);
+    setTimerInitial(seconds);
     setTimerRunning(true);
-
-    // Automatically show the countdown panel.
     setShowTimer(true);
 
     setMessage(
@@ -313,17 +308,66 @@ export default function CookingMode({
     speak(`Timer started for ${spokenDuration}.`);
   }
 
+  function pauseTimer() {
+    if (timerRemaining == null || !timerRunning) return;
+
+    setTimerRunning(false);
+    setShowTimer(true);
+    setMessage("Timer paused.");
+  }
+
+  function resumeTimer() {
+    if (timerRemaining == null || timerRemaining <= 0) {
+      setMessage("Start a timer first.");
+      return;
+    }
+
+    setShowTimer(true);
+    setTimerRunning(true);
+    setMessage("Timer resumed.");
+  }
+
+  function resetTimer() {
+    if (timerInitial == null) {
+      setMessage("Start a timer first.");
+      return;
+    }
+
+    setTimerRunning(false);
+    setTimerRemaining(timerInitial);
+    setShowTimer(true);
+
+    setMessage(
+      `Timer reset to ${formatTimer(timerInitial)}. Press Resume to start.`
+    );
+  }
+
+  function announceTimer() {
+    if (timerRemaining == null) {
+      setMessage("No timer has been set.");
+      speak("You have not started a timer yet.");
+      return;
+    }
+
+    setShowTimer(true);
+
+    const mins = Math.floor(timerRemaining / 60);
+    const secs = timerRemaining % 60;
+
+    const response =
+      `${mins} minutes and ${secs} seconds remaining.`;
+
+    setMessage(response);
+    speak(response);
+  }
 
   async function answerQuestion(question) {
     const step = activeTask?.steps?.[currentStep];
-
     if (helperBusy) return;
 
     setHelperBusy(true);
 
-    const helperName =
-      user.helperName || "Nova";
-
+    const helperName = user.helperName || "Nova";
     setMessage(`${helperName} is thinking...`);
 
     try {
@@ -335,14 +379,11 @@ export default function CookingMode({
         equipment,
       });
 
-      setMessage(
-        `${helperName}: ${result.answer}`
-      );
-
+      setMessage(`${helperName}: ${result.answer}`);
       speak(result.answer);
     } catch (error) {
       console.error(
-        "Nova cooking helper failed:",
+        "Cooking helper failed:",
         error
       );
 
@@ -351,17 +392,13 @@ export default function CookingMode({
           ? "The AI cooking helper needs a server API key. Please ask another cook for help."
           : "I cannot reach the cooking assistant right now. Please ask another cook for help.";
 
-      setMessage(
-        `${helperName}: ${errorMessage}`
-      );
-
+      setMessage(`${helperName}: ${errorMessage}`);
       speak(errorMessage);
     } finally {
       setHelperBusy(false);
     }
   }
 
-  
   const {
     supported,
     listening,
@@ -370,26 +407,28 @@ export default function CookingMode({
     startListening,
   } = useVoiceCommands({
     helperName: user.helperName || "Nova",
-    autoStart: true,
+    autoStart: false,
     onNext: nextStep,
     onPrevious: previousStep,
     onRepeat: repeatInstruction,
     onHelp: requestHelp,
     onTimer: startTimer,
+    onTimerPause: pauseTimer,
+    onTimerResume: resumeTimer,
+    onTimerReset: resetTimer,
+    onTimerRemaining: announceTimer,
     onProgress: () => onProgress?.(),
+    onQuestion: answerQuestion,
   });
-
 
   if (!meal || !activeTask) {
     return (
       <main className="cooking-empty">
         <h2>No active task</h2>
-
         <p>
           Your assigned tasks are complete, or no task
           has been assigned to you yet.
         </p>
-
         <button
           type="button"
           onClick={onProgress || onBack}
@@ -428,9 +467,7 @@ export default function CookingMode({
           type="button"
           title="Timer"
           aria-label="Set timer"
-          onClick={() =>
-            setShowTimer((value) => !value)
-          }
+          onClick={() => setShowTimer((value) => !value)}
         >
           ◷
         </button>
@@ -455,9 +492,7 @@ export default function CookingMode({
           YOUR TASK · {activeTask.name}
         </p>
 
-        <h1>
-          {activeTask.steps[currentStep]}
-        </h1>
+        <h1>{activeTask.steps[currentStep]}</h1>
 
         <div className="cooking-prototype-controls">
           <button
@@ -487,23 +522,17 @@ export default function CookingMode({
 
           <button
             type="button"
-            onClick={() =>
-              setShowTimer((value) => !value)
-            }
+            onClick={() => setShowTimer((value) => !value)}
           >
             Timer
           </button>
 
           <button
             type="button"
-            className={
-              needsHelp ? "help-active" : ""
-            }
+            className={needsHelp ? "help-active" : ""}
             onClick={requestHelp}
           >
-            {needsHelp
-              ? "Help sent ✓"
-              : "Need help"}
+            {needsHelp ? "Help sent ✓" : "Need help"}
           </button>
 
           <button
@@ -517,8 +546,8 @@ export default function CookingMode({
         <p className="cooking-voice-hint">
           Voice commands{" "}
           {listening ? "listening" : "available"} —
-          say “Hey {user.helperName || "Nova"},
-          next step” to keep your hands free.
+          tap the microphone and say
+          “Hey {user.helperName || "Nova"}, next step”.
         </p>
 
         <div className="cooking-voice-control">
@@ -534,8 +563,7 @@ export default function CookingMode({
             className="cooking-feedback"
             aria-live="polite"
           >
-            {voiceError ||
-              `Heard: “${transcript}”`}
+            {voiceError || `Heard: “${transcript}”`}
           </p>
         )}
 
@@ -576,49 +604,41 @@ export default function CookingMode({
               max="120"
               value={timerMinutes}
               onChange={(event) =>
-                setTimerMinutes(
-                  Number(event.target.value)
-                )
+                setTimerMinutes(Number(event.target.value))
               }
             />
 
             <button
               type="button"
-              onClick={() =>
-                startTimer(timerMinutes * 60)
-              }
+              onClick={() => startTimer(timerMinutes * 60)}
             >
               Start
             </button>
 
             {timerRemaining !== null && (
               <>
-                <strong>
+                <strong
+                  role="timer"
+                  aria-label="Time remaining"
+                >
                   {formatTimer(timerRemaining)}
                 </strong>
 
                 <button
                   type="button"
-                  onClick={() =>
-                    setTimerRunning(
-                      (running) => !running
-                    )
+                  onClick={
+                    timerRunning ? pauseTimer : resumeTimer
                   }
                   disabled={timerRemaining === 0}
                 >
-                  {timerRunning
-                    ? "Pause"
-                    : "Resume"}
+                  {timerRunning ? "Pause" : "Resume"}
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => {
-                    setTimerRemaining(null);
-                    setTimerRunning(false);
-                  }}
+                  onClick={resetTimer}
                 >
-                  Clear
+                  Reset
                 </button>
               </>
             )}
@@ -629,20 +649,14 @@ export default function CookingMode({
       <div className="cooking-floating-progress">
         <span>Session progress</span>
 
-        <strong>
-          {Math.round(progress)}%
-        </strong>
+        <strong>{Math.round(progress)}%</strong>
 
         <small>
           {currentStep + 1} of {totalSteps} steps
         </small>
 
         <div className="cooking-progress-track">
-          <div
-            style={{
-              width: `${progress}%`,
-            }}
-          />
+          <div style={{ width: `${progress}%` }} />
         </div>
       </div>
     </main>

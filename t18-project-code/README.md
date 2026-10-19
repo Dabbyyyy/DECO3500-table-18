@@ -1,175 +1,438 @@
-Hey guys! I've pushed the latest ktchn code to `main`, so you can start working on your parts.
+# ktchn 
+### Cook Together, Step by Step
 
-Here's a quick overview of the project and what you guys need to do.
+**ktchn** is a collaborative cooking application designed to help university students cook together in a more organised, interactive, and enjoyable way.
 
-### Project directory
+Cooking with others can sometimes be confusing, especially when group members are unsure about their responsibilities, what to do next, or how everyone else is progressing.
 
-Everything is inside `t18-project-code/`.
+ktchn addresses these challenges by providing shared meal selection, task assignment, step-by-step cooking instructions, real-time group progress tracking, and a voice cooking assistant.
 
-- `src/pages/` – All the app screens (JSX and CSS)
-- `src/components/` – Reusable components like cooking steps and voice buttons
-- `src/hooks/` – Custom hooks, including `useVoiceCommands.js`
-- `src/services/` – Firebase room synchronisation and recipe API
-- `src/utils/` – Helper functions
-- `src/App.jsx` – Main navigation and screen flow
-- `src/App.css` and `src/index.css` – Global styling
-- `src/firebase.js` – Firebase configuration
-- `server/` – Backend API and recipe dataset
+The application was developed as part of the **DECO3500 Table 18 university project**.
 
-### How to run
+---
 
-Open the project in Codespaces or VS Code.
+## 1. Project Overview
 
-**Terminal 1 – Frontend**
+### Problem Space
+
+Cooking together requires communication, coordination, and awareness of what others are doing. However, students sharing a kitchen may experience difficulties such as:
+
+- Unclear division of cooking responsibilities.
+- Confusion about the order of cooking tasks.
+- Difficulty keeping track of other group members' progress.
+- Limited kitchen space and equipment.
+- Frequent interruptions when checking instructions on a device.
+
+### Our Solution
+
+ktchn provides a shared cooking experience where group members can plan, organise, and complete their cooking tasks together.
+
+Rather than displaying a single recipe for everyone to follow, the application assigns responsibilities to individual cooks while maintaining awareness of the group's overall progress.
+
+### Target Users
+
+University students and young adults who cook together, particularly those who have difficulty coordinating cooking responsibilities in shared kitchens.
+
+---
+
+## 2. Key Features
+
+### Create and Join Cooking Rooms
+
+Users can create a cooking session or join an existing room using a unique room code.
+
+- Create a shared cooking room.
+- Join using a room code.
+- Enter a name and select a cooking helper.
+- View other members in the lobby.
+- Synchronise group information across connected devices.
+
+Firebase Realtime Database supports shared room information and real-time updates.
+
+### Cooking Preferences and Meal Selection
+
+Before cooking, group members can select their preferences to help identify suitable recipes.
+
+- Select cuisine preferences.
+- Specify dietary requirements.
+- Consider cooking difficulty and available time.
+- Explore recommended meals.
+- Participate in shared meal selection.
+
+This helps the group make cooking decisions together rather than relying on one person.
+
+### Task Assignment
+
+Once a meal is selected, cooking responsibilities can be divided among group members.
+
+- View assigned cooking tasks.
+- Identify who is responsible for each task.
+- Follow individual cooking instructions.
+- Track task completion.
+- Request assistance when needed.
+
+The goal is to reduce confusion and support more balanced participation during group cooking.
+
+### Step-by-Step Cooking Mode
+
+Cooking Mode provides a simplified interface to help users focus on their current responsibilities.
+
+Features include:
+
+- Individual cooking instructions.
+- Next and previous step navigation.
+- Repeat instruction functionality.
+- Task progress indicators.
+- Task completion controls.
+- Help requests.
+- Cooking timer controls.
+- Access to group progress.
+
+The interface is designed to reduce unnecessary interaction while cooking.
+
+### Voice Cooking Assistant
+
+ktchn includes a voice assistant intended to support hands-free interactions during cooking.
+
+Users can select a helper name and interact with the assistant through speech recognition.
+
+Example commands include:
+
+- "Hey Sam, next step"
+- "Hey Sam, previous step"
+- "Hey Sam, repeat"
+- "Hey Sam, show group progress"
+
+The assistant also uses text-to-speech to read cooking instructions aloud.
+
+**Current limitation:** Voice recognition and navigation are still being refined. Some commands, including navigation to Group Progress, may not respond consistently.
+
+Voice-controlled timer commands, such as starting, pausing, resuming, and resetting a countdown, are not yet reliably functional and are included in future development.
+
+### Cooking Timer
+
+Cooking Mode includes a countdown timer to help users manage cooking durations.
+
+Users can manually:
+
+- Set a timer duration.
+- Start a countdown.
+- Pause the timer.
+- Resume the countdown.
+- Reset the timer to its original duration.
+- View the remaining time.
+
+The countdown is currently managed within Cooking Mode and may reset when the user navigates away from that screen.
+
+### Real-Time Group Progress
+
+The Group Progress screen provides an overview of the shared cooking session.
+
+Users can:
+
+- View the group's overall completion percentage.
+- Check each member's current task.
+- See individual task progress.
+- Identify members who need assistance.
+- Offer help to another cook.
+- Return to their own cooking instructions.
+
+This feature supports awareness and coordination between group members.
+
+### Shared Meal Feed
+
+ktchn includes a shared meal feed where users can share and reflect on their completed cooking experiences.
+
+Features include:
+
+- Displaying completed meals using recipe images.
+- Adding ratings and captions.
+- Adding descriptive tags.
+- Tagging group members.
+- Liking and commenting on meal posts.
+
+The prototype uses existing recipe images rather than uploading photographs from the user's device.
+
+---
+
+## 3. Download and Install the Android App
+
+ktchn is available as an Android APK for prototype testing.
+
+### Download
+
+1. Visit the [ktchn GitHub Releases page](https://github.com/Dabbyyyy/DECO3500-table-18/releases).
+2. Open the latest available release.
+3. Scroll to the **Assets** section.
+4. Download the APK file, such as `ktchn.apk`.
+5. Wait for the download to finish.
+
+**Note:** The APK download will only become available after it has been uploaded to a published GitHub Release.
+
+### Install on Android
+
+1. Open the downloaded APK using your phone's Files app or browser.
+2. If Android blocks the installation, open the relevant settings and allow installation from that source.
+3. Return to the APK and select **Install**.
+4. Once installation is complete, select **Open**.
+5. Grant microphone permission if you want to test voice recognition.
+
+Only install APK files from sources you trust. The installation permission can be disabled again afterwards.
+
+### Important Notes
+
+- The APK is intended for Android devices.
+- The application is a university prototype, not a production-ready application.
+- Some functionality requires an internet connection.
+- Some features may behave differently across Android devices.
+- Voice recognition depends on device support and microphone permissions.
+- The provided APK is a debug build intended for testing.
+
+---
+
+## 4. How to Use ktchn
+
+**Step 1 — Create or Join a Room**
+
+Open the application and create a cooking room, or join an existing room using a code provided by another group member.
+
+**Step 2 — Enter Your Details**
+
+Enter your name and choose a cooking helper.
+
+**Step 3 — Set Cooking Preferences**
+
+Choose your preferred cuisine, dietary requirements, and other available cooking preferences.
+
+**Step 4 — Select a Meal**
+
+Explore recommended recipes and decide what to cook with your group.
+
+**Step 5 — Organise Cooking Tasks**
+
+Review the cooking tasks and assign responsibilities among group members.
+
+**Step 6 — Start Cooking**
+
+Follow your individual step-by-step instructions in Cooking Mode. Use the on-screen controls to navigate instructions, manage timers, and request help.
+
+**Step 7 — Check Group Progress**
+
+Open Group Progress to see how other members are doing and offer assistance when needed.
+
+**Step 8 — Complete and Share**
+
+Once cooking is finished, complete the session and explore the shared meal feed.
+
+---
+
+## 5. Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| React | Building the user interface |
+| JavaScript | Application functionality and interactions |
+| Vite | Frontend development and build tooling |
+| CSS | Styling, responsive layouts, and visual design |
+| Firebase Realtime Database | Real-time room synchronisation and shared cooking data |
+| Capacitor | Converting the React application into an Android application |
+| Android SDK | Android application development and building |
+| Gradle | Generating the Android APK |
+| Native Speech Recognition | Recognising spoken commands |
+| Native Text-to-Speech | Reading cooking instructions aloud |
+
+---
+
+## 6. Run the Project Locally
+
+### Requirements
+
+Before running the project, make sure you have:
+
+- Node.js
+- npm
+- Git
+- A compatible development environment
+- The required Firebase configuration
+
+### Clone the Repository
 
 ```bash
-cd t18-project-code
+git clone https://github.com/Dabbyyyy/DECO3500-table-18.git
+```
+
+Navigate to the application folder:
+
+```bash
+cd DECO3500-table-18/t18-project-code
+```
+
+### Install Dependencies
+
+```bash
 npm install
+```
+
+### Configure Environment Variables
+
+Configure the environment variables required by the project's Firebase and API integrations.
+
+Keep sensitive credentials in local environment files and do not commit secrets to GitHub.
+
+### Start the Development Server
+
+```bash
 npm run dev
 ```
 
-**Terminal 2 – Backend**
+Open the local URL displayed in the terminal.
+
+---
+
+## 7. Build the Android APK
+
+The Android application is built using Capacitor and Gradle.
+
+### Step 1 — Build the React Application
 
 ```bash
-cd t18-project-code/server
-npm install
-npm run dev
+npm run build
 ```
 
-If you're already inside `t18-project-code`, you don't need to `cd` into it again.
-
-The frontend and backend need to be running together for the recipe recommendations to work. Check `server/package.json` if the backend uses a different start script.
-
-### 1. Ji Jien – Landscape Cooking Flow
-
-**Deadline: Monday, 12 October, midnight (PR submitted)**
-
-You'll be working on the cooking flow, from Cooking Mode until the group finishes cooking, based on the Figma designs I shared.
-
-**Main requirements:**
-
-- The cooking screens must be in **landscape orientation**.
-- When users enter Cooking Mode in portrait, show a **"Rotate your phone to landscape"** screen with a rotation icon.
-- Once they rotate their phone, the cooking interface should appear automatically.
-- Make sure the layout works on different phone sizes, not just the Figma frame.
-- Show each person's assigned cooking tasks and step-by-step instructions from the selected recipe.
-- Users should be able to go to the next step, repeat instructions, go back, use a timer, and ask for help.
-- Include Group Progress, Task Finished, Helping Others, and Cooking Finished screens.
-- Keep the current cream, brown, and burnt-orange theme.
-
-**Voice commands and AI cooking helper**
-
-This is an important part because we want users to interact with the app without constantly touching their phones while cooking.
-
-Users should be able to say things like:
-
-- "Hey Nova, next step"
-- "Hey Nova, repeat that"
-- "Hey Nova, start a timer for 5 minutes"
-- "Hey Nova, how do I cook this rice?"
-- "Hey Nova, how do I know when the chicken is cooked?"
-
-The helper should respond using voice, not just text.
-
-For example, if someone asks how to cook rice, Nova should explain the process clearly based on the recipe and the equipment available.
-
-**Suggested implementation (most efficient approach):**
-
-We already have `src/hooks/useVoiceCommands.js`, so please check and reuse it first rather than starting from scratch.
-
-I suggest using:
-
-1. **Web Speech API (SpeechRecognition)** for recognising commands and **SpeechSynthesis** for reading instructions aloud. This is the simplest option for our React prototype, although browser support varies.
-2. **Rule-based commands** for actions like Next, Previous, Repeat, Timer, and Need Help. These should work without calling AI.
-3. **AI API through our Express backend** for open-ended cooking questions like "How do I prepare this ingredient?" or "What can I use instead of a wok?" Send the current recipe, step, and available equipment as context so the response is relevant.
-4. **Text-to-speech** to read the AI response aloud.
-
-You can look into Voxpow if needed, but I'd recommend trying the existing hook and browser APIs first to avoid unnecessary dependencies and setup.
-
-For the wake phrase "Hey Nova", please note that browser speech recognition isn't guaranteed to listen continuously, especially on mobile. A microphone button with a clear listening indicator is a good fallback. If continuous wake-word detection is unreliable, prioritise a working tap-to-talk helper instead.
-
-Please don't put AI API keys directly in React. Any AI requests should go through `server/`, using environment variables.
-
-Also, make sure the AI helper gives short, practical cooking guidance and doesn't automatically advance or change tasks without the user's command. For food safety questions, use reliable guidance rather than guessing.
-
-**Firebase integration:**
-
-Please use the existing room data, selected recipe, members, and task assignments. The cooking steps and group progress should update across devices.
-
-You can edit or add files inside `src/pages/`, `src/components/`, and `src/hooks/`. You can also add backend endpoints if needed.
-
-Try not to change the existing Meal Selection, Cooking Setup, Task Assignment, or Firebase room functions unless necessary. Let me know if you need to edit shared files like `App.jsx` or `roomService.js`.
-
-### 2. Wai Hiin – Meal Completion and Social Features
-
-**Deadline: Tuesday, 13 October, midnight (PR submitted)**
-
-Please wait until I review and merge Ji Jien's PR into `main`. I'll message you when it's ready so you can pull the latest changes and start.
-
-Your task is to implement the remaining screens after cooking, based on the Figma designs:
-
-- Meal Complete – show the finished recipe, group members, and options to save the meal, add a photo, cook again, or end the session.
-- Photo Review – let users upload or take a photo, rate the meal, add tags and a caption.
-- Shared Meal Feed – show the posted meal, photo, rating, caption, group members, and comments.
-
-Please make sure the screens are connected to the actual selected recipe and group members rather than hardcoded examples.
-
-You can add new JSX/CSS files and reusable components as needed. Keep the styling consistent with the rest of the app.
-
-For the feed, Firebase can be used to save meal posts and comments. For photos, use suitable image storage rather than storing large image files directly in Realtime Database.
-
-### GitHub workflow – IMPORTANT
-
-**Please don't push directly to `main`.** I want to review the changes before merging them.
-
-First, pull the latest `main` and create your own branch:
+### Step 2 — Synchronise Capacitor
 
 ```bash
-git switch main
-git pull origin main
-git switch -c feature/your-name
+npx cap sync android
 ```
 
-Once you're done:
+### Step 3 — Build the APK
+
+Navigate to the Android directory:
 
 ```bash
-git add .
-git commit -m "Implement assigned features"
-git push -u origin feature/your-name
+cd android
 ```
 
-Then go to GitHub → Pull Requests → New Pull Request, select your branch as the source and `main` as the target, and create the PR.
+Run:
 
-Please send me the PR link when you're done. Don't merge it yourself.
+```bash
+./gradlew assembleDebug
+```
 
-Make sure your code runs and test the relevant screens before submitting. Also, don't commit `.env` files or API keys.
+The build requires a configured Android SDK and compatible Java environment.
 
-### Final review – Wednesday, 14 October
+### Step 4 — Locate the APK
 
-I'll review and test the full app on Wednesday, including navigation, responsiveness, voice commands, Firebase synchronisation, and the overall cooking flow.
+After a successful build, the APK can be found at:
 
-**Timeline:**
+```text
+android/app/build/outputs/apk/debug/app-debug.apk
+```
 
-- **Monday midnight:** Ji Jien finishes and submits PR.
-- **After Ji Jien's PR is merged:** I'll inform Wai Hiin to start.
-- **Tuesday midnight:** Wai Hiin finishes and submits PR.
-- **Wednesday:** I'll review and test everything.
+This APK can be installed on an Android device for testing.
 
-Please make sure the PR is submitted by the deadline, not just saved locally. Thanks guys!
+For public distribution, a properly signed release build is recommended.
 
-**Existing files for the Cooking Flow**
+---
 
-Btw, we already have these files inside `src/pages/` from the previous development:
+## 8. Known Limitations
 
-- `CookingMode.jsx` / `CookingMode.css` – Cooking instructions, steps, voice commands and timers
-- `GroupProgress.jsx` / `GroupProgress.css` – Overall cooking progress and everyone's task status
-- `CookComplete.jsx` / `CookComplete.css` – Screen after someone finishes their assigned tasks
-- `AllTasksComplete.jsx` / `AllTasksComplete.css` – Screen when everyone has finished cooking
+ktchn is currently a functional university prototype with several features that require further development and testing.
 
-You can reuse these files, completely rewrite the code inside them, or delete and create new files if that's easier. The current code is from our previous development, so you don't have to follow its existing structure or design.
+| Feature | Current limitation |
+|---|---|
+| Voice-controlled timer | Commands to start, pause, resume, and reset the timer do not work reliably |
+| Voice navigation | Opening Group Progress through voice commands may not work consistently |
+| Speech recognition | Recognition may stop after an utterance and require users to activate the microphone again |
+| Timer persistence | The countdown may reset when navigating away from Cooking Mode |
+| Android compatibility | Testing has been limited to a small number of devices |
+| Internet connectivity | Real-time synchronisation and online services require network access |
 
-Just make sure the final implementation follows the Figma designs, supports landscape orientation, includes the rotate-phone prompt, and has working voice commands and the Nova cooking assistant.
+These limitations do not prevent users from exploring the application's main collaborative cooking workflow, but they may affect certain interactions.
 
-**Important:** If you rename or delete any files, make sure you update their imports and navigation in `App.jsx` so the app doesn't break. Please also keep the Firebase integration working across devices.
+---
 
-Feel free to restructure the code however you think is best, as long as everything works and is included in your PR by Monday midnight.
+## 9. Future Development
+
+Several improvements could be implemented to enhance ktchn's functionality, usability, and reliability.
+
+### Improve Voice-Controlled Timer
+
+Develop more reliable voice commands that allow users to:
+
+- Start a countdown by specifying a duration.
+- Pause and resume an existing timer.
+- Reset or cancel a countdown.
+- Ask the assistant how much time is remaining.
+- Receive spoken notifications when a timer finishes.
+
+This would improve hands-free interaction, particularly when users are handling ingredients or cooking equipment.
+
+### Improve Voice Recognition and Navigation
+
+Improve the assistant's ability to recognise commands in different environments, including noisy kitchens.
+
+Future improvements could include:
+
+- More accurate recognition of helper names.
+- Reliable navigation between Cooking Mode and Group Progress.
+- Better handling of different pronunciations and accents.
+- Improved microphone activation and listening behaviour.
+- Clearer feedback when a command is not recognised.
+
+### Persistent Cooking Timer
+
+Move timer management outside the individual Cooking Mode screen so countdowns can continue when users navigate to other sections.
+
+Future versions could also support multiple simultaneous timers and Android notifications.
+
+### Improve Collaborative Awareness
+
+Expand the group progress system to provide clearer information about what each cook is doing.
+
+Potential improvements include:
+
+- More detailed live activity indicators.
+- Notifications when someone requests assistance.
+- Improved coordination when tasks depend on one another.
+- More flexible reassignment of cooking responsibilities.
+
+### Improve User Experience and Accessibility
+
+Conduct additional usability testing to improve the overall cooking experience.
+
+Potential improvements include:
+
+- Larger interactive controls for cooking environments.
+- Better colour contrast and readability.
+- More accessible voice and touch interactions.
+- Reduced screen interaction during active cooking.
+- Improved responsiveness across different device sizes.
+
+### Further Android Testing and Deployment
+
+Test ktchn across more Android devices and versions to identify compatibility issues.
+
+Future work could include performance optimisation, improved error handling, production signing, and distribution through an official application store.
+
+---
+
+## 10. Project Status
+
+**Status: University Prototype — Development and Testing**
+
+ktchn demonstrates a collaborative cooking experience using shared task coordination, real-time updates, cooking instructions, and an experimental voice assistant.
+
+The main focus of the project is exploring how interactive technology can support communication, coordination, and awareness during collaborative cooking.
+
+Some features remain experimental and have been documented as known limitations and future development opportunities.
+
+---
+
+## 11. Project Team
+
+Developed by **Table 18** as part of DECO3500.
+
+**GitHub Repository:** https://github.com/Dabbyyyy/DECO3500-table-18
+
+**Android Downloads:** https://github.com/Dabbyyyy/DECO3500-table-18/releases

@@ -454,6 +454,15 @@ Its implemented features, simulated interactions, and known limitations are docu
 | Institution | The University of Queensland |
 | Semester | Semester 2, 2026 |
 
+### Tradeshow Corner:
+
+Access our tradeshow promotional material on google drive:
+1. Main Confrence Poster: https://drive.google.com/file/d/1VYuhm5wnp0upjZFzyky4feoyR5WhcFk3/view?usp=drive_link
+2. Poster 1: https://drive.google.com/file/d/1jdCVbqH9i2xWMpdDaNJDUwLgsVVn_6mN/view?usp=drive_link
+3. Poster 2: https://drive.google.com/file/d/1FR91ctLuUginebKOhLLFS9UKwI32yJ1F/view?usp=drive_link
+4. Brochure: https://drive.google.com/file/d/1QeVsOBeyLcADPg699h7eBRNCrgv3p9VS/view?usp=drive_link , https://drive.google.com/file/d/1aJ2AVNDH86OT5Igct6gJGaDemcIi9osU/view?usp=drive_link 
+5. Promotional Video: https://drive.google.com/file/d/1CDrM5xX1brZmpV9iFvK0JsYfmL2QC58D/view?usp=drive_link
+
 ## Acknowledgements
 
 This project was developed as part of the DECO3500 Social & Mobile Computing course at The University of Queensland.

@@ -1,5 +1,14 @@
 # KTCHN by Table 18
 
+## Team
+Aaradheya Sharma
+Ashley Kirsten Kosasih
+Febriani Patricia
+Ji Jien Yee
+Waii Hiin Ng
+
+---
+
 **A collaborative cooking experience designed for students living in shared accommodation.**
 
 KTCHN is a DECO3500 Social & Mobile Computing design project by Table 18 at The University of Queensland, developed during Semester 2, 2026.

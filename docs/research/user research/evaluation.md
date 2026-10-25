@@ -1,4 +1,3 @@
-```markdown
 # Prototype Evaluation
 
 ## 1. Overview
@@ -222,7 +221,7 @@ Based on the evaluation, the next iteration will focus on:
 4. Cooking Lobby Redesign
 
 The prototype will continue to be refined through the design process based on user feedback and evaluation findings, with a focus on supporting social interaction, shared awareness, and mobile coordination during collaborative cooking.
-```
+
 ---
 
 ## 9. Tradeshow Evaluation and Feedback

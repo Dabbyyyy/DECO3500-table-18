@@ -223,3 +223,91 @@ Based on the evaluation, the next iteration will focus on:
 
 The prototype will continue to be refined through the design process based on user feedback and evaluation findings, with a focus on supporting social interaction, shared awareness, and mobile coordination during collaborative cooking.
 ```
+---
+
+## 9. Tradeshow Evaluation and Feedback
+
+### 9.1 Evaluation Context
+
+Following the earlier prototype evaluation, Team 18 received peer feedback on KTCHN during the tradeshow. Feedback was recorded in Team 18’s inbox on the [DECO3500 Tradeshow Feedback Miro board](https://miro.com/app/board/uXjVEYroT98=/?share_link_id=633908794100).
+
+Responses were provided by Teams 10, 11, 12, 13, 16 and 17 across six categories: social and contextual experience; pitch, poster and ethics; functionality and simulation; domain and challenging scenarios; research and evaluation informing design; and value and future development. Some categories were left blank, and some responses combined comments from several reviewers. These responses are therefore treated as qualitative peer feedback rather than a participant count or a quantitative measure of usability.
+
+The findings below concern the tradeshow presentation and prototype. They supplement the earlier evaluation and do not demonstrate performance during a complete real-world cooking session.
+
+### 9.2 Findings and Design Implications
+
+#### Finding 1: Shared task coordination was a clear strength
+
+Reviewers recognised the value of making responsibilities and group progress visible. Teams 10, 11, 12, 13 and 17 highlighted task sharing, swapping, progress tracking or helping others as useful aspects of the concept. This supports the project’s focus on coordinating collaborative cooking.
+
+**Design implication:** Prioritise the shared task workflow. Further evaluation should investigate whether it reduces uncertainty and helps distribute work fairly when participants have different cooking skills.
+
+#### Finding 2: Coordination did not always translate into a convincing social experience
+
+Although reviewers understood the organisational benefits, some questioned how the app encouraged meaningful interaction. Team 10 suggested retaining recipe notes or shared memories between sessions. Team 12 felt the social feed was disconnected from the core concept. Team 13 wanted clearer social interaction beyond operating the app.
+
+Team 16 questioned the need for an app when cooks are already together and proposed remote cooking with video calls.
+
+**Design implication:** Test whether KTCHN supports face-to-face communication, mutual assistance and participation in the same kitchen. Remote cooking is a possible alternative direction requiring separate research. Features such as a social feed or session history should be retained only where their contribution to the intended experience is clear.
+
+#### Finding 3: Working and simulated features needed clearer explanation
+
+Teams 10, 11 and 12 wanted clearer demonstrations of synchronisation between devices and voice interaction. Team 12 also reported awkward operation on the demonstration tablet. Team 17 included a specific report that an attempted voice command to set a timer did not work.
+
+These comments identify uncertainty and a reported interaction failure; they do not establish the implementation status of every feature.
+
+**Design implication:** Clearly label functional, simulated and proposed features. Demonstrate two devices side by side so reviewers can see task changes propagate. Check the interface on the intended hardware and evaluate supported voice commands, error feedback and manual alternatives.
+
+#### Finding 4: Cooking plans need to adapt to interruptions
+
+Reviewers raised scenarios involving someone leaving mid-session, a phone losing power, a late arrival, a beginner needing additional guidance, or a task taking longer than expected. Teams 10 and 12 also highlighted competition for limited kitchen equipment. Team 17 warned that users might abandon the app when cooking becomes busy.
+
+**Design implication:** Explore clear task handover and reassignment, visible connection status, adjustable timing and additional guidance for beginners. Evaluate whether these interactions remain quick enough to use during cooking.
+
+#### Finding 5: Visibility and personal information introduce ethical concerns
+
+Reviewers identified privacy concerns involving microphones, dietary information, budgets, photographs and individual progress. Teams 10 and 17 noted that visible task progress could make participants feel monitored or pressured. Teams 11, 12 and 13 raised concerns about allergy information, financial pressure and fair task allocation.
+
+**Design implication:** Explore editable dietary information, control over sharing, clear microphone status and ways to pause listening. Task progress should support coordination without ranking participants or labelling slower cooks negatively. Any retained session history should be optional and considered alongside these privacy concerns.
+
+#### Finding 6: Research connections were visible, but stronger evidence was needed
+
+Teams 10 and 12 praised the research-to-design table. Other reviewers requested more specific links between participant feedback and design changes. Several teams recommended testing a full cooking session to investigate whether the proposed benefits occur in practice.
+
+**Design implication:** Document each relevant research finding, the corresponding design response and the outcome of subsequent testing. Use existing, accurately recorded participant quotations and observations rather than illustrative quotations presented as evidence.
+
+### 9.3 Interpretation and Limitations
+
+The feedback suggests that KTCHN communicates a useful coordination concept, particularly through shared task visibility and flexible responsibilities. However, opinions differed on the strength of its social experience and its value compared with direct conversation.
+
+The tradeshow provided reactions to the presentation and demonstration, rather than evidence of sustained use in a shared kitchen. Reviewers’ uncertainty about simulation also limits conclusions about technical performance. The feedback cannot establish that KTCHN improves fairness, reduces confusion or strengthens relationships during actual cooking.
+
+### 9.4 Proposed Evaluation in a Real Kitchen
+
+The next evaluation should involve students preparing a complete meal together in a shared kitchen, with each participant using their own device. This is a proposed study and has not been completed as part of the evaluation reported here.
+
+Observation should follow the whole session: joining, selecting the meal, allocating tasks, preparing food, requesting help and completing the meal. The study should examine:
+
+- Whether participants understand their responsibilities and task changes.
+- Whether progress updates remain consistent across devices.
+- Whether voice commands work amid ordinary kitchen noise.
+- How participants manage delays, shared equipment and task handovers.
+- Whether beginners can contribute without an experienced cook taking over.
+- Whether the app encourages conversation and assistance or distracts from them.
+- Whether visible progress feels supportive or creates pressure.
+
+With participants’ consent, researchers could take observation notes and conduct short interviews afterwards. Participants should be able to decline recording and stop participation. A comparable session using their usual coordination methods would help assess what the app contributes.
+
+### 9.5 Priorities Following the Tradeshow
+
+Based on the feedback, the proposed priorities are to:
+
+1. Evaluate a complete cooking session with multiple users and devices.
+2. Verify synchronisation, supported voice commands and timer interactions.
+3. Improve task reassignment and handling of delays or disconnections.
+4. Investigate fairness, privacy and comfort with visible progress.
+5. Clarify the purpose of secondary features, including the social feed.
+6. Record how subsequent findings lead to specific design changes.
+
+These priorities are recommendations arising from the tradeshow feedback, rather than completed improvements or validated outcomes.

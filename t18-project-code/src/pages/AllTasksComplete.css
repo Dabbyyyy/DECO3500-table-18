@@ -1,9 +1,4 @@
 
-/* =========================================
-   KTCHN — ALL TASKS COMPLETE
-   Final cooking celebration
-========================================= */
-
 .all-complete-page {
   position: relative;
 
@@ -489,8 +484,6 @@
   }
 }
 
-/* FIX: Allow the completion page to scroll */
-
 .all-complete-page {
   min-height: 100%;
   height: 100%;
@@ -506,8 +499,6 @@
   box-sizing: border-box;
 }
 
-/* Keep the Post to Feed button visible */
-
 .all-complete-continue {
   display: flex;
   align-items: center;
@@ -520,8 +511,6 @@
   flex-shrink: 0;
   cursor: pointer;
 }
-
-/* Allow scrolling on shorter screens */
 
 @media (max-height: 750px) {
   .all-complete-content {

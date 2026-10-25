@@ -1,20 +1,14 @@
-
 import { useEffect, useRef, useState } from "react";
-import {
-  speak,
-  stopSpeaking,
-} from "../services/speechService";
+import { speak } from "../services/speechService";
 import "./CookingMode.css";
 import "./HelpingMode.css";
 
 import VoiceButton from "../components/VoiceButton";
 import useVoiceCommands from "../hooks/useVoiceCommands";
-import { askCookingHelper } from "../services/recipeService";
 import {
   setCookingActivity,
   subscribeToRoom,
 } from "../services/roomService";
-
 
 export default function HelpingMode({
   room,
@@ -32,7 +26,6 @@ export default function HelpingMode({
     Number(helpingMember?.taskData?.currentStep) || 0
   );
   const [message, setMessage] = useState("");
-  const [busy, setBusy] = useState(false);
   const [leaving, setLeaving] = useState(false);
 
   const lastSpoken = useRef(null);
@@ -142,36 +135,6 @@ export default function HelpingMode({
     speak(instruction);
   }
 
-  async function askNova(question) {
-    if (busy || !question?.trim()) return;
-
-    setBusy(true);
-    setMessage(`${helperName} is thinking...`);
-
-    try {
-      const result = await askCookingHelper({
-        question,
-        recipe: meal,
-        task,
-        currentStep: steps[safeStep] || "",
-        equipment: room?.cookingSetup?.equipment || {},
-      });
-
-      const answer =
-        result?.answer || "I couldn't find an answer.";
-
-      setMessage(`${helperName}: ${answer}`);
-      speak(answer);
-    } catch (error) {
-      console.error("Nova helper error:", error);
-      setMessage(
-        `${helperName} is unavailable right now. Please ask your cooking partner.`
-      );
-    } finally {
-      setBusy(false);
-    }
-  }
-
   async function stopHelping() {
     if (leaving) return;
 
@@ -208,7 +171,6 @@ export default function HelpingMode({
     onNext: nextStep,
     onPrevious: previousStep,
     onRepeat: repeatInstruction,
-    onQuestion: askNova,
   });
 
   if (!task) {
@@ -326,7 +288,7 @@ export default function HelpingMode({
 
         <p className="cooking-voice-hint">
           Say “Hey {helperName}, next step”
-          or ask a cooking question.
+          or “Hey {helperName}, repeat”.
         </p>
 
         <div className="cooking-voice-control">

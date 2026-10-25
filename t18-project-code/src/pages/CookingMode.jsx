@@ -8,7 +8,6 @@ import {
   subscribeToRoom,
   updateCookingTask,
 } from "../services/roomService";
-import { askCookingHelper } from "../services/recipeService";
 
 function normaliseAssignments(assignments, members = []) {
   const tasks = Array.isArray(assignments)
@@ -65,10 +64,6 @@ export default function CookingMode({
   const [timerRunning, setTimerRunning] = useState(false);
 
   const [helpRequests, setHelpRequests] = useState([]);
-  const [helperBusy, setHelperBusy] = useState(false);
-  const [equipment, setEquipment] = useState(
-    room.cookingSetup?.equipment || {}
-  );
 
   const roomCode = room.code || room.roomCode;
   const memberId = room.memberId || user.memberId || user.id;
@@ -84,10 +79,6 @@ export default function CookingMode({
           updatedRoom.cookingSetup?.assignments,
           updatedRoom.members
         )
-      );
-
-      setEquipment(
-        updatedRoom.cookingSetup?.equipment || {}
       );
 
       const assignments = Array.isArray(
@@ -361,44 +352,6 @@ export default function CookingMode({
     speak(response);
   }
 
-  async function answerQuestion(question) {
-    const step = activeTask?.steps?.[currentStep];
-    if (helperBusy) return;
-
-    setHelperBusy(true);
-
-    const helperName = user.helperName || "Nova";
-    setMessage(`${helperName} is thinking...`);
-
-    try {
-      const result = await askCookingHelper({
-        question,
-        recipe: meal,
-        task: activeTask,
-        currentStep: step,
-        equipment,
-      });
-
-      setMessage(`${helperName}: ${result.answer}`);
-      speak(result.answer);
-    } catch (error) {
-      console.error(
-        "Cooking helper failed:",
-        error
-      );
-
-      const errorMessage =
-        error?.message?.includes("not configured")
-          ? "The AI cooking helper needs a server API key. Please ask another cook for help."
-          : "I cannot reach the cooking assistant right now. Please ask another cook for help.";
-
-      setMessage(`${helperName}: ${errorMessage}`);
-      speak(errorMessage);
-    } finally {
-      setHelperBusy(false);
-    }
-  }
-
   const {
     supported,
     listening,
@@ -418,7 +371,6 @@ export default function CookingMode({
     onTimerReset: resetTimer,
     onTimerRemaining: announceTimer,
     onProgress: () => onProgress?.(),
-    onQuestion: answerQuestion,
   });
 
   if (!meal || !activeTask) {

@@ -35,7 +35,6 @@ export default function useVoiceCommands({
   onTimerReset,
   onTimerRemaining,
   onProgress,
-  onQuestion,
 }) {
   const recognitionRef = useRef(null);
   const handlersRef = useRef({});
@@ -69,7 +68,6 @@ export default function useVoiceCommands({
       onTimerReset,
       onTimerRemaining,
       onProgress,
-      onQuestion,
     };
   });
 

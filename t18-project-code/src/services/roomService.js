@@ -247,10 +247,6 @@ export async function setSelectedRecipe(roomCode, recipe) {
 // COOKING SETUP
 // ============================================
 
-// Divide existing recipe instructions into useful
-// per-member work when possible.
-// Never invent cooking instructions or split a
-// single instruction mid-action.
 
 function distributeRecipeTasks(tasks, memberCount) {
   const result = tasks.map((task, index) => ({
@@ -332,9 +328,6 @@ export async function initializeCookingSetup(
   await runTransaction(
     ref(database, `rooms/${roomCode}/cookingSetup`),
     (current) => {
-      // Preserve an existing setup for this recipe.
-      // Firebase may return assignments as an object
-      // rather than an array.
       if (
         current?.recipeId === String(recipe.id) &&
         current.assignments &&

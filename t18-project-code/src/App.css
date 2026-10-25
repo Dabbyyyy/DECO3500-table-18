@@ -27,7 +27,6 @@
   min-height: 440px;
 }
 
-/* On actual phones, use the whole screen */
 @media (max-width: 600px) {
   .app-shell {
     padding: 0;

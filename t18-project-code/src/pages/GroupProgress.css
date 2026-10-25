@@ -1,9 +1,4 @@
 
-/* =========================================
-   KTCHN — GROUP PROGRESS
-   Landscape prototype
-========================================= */
-
 .gp-page {
   width: 100%;
   min-height: 100dvh;
@@ -485,12 +480,6 @@
   }
 }
 
-
-/* =========================================
-   KTCHN — GROUP PROGRESS SCROLL FIX
-   Android landscape + portrait
-========================================= */
-
 .gp-page {
   height: 100dvh;
   min-height: 0;
@@ -512,9 +501,6 @@
   box-sizing: border-box;
 }
 
-/* Prevent child sections from shrinking
-   instead of allowing the page to scroll. */
-
 .gp-topbar,
 .gp-heading,
 .gp-overview,
@@ -523,14 +509,10 @@
   flex-shrink: 0;
 }
 
-/* Footer follows the content naturally. */
-
 .gp-footer {
   margin: 0 auto;
   padding-bottom: 12px;
 }
-
-/* Improve Android landscape layout. */
 
 @media (orientation: landscape) and (max-height: 550px) {
   .gp-page {

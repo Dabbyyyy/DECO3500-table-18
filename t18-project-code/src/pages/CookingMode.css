@@ -1,9 +1,4 @@
 
-/* =========================================
-   KTCHN — COOKING MODE
-   Landscape Figma-inspired layout
-========================================= */
-
 .cooking-page.cooking-prototype {
   position: relative;
   width: 100%;
@@ -22,9 +17,7 @@
   box-sizing: border-box;
 }
 
-/* =========================================
-   BACK BUTTON
-========================================= */
+/* BACK BUTTON */
 
 .cooking-prototype .cooking-back {
   position: absolute;
@@ -54,9 +47,7 @@
   background: #f5ece2;
 }
 
-/* =========================================
-   TOP RIGHT ICONS
-========================================= */
+/* TOP RIGHT ICONS */
 
 .cooking-utility-icons {
   position: absolute;
@@ -91,9 +82,7 @@
   transform: scale(1.08);
 }
 
-/* =========================================
-   MAIN CENTRED CONTENT
-========================================= */
+/* MAIN CONTENT */
 
 .cooking-centre {
   position: absolute;
@@ -146,9 +135,7 @@
   text-wrap: balance;
 }
 
-/* =========================================
-   COOKING ACTION BUTTONS
-========================================= */
+/* COOKING ACTION BUTTONS */
 
 .cooking-prototype-controls {
   width: 100%;
@@ -209,9 +196,7 @@
   transform: none;
 }
 
-/* =========================================
-   VOICE ASSISTANT
-========================================= */
+/* VOICE ASSISTANT */
 
 .cooking-voice-hint {
   margin: 16px 0 0;
@@ -259,9 +244,7 @@
   cursor: pointer;
 }
 
-/* =========================================
-   TIMER PANEL
-========================================= */
+/* TIMER PANEL */
 
 .cooking-timer-popover {
   width: min(420px, 100%);
@@ -323,9 +306,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* =========================================
-   FLOATING SESSION PROGRESS
-========================================= */
+/* FLOATING SESSION PROGRESS */
 
 .cooking-floating-progress {
   position: absolute;
@@ -384,9 +365,7 @@
   transition: width 0.25s ease;
 }
 
-/* =========================================
-   NO ACTIVE TASK
-========================================= */
+/* NO ACTIVE TASK */
 
 .cooking-empty {
   width: 100%;
@@ -428,9 +407,7 @@
   cursor: pointer;
 }
 
-/* =========================================
-   RESPONSIVE LANDSCAPE
-========================================= */
+/* RESPONSIVE LANDSCAPE */
 
 @media (orientation: landscape) and (max-height: 550px) {
   .cooking-prototype .cooking-back {
@@ -521,9 +498,7 @@
   }
 }
 
-/* =========================================
-   PORTRAIT FALLBACK
-========================================= */
+/* PORTRAIT FALLBACK */
 
 @media (orientation: portrait) {
   .cooking-page.cooking-prototype {

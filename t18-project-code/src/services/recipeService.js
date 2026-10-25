@@ -1,4 +1,3 @@
-
 import recipes from "../data/recipes.json";
 
 import {
@@ -43,12 +42,5 @@ export async function getRecommendedRecipes(
     recipes,
     members,
     equipment
-  );
-}
-
-// AI question answering is no longer supported.
-export async function askCookingHelper() {
-  throw new Error(
-    "AI cooking questions are no longer supported."
   );
 }

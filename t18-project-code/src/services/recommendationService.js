@@ -139,16 +139,12 @@ function meetsDietaryRequirements(recipe, members) {
       } else if (ALLERGEN_RULES[restriction]) {
         const allergen = ALLERGEN_RULES[restriction];
 
-        // The prototype database has some unverified
-        // allergen labels. Require an explicit "No X"
-        // tag instead of assuming missing data is safe.
         const verifiedTag = tags.has(restriction);
 
         if (allergens.has(allergen) || !verifiedTag) {
           return false;
         }
       } else {
-        // Unknown restriction: do not silently ignore it.
         return false;
       }
     }

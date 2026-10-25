@@ -54,7 +54,6 @@ export default function PhotoReview({
     draft?.id || crypto.randomUUID()
   );
 
-  // Save review progress without storing image files.
   useEffect(() => {
     onDraftChange?.({
       id: reviewId.current,

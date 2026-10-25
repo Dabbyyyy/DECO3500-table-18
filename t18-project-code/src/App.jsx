@@ -226,8 +226,6 @@ export default function App() {
     setScreen("cookComplete");
   }
 
-  // Called by screens that have confirmed
-  // the group has finished all tasks.
   function showAllComplete() {
     setScreen("allComplete");
   }

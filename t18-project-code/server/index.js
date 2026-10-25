@@ -1,4 +1,3 @@
-
 import express from "express";
 import cors from "cors";
 import fs from "node:fs";
@@ -18,7 +17,7 @@ const __dirname = path.dirname(__filename);
 // ENVIRONMENT VARIABLES
 // ==========================================
 
-// Load server/.env before reading PORT or API keys.
+// Load optional server/.env configuration before reading PORT.
 // Requires Node.js 20.12 or newer.
 if (typeof process.loadEnvFile === "function") {
   try {
@@ -74,9 +73,6 @@ app.get("/api/health", (req, res) => {
       status: "ok",
       service: "ktchn Recipe API",
       recipeCount: recipes.length,
-      novaConfigured: Boolean(
-        process.env.OPENAI_API_KEY
-      ),
     });
   } catch (error) {
     res.status(500).json({
@@ -176,205 +172,6 @@ app.post("/api/recipes/recommend", (req, res) => {
 });
 
 // ==========================================
-// NOVA - OPENAI COOKING ASSISTANT
-// ==========================================
-
-app.post("/api/cooking-help", async (req, res) => {
-  const {
-    question,
-    recipe = null,
-    task = null,
-    currentStep = null,
-    equipment = {},
-  } = req.body || {};
-
-  // Validate question
-  if (
-    typeof question !== "string" ||
-    !question.trim()
-  ) {
-    return res.status(400).json({
-      error: "A cooking question is required.",
-    });
-  }
-
-  // Check OpenAI configuration
-  if (!process.env.OPENAI_API_KEY) {
-    return res.status(503).json({
-      error:
-        "Nova AI is not configured on the server.",
-      code: "AI_NOT_CONFIGURED",
-    });
-  }
-
-  // Available kitchen equipment
-  const availableEquipment =
-    equipment &&
-    typeof equipment === "object" &&
-    !Array.isArray(equipment)
-      ? Object.entries(equipment)
-          .filter(([, available]) =>
-            Boolean(available)
-          )
-          .map(([name]) => name)
-      : [];
-
-  // Build cooking context
-  const cookingContext = {
-    recipe: recipe
-      ? {
-          title:
-            recipe.title ||
-            recipe.name ||
-            "Unknown recipe",
-          ingredients:
-            recipe.ingredients || [],
-          allergens:
-            recipe.allergens || [],
-        }
-      : null,
-
-    task: task
-      ? {
-          title:
-            task.title ||
-            task.name ||
-            "Current task",
-          steps:
-            task.steps || [],
-        }
-      : null,
-
-    currentStep,
-    availableEquipment,
-    question: question.trim().slice(0, 500),
-  };
-
-  try {
-    // Send request to OpenAI
-    const response = await fetch(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            `Bearer ${process.env.OPENAI_API_KEY}`,
-        },
-
-        body: JSON.stringify({
-          model:
-            process.env.OPENAI_MODEL ||
-            "gpt-4.1-mini",
-
-          messages: [
-            {
-              role: "system",
-              content: `
-You are Nova, a friendly AI cooking
-assistant for the ktchn group cooking app.
-
-Your role is to help students cook
-together confidently and safely.
-
-Guidelines:
-
-1. Answer cooking questions clearly.
-2. Keep responses short and practical.
-3. Use simple, conversational English.
-4. Give instructions that are easy to
-   understand when spoken aloud.
-5. Use the recipe and task context
-   provided by the application.
-6. Help users understand cooking
-   techniques, ingredients, and timing.
-7. Give safe food handling advice
-   when necessary.
-8. Do not automatically complete,
-   skip, or advance cooking tasks.
-9. Do not claim to control timers,
-   devices, or kitchen equipment.
-10. If information is missing,
-    ask a short follow-up question.
-
-Respond in 1 to 3 short sentences.
-Avoid unnecessary explanations.
-              `.trim(),
-            },
-
-            {
-              role: "user",
-              content:
-                JSON.stringify(cookingContext),
-            },
-          ],
-
-          max_tokens: 180,
-          temperature: 0.7,
-        }),
-      }
-    );
-
-    const data = await response.json();
-
-    // Handle OpenAI errors
-    if (!response.ok) {
-      console.error(
-        "OpenAI API error:",
-        JSON.stringify(
-          {
-            status: response.status,
-            error: data?.error,
-          },
-          null,
-          2
-        )
-      );
-
-      return res.status(502).json({
-        error:
-          "Nova could not answer right now.",
-      });
-    }
-
-    // Extract Nova's answer
-    const answer =
-      data?.choices?.[0]?.message?.content;
-
-    if (
-      typeof answer !== "string" ||
-      !answer.trim()
-    ) {
-      console.error(
-        "Nova returned an empty answer:",
-        data
-      );
-
-      return res.status(502).json({
-        error:
-          "Nova returned an empty answer.",
-      });
-    }
-
-    // Return answer to React frontend
-    return res.json({
-      answer: answer.trim(),
-    });
-  } catch (error) {
-    console.error(
-      "Nova connection failed:",
-      error
-    );
-
-    return res.status(502).json({
-      error:
-        "Nova could not connect to OpenAI.",
-    });
-  }
-});
-
-// ==========================================
 // GET RECIPE BY ID
 // ==========================================
 
@@ -408,20 +205,5 @@ app.get("/api/recipes/:id", (req, res) => {
 app.listen(PORT, "0.0.0.0", () => {
   console.log(
     `ktchn Recipe API running on port ${PORT}`
-  );
-
-  console.log(
-    `Nova AI: ${
-      process.env.OPENAI_API_KEY
-        ? "Configured with OpenAI"
-        : "Missing OPENAI_API_KEY"
-    }`
-  );
-
-  console.log(
-    `OpenAI model: ${
-      process.env.OPENAI_MODEL ||
-      "gpt-4.1-mini"
-    }`
   );
 });

@@ -1,13 +1,11 @@
 # KTCHN by Table 18
 
-## Created by
+### Created by
 Aaradheya Sharma, 
 Ashley Kirsten Kosasih, 
 Febriani Patricia, 
 Ji Jien Yee, 
 Waii Hiin Ng, 
-
----
 
 **A collaborative cooking experience designed for students living in shared accommodation.**
 

@@ -19,18 +19,15 @@ const REPORT_PATH = path.join(
 
 const API = "https://commons.wikimedia.org/w/api.php";
 
-// Slow down requests to avoid Wikimedia rate limits.
 const REQUEST_DELAY = 6000;
 const MAX_RETRIES = 4;
 
-// These automatically selected images were incorrect.
 const BAD_MATCHES = new Set([
   "ginger-tofu-stir-fry",
   "vietnamese-chicken-noodle-bowl",
   "vietnamese-fresh-spring-rolls",
 ]);
 
-// Better alternative searches for difficult dishes.
 const SEARCH_ALIASES = {
   "chicken-katsu-rice": [
     "chicken katsu",
@@ -580,7 +577,7 @@ for (const [index, recipe] of recipes.entries()) {
     }
   }
 
-  // Save each recipe immediately.
+  // Save each recipe
   await saveRecipes(recipes);
   await saveReport(recipes);
 }

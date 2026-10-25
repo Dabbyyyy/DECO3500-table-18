@@ -59,8 +59,10 @@ These include:
 
 - Preferred cuisine.
 - Dietary requirements.
+- Favourite ingredients.
 - Cooking difficulty.
 - Available cooking time.
+- Budget.
 
 The app considers the group's preferences when recommending meals.
 
@@ -68,9 +70,11 @@ The app considers the group's preferences when recommending meals.
 
 ktchn includes a recipe recommendation feature to help groups decide what to cook together.
 
-Instead of requiring users to search for recipes manually, the app uses the group's preferences to request suitable recipe recommendations.
+During development, we initially explored using TheMealDB API. However, we later created our own recipe database to have more control over the recipe information, cooking tasks, and recommendations.
 
-The recommended meals can then be reviewed and selected by the group.
+Our current system uses a locally stored recipe dataset and a rule-based recommendation algorithm.
+
+The system compares available recipes with the group's preferences and recommends meals that may be suitable for everyone.
 
 ### Task Assignment
 
@@ -106,11 +110,11 @@ The interface is designed to keep instructions simple and reduce unnecessary int
 
 ### Voice Cooking Assistant
 
-ktchn includes a voice assistant to support hands-free cooking.
+ktchn includes a voice cooking assistant to support hands-free interaction.
 
 Users can select a helper name and use voice commands to interact with cooking instructions.
 
-Example commands:
+Example commands include:
 
 - "Hey Sam, next step"
 - "Hey Sam, previous step"
@@ -118,6 +122,8 @@ Example commands:
 - "Hey Sam, show group progress"
 
 The assistant also uses text-to-speech to read cooking instructions aloud.
+
+This feature is intended to reduce the need to touch the screen while preparing ingredients or handling cooking equipment.
 
 **Current limitation:** Voice recognition is still experimental. Some commands, particularly navigation and timer controls, may not work consistently.
 
@@ -168,30 +174,58 @@ The current prototype uses existing recipe images rather than allowing users to 
 
 ## 3. How Recipe Recommendations Work
 
-ktchn uses a recipe recommendation API to suggest meals based on the preferences entered by group members.
+ktchn uses our own recipe database and a rule-based recommendation algorithm to suggest meals based on the group's cooking preferences.
 
-**The recipe recommendation system does not use AI to generate recipes.**
+During development, we initially explored using TheMealDB API. However, we later decided to create our own recipe dataset to have more control over the recipe information, cooking instructions, and task assignments.
+
+### Recipe Database
+
+Our recipe database is stored locally in:
+
+`server/data/recipes.json`
+
+The database contains meals from different cuisines, including Japanese, Indonesian, Italian, Thai, and other categories.
+
+Each recipe contains information such as:
+
+- Recipe name and description.
+- Cuisine and category.
+- Ingredients and quantities.
+- Cooking time and difficulty.
+- Estimated cost per person.
+- Dietary tags and allergens.
+- Required kitchen equipment.
+- Cooking tasks and step-by-step instructions.
+- Recipe image information.
+
+Having our own recipe dataset allows us to organise cooking information in a consistent format and provide tasks that can be assigned to different group members.
 
 ### Step 1 — Collect Group Preferences
 
-Each member enters their cooking preferences, such as:
+Before selecting a meal, each member enters their cooking preferences.
+
+The recommendation system can consider:
 
 - Cuisine preferences.
 - Dietary requirements.
-- Preferred cooking difficulty.
-- Available cooking time.
+- Favourite ingredients.
+- Budget.
+- Cooking time.
+- Cooking difficulty.
 
-These preferences are used to identify meals that may be suitable for the group.
+These preferences are used to identify recipes that may be suitable for the group.
 
 ### Step 2 — Request Recipe Recommendations
 
-The application sends the group's preferences to the recipe recommendation endpoint:
+The frontend sends the group's preferences to our custom Express backend through the following endpoint:
 
 `POST /api/recipes/recommend`
 
-The request includes information about group members and their preferences, along with the selected difficulty and cooking time.
+The backend is implemented in:
 
-Example request structure:
+`server/index.js`
+
+An example request structure is:
 
 ```json
 {
@@ -199,63 +233,105 @@ Example request structure:
     {
       "name": "Sam",
       "cuisine": "Italian",
-      "dietary": []
+      "dietary": [],
+      "foodLikes": ["Pasta"],
+      "budget": "Under $12",
+      "cookingTime": "30 minutes",
+      "difficulty": "Easy"
     },
     {
       "name": "Alex",
       "cuisine": "Asian",
-      "dietary": ["Vegetarian"]
+      "dietary": ["Vegetarian"],
+      "foodLikes": ["Rice"],
+      "budget": "Under $12",
+      "cookingTime": "30 minutes",
+      "difficulty": "Easy"
     }
-  ],
-  "difficulty": "Easy",
-  "minutes": 30
+  ]
 }
 ```
 
-This is an example of the request structure, not necessarily an exact request from a cooking session.
+This is an example of the request structure rather than an actual cooking session.
 
-### Step 3 — Retrieve Recommended Recipes
+### Step 3 — Retrieve and Filter Recipes
 
-The recommendation endpoint processes the preferences and returns a list of suggested recipes.
+The backend reads the recipe information from the local JSON database.
 
-The response is designed to provide up to five recommendations, with information such as:
+The recommendation algorithm is implemented in:
 
-- Recipe name.
-- Cooking time.
-- Difficulty.
-- Ingredients and cooking instructions.
-- Cooking tasks.
-- Reasons why the recipe may suit the group's preferences.
+`server/services/recommendationService.js`
 
-The app uses the returned recipe information to display meal options for the group.
+Before ranking recipes, the system checks whether they meet the group's dietary requirements and available kitchen equipment.
 
-The exact underlying recipe data source and matching rules depend on the backend implementation.
+Recipes that do not meet these requirements are excluded from the recommendations.
 
-### Step 4 — Group Meal Selection
+For example, if a member selects a vegetarian diet, recipes that are not tagged as vegetarian or vegan will be excluded.
 
-The recommended meals are displayed for users to review.
+The system also checks certain allergen restrictions using the dietary tags and allergen information stored in the recipe database.
 
-Group members can compare the available options and select a meal they want to cook together.
+However, these checks are part of a university prototype and should not be treated as verified allergy safety information.
 
-The recommendations are suggestions rather than guaranteed matches, so users should still review the ingredients and dietary suitability before cooking.
+### Step 4 — Score and Rank Recipes
 
-### Step 5 — Cooking Task Preparation
+After filtering, the remaining recipes are scored based on how well they match the group's preferences.
 
-After selecting a recipe, the application uses its cooking task information to support task assignment.
+The algorithm uses a weighted scoring system.
 
-Members can then organise their responsibilities before entering Cooking Mode.
+| Preference | How It Affects the Score |
+|---|---|
+| Cuisine | Adds 8 points for a matching cuisine preference |
+| Favourite ingredients | Adds 3 points for each matching ingredient preference |
+| Budget | Adds 4 points if the recipe fits the member's budget, or subtracts 8 if it exceeds it |
+| Cooking time | Adds 4 points if the recipe fits the member's available time, or subtracts 8 if it exceeds it |
+| Difficulty | Adds 3 points if the recipe is within the preferred difficulty, or subtracts 5 if it is too difficult |
+
+The system calculates these scores across group members.
+
+Recipes with higher scores are ranked above recipes with lower scores.
+
+This helps the app recommend meals that match more of the group's preferences rather than only considering one member's choices.
+
+### Step 5 — Return Recommended Recipes
+
+After scoring and ranking the recipes, the backend returns up to **12 recommendations**.
+
+Each recommendation includes its recipe information, match score, and matching reasons.
+
+For example, the system may explain that a recipe:
+
+- Matches the group's cuisine preferences.
+- Includes favourite ingredients.
+- Fits everyone's selected budget.
+- Fits everyone's cooking time.
+- Matches the group's preferred difficulty level.
+
+These explanations help users understand why certain meals are recommended.
+
+### Step 6 — Group Meal Selection
+
+The recommended meals are displayed in the app for users to review.
+
+Group members can compare the recipes and choose which meal they want to cook together.
+
+Once a recipe is selected, its cooking tasks and instructions are used to support task assignment and Cooking Mode.
 
 ### Current Limitations
 
-Recipe recommendations may not always perfectly match everyone's preferences, especially when group members have different cuisine choices or dietary requirements.
+Although our recommendation system considers multiple preferences, it may not always find a recipe that satisfies everyone.
+
+For example, different group members may have conflicting cuisine preferences, budgets, or cooking requirements.
+
+The recommendation system also depends on the recipes available in our local database rather than retrieving unlimited recipes from an external service.
 
 Future improvements could include:
 
-- More accurate preference matching.
-- Better dietary filtering.
+- Expanding the recipe database.
+- Improving preference matching.
+- Better handling of conflicting group preferences.
+- Stronger ingredient and allergen verification.
+- More flexible recipe filtering.
 - Clearer explanations for recommended meals.
-- More recipe options.
-- Improved ingredient and allergen checking.
 
 ---
 
@@ -293,6 +369,7 @@ Only install APK files from sources you trust. You can disable the installation 
 - Voice recognition requires microphone permission and device support.
 - Some functionality may behave differently across Android devices.
 - The APK is intended for development and testing.
+- Backend-dependent features require access to the appropriate server.
 
 ---
 
@@ -342,13 +419,16 @@ Once the cooking session is finished, complete your tasks and explore the shared
 | JavaScript | Application logic and interactions |
 | Vite | Frontend development and build tooling |
 | CSS | Styling and responsive layouts |
+| Node.js | Running the backend server |
+| Express.js | Creating backend API endpoints |
+| JSON Recipe Database | Storing recipe information, ingredients, and cooking tasks |
+| Rule-Based Recommendation Algorithm | Filtering, scoring, and ranking recipes based on group preferences |
 | Firebase Realtime Database | Real-time cooking session synchronisation |
-| Recipe Recommendation API | Retrieving suggested recipes based on group preferences |
 | Capacitor | Android application integration |
 | Android SDK | Android application development |
 | Gradle | Building the Android APK |
-| Native Speech Recognition | Recognising spoken commands |
-| Native Text-to-Speech | Reading cooking instructions aloud |
+| Speech Recognition | Recognising spoken commands |
+| Text-to-Speech | Reading cooking instructions aloud |
 
 ---
 
@@ -362,7 +442,7 @@ Before running the project, make sure you have:
 - npm
 - Git
 - The required Firebase configuration
-- Access to any backend services used by the application
+- Access to any additional services used by the application
 
 ### Clone the Repository
 
@@ -378,17 +458,64 @@ cd DECO3500-table-18/t18-project-code
 
 ### Install Dependencies
 
+Install the frontend dependencies:
+
 ```bash
+npm install
+```
+
+The backend is located in the `server` directory and requires its own dependencies.
+
+```bash
+cd server
 npm install
 ```
 
 ### Configure Environment Variables
 
-Configure the environment variables required by Firebase and any API integrations.
+Configure the environment variables required by Firebase and the backend services.
+
+The backend includes a `.env.example` file that can be used as a reference.
+
+For example, the backend can be configured to run on port `3001`:
+
+```env
+PORT=3001
+```
 
 Do not commit private credentials or API secrets to GitHub.
 
-### Start the Development Server
+### Start the Backend Server
+
+From the `server` directory, start the backend using the start command configured in its `package.json`.
+
+For a backend configured to run `index.js` directly, the command is:
+
+```bash
+node index.js
+```
+
+The backend uses port `3001` by default unless another port is configured.
+
+Available recipe API endpoints include:
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /api/health` | Check backend status and recipe database availability |
+| `GET /api/recipes` | Retrieve recipes from the local database |
+| `GET /api/cuisines` | Retrieve available cuisine categories |
+| `POST /api/recipes/recommend` | Retrieve rule-based recipe recommendations |
+| `GET /api/recipes/:id` | Retrieve a specific recipe |
+
+### Start the Frontend
+
+Open another terminal and navigate to the application folder:
+
+```bash
+cd DECO3500-table-18/t18-project-code
+```
+
+Run:
 
 ```bash
 npm run dev
@@ -396,7 +523,7 @@ npm run dev
 
 Open the local URL displayed in the terminal.
 
-Some features may require the corresponding backend service to be running.
+Make sure the frontend is configured to connect to the appropriate backend address.
 
 ---
 
@@ -405,6 +532,8 @@ Some features may require the corresponding backend service to be running.
 The Android application is built using Capacitor and Gradle.
 
 ### Step 1 — Build React
+
+From the `t18-project-code` directory, run:
 
 ```bash
 npm run build
@@ -435,6 +564,8 @@ android/app/build/outputs/apk/debug/app-debug.apk
 
 This is a debug APK intended for testing.
 
+For wider distribution, a properly signed release build would be recommended.
+
 ---
 
 ## 9. Known Limitations
@@ -448,9 +579,12 @@ As ktchn is still a university prototype, some features require further improvem
 | Speech recognition | Users may need to activate the microphone again after speaking |
 | Timer persistence | The countdown may reset when leaving Cooking Mode |
 | Recipe recommendations | Suggested recipes may not always match all group preferences |
+| Recipe database | Recommendations are limited to recipes stored in the local dataset |
 | Dietary filtering | Ingredient and allergen checking requires further improvement |
 | Android compatibility | More testing is needed across different devices |
-| Internet connectivity | Firebase synchronisation and API features require internet access |
+| Internet connectivity | Firebase synchronisation and online backend features require internet access |
+
+These limitations do not prevent users from exploring the main collaborative cooking workflow, but they may affect certain interactions.
 
 ---
 
@@ -488,10 +622,13 @@ Future versions could support multiple timers and Android notifications.
 
 ### Improve Recipe Recommendations
 
-The recommendation system could be improved to provide more accurate suggestions for different groups.
+Our current system uses a locally stored recipe database and a rule-based recommendation algorithm.
+
+Although this allows us to control the recipe information and matching process, the recommendations are limited to the recipes available in our dataset.
 
 Possible improvements include:
 
+- Expanding the recipe database.
 - Better matching of cuisine preferences.
 - Stronger dietary requirement filtering.
 - Clearer reasons for recommendations.
@@ -549,6 +686,8 @@ For more information, see our [Ethical Considerations Wiki](https://github.com/D
 **Status: University Prototype — Development and Testing**
 
 ktchn demonstrates how interactive technology can support collaborative cooking through shared responsibilities, real-time progress tracking, cooking instructions, and voice interactions.
+
+The project also includes a custom recipe database and rule-based recommendation system to help groups choose meals based on their preferences.
 
 Although the main cooking workflow has been developed, some features remain experimental and require further testing.
 

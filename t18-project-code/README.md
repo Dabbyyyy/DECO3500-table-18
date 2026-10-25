@@ -1,13 +1,13 @@
-# ktchn 
+# KTCHN
 ### Cook Together, Step by Step
 
-**ktchn** is a collaborative cooking application designed to help university students cook together in a more organised, interactive, and enjoyable way.
+ktchn is a collaborative cooking application designed to help university students cook together in a more organised and enjoyable way.
 
-Cooking with others can sometimes be confusing, especially when group members are unsure about their responsibilities, what to do next, or how everyone else is progressing.
+When cooking with others, it can sometimes be confusing to decide who should do what, how to divide responsibilities, and how to keep track of everyone's progress.
 
-ktchn addresses these challenges by providing shared meal selection, task assignment, step-by-step cooking instructions, real-time group progress tracking, and a voice cooking assistant.
+Our app aims to address these problems through shared meal selection, recipe recommendations, task assignments, individual cooking instructions, real-time group progress, and a voice cooking assistant.
 
-The application was developed as part of the **DECO3500 Table 18 university project**.
+This project was developed by **Table 18 for DECO3500**.
 
 ---
 
@@ -15,23 +15,23 @@ The application was developed as part of the **DECO3500 Table 18 university proj
 
 ### Problem Space
 
-Cooking together requires communication, coordination, and awareness of what others are doing. However, students sharing a kitchen may experience difficulties such as:
+Cooking together requires communication and coordination between group members. However, students sharing a kitchen may experience several difficulties:
 
-- Unclear division of cooking responsibilities.
-- Confusion about the order of cooking tasks.
-- Difficulty keeping track of other group members' progress.
-- Limited kitchen space and equipment.
-- Frequent interruptions when checking instructions on a device.
+- Unclear cooking responsibilities.
+- Confusion about which tasks should be completed first.
+- Difficulty keeping track of other members' progress.
+- Limited kitchen equipment and space.
+- Frequent interruptions when checking recipe instructions.
 
 ### Our Solution
 
-ktchn provides a shared cooking experience where group members can plan, organise, and complete their cooking tasks together.
+ktchn provides a shared cooking experience where users can organise their responsibilities and follow individual cooking instructions while staying connected with their group.
 
-Rather than displaying a single recipe for everyone to follow, the application assigns responsibilities to individual cooks while maintaining awareness of the group's overall progress.
+Rather than having everyone follow the same recipe instructions, ktchn divides cooking responsibilities into smaller tasks and allows members to track the group's progress.
 
 ### Target Users
 
-University students and young adults who cook together, particularly those who have difficulty coordinating cooking responsibilities in shared kitchens.
+University students and young adults who cook together, especially those who find it difficult to coordinate responsibilities in a shared kitchen.
 
 ---
 
@@ -41,62 +41,76 @@ University students and young adults who cook together, particularly those who h
 
 Users can create a cooking session or join an existing room using a unique room code.
 
-- Create a shared cooking room.
-- Join using a room code.
-- Enter a name and select a cooking helper.
-- View other members in the lobby.
-- Synchronise group information across connected devices.
+Features include:
 
-Firebase Realtime Database supports shared room information and real-time updates.
+- Creating a cooking room.
+- Joining a room using a code.
+- Entering a name and selecting a cooking helper.
+- Viewing group members in the lobby.
+- Synchronising room information across connected devices.
 
-### Cooking Preferences and Meal Selection
+We use Firebase Realtime Database to keep the cooking session updated between group members.
 
-Before cooking, group members can select their preferences to help identify suitable recipes.
+### Cooking Preferences
 
-- Select cuisine preferences.
-- Specify dietary requirements.
-- Consider cooking difficulty and available time.
-- Explore recommended meals.
-- Participate in shared meal selection.
+Before selecting a meal, users can enter their cooking preferences.
 
-This helps the group make cooking decisions together rather than relying on one person.
+These include:
+
+- Preferred cuisine.
+- Dietary requirements.
+- Cooking difficulty.
+- Available cooking time.
+
+The app considers the group's preferences when recommending meals.
+
+### Recipe Recommendations
+
+ktchn includes a recipe recommendation feature to help groups decide what to cook together.
+
+Instead of requiring users to search for recipes manually, the app uses the group's preferences to request suitable recipe recommendations.
+
+The recommended meals can then be reviewed and selected by the group.
 
 ### Task Assignment
 
-Once a meal is selected, cooking responsibilities can be divided among group members.
-
-- View assigned cooking tasks.
-- Identify who is responsible for each task.
-- Follow individual cooking instructions.
-- Track task completion.
-- Request assistance when needed.
-
-The goal is to reduce confusion and support more balanced participation during group cooking.
-
-### Step-by-Step Cooking Mode
-
-Cooking Mode provides a simplified interface to help users focus on their current responsibilities.
+After selecting a meal, users can organise cooking responsibilities.
 
 Features include:
 
-- Individual cooking instructions.
-- Next and previous step navigation.
-- Repeat instruction functionality.
-- Task progress indicators.
-- Task completion controls.
-- Help requests.
-- Cooking timer controls.
-- Access to group progress.
+- Viewing available cooking tasks.
+- Assigning tasks to group members.
+- Viewing individual responsibilities.
+- Following task-specific cooking instructions.
+- Tracking task completion.
+- Requesting help from other members.
 
-The interface is designed to reduce unnecessary interaction while cooking.
+This helps reduce confusion and encourages group members to participate in the cooking process.
+
+### Cooking Mode
+
+Cooking Mode provides individual step-by-step instructions based on each member's assigned tasks.
+
+Users can:
+
+- View their current cooking instruction.
+- Move to the next or previous step.
+- Repeat instructions.
+- Track their task progress.
+- Mark tasks as completed.
+- Request assistance.
+- Use a cooking timer.
+- Open Group Progress.
+
+The interface is designed to keep instructions simple and reduce unnecessary interactions while cooking.
 
 ### Voice Cooking Assistant
 
-ktchn includes a voice assistant intended to support hands-free interactions during cooking.
+ktchn includes a voice assistant to support hands-free cooking.
 
-Users can select a helper name and interact with the assistant through speech recognition.
+Users can select a helper name and use voice commands to interact with cooking instructions.
 
-Example commands include:
+Example commands:
 
 - "Hey Sam, next step"
 - "Hey Sam, previous step"
@@ -105,145 +119,240 @@ Example commands include:
 
 The assistant also uses text-to-speech to read cooking instructions aloud.
 
-**Current limitation:** Voice recognition and navigation are still being refined. Some commands, including navigation to Group Progress, may not respond consistently.
-
-Voice-controlled timer commands, such as starting, pausing, resuming, and resetting a countdown, are not yet reliably functional and are included in future development.
+**Current limitation:** Voice recognition is still experimental. Some commands, particularly navigation and timer controls, may not work consistently.
 
 ### Cooking Timer
 
-Cooking Mode includes a countdown timer to help users manage cooking durations.
+The app includes a countdown timer that users can control manually.
 
-Users can manually:
+Users can:
 
 - Set a timer duration.
 - Start a countdown.
 - Pause the timer.
-- Resume the countdown.
-- Reset the timer to its original duration.
+- Resume the timer.
+- Reset the countdown.
 - View the remaining time.
 
-The countdown is currently managed within Cooking Mode and may reset when the user navigates away from that screen.
+Voice-controlled timer commands are not fully functional and are included in future development.
 
 ### Real-Time Group Progress
 
-The Group Progress screen provides an overview of the shared cooking session.
-
-Users can:
-
-- View the group's overall completion percentage.
-- Check each member's current task.
-- See individual task progress.
-- Identify members who need assistance.
-- Offer help to another cook.
-- Return to their own cooking instructions.
-
-This feature supports awareness and coordination between group members.
-
-### Shared Meal Feed
-
-ktchn includes a shared meal feed where users can share and reflect on their completed cooking experiences.
+The Group Progress screen allows users to see how everyone is doing during cooking.
 
 Features include:
 
-- Displaying completed meals using recipe images.
-- Adding ratings and captions.
-- Adding descriptive tags.
-- Tagging group members.
-- Liking and commenting on meal posts.
+- Viewing overall group progress.
+- Checking each member's current task.
+- Tracking individual task completion.
+- Identifying members who need help.
+- Offering assistance to other members.
 
-The prototype uses existing recipe images rather than uploading photographs from the user's device.
+This helps group members stay aware of each other's progress without constantly asking what everyone is doing.
+
+### Shared Meal Feed
+
+After completing a cooking session, users can interact through the shared meal feed.
+
+Features include:
+
+- Sharing completed meals using recipe images.
+- Adding captions and ratings.
+- Adding tags.
+- Tagging group members.
+- Liking and commenting on posts.
+
+The current prototype uses existing recipe images rather than allowing users to upload their own photos.
 
 ---
 
-## 3. Download and Install the Android App
+## 3. How Recipe Recommendations Work
+
+ktchn uses a recipe recommendation API to suggest meals based on the preferences entered by group members.
+
+**The recipe recommendation system does not use AI to generate recipes.**
+
+### Step 1 — Collect Group Preferences
+
+Each member enters their cooking preferences, such as:
+
+- Cuisine preferences.
+- Dietary requirements.
+- Preferred cooking difficulty.
+- Available cooking time.
+
+These preferences are used to identify meals that may be suitable for the group.
+
+### Step 2 — Request Recipe Recommendations
+
+The application sends the group's preferences to the recipe recommendation endpoint:
+
+`POST /api/recipes/recommend`
+
+The request includes information about group members and their preferences, along with the selected difficulty and cooking time.
+
+Example request structure:
+
+```json
+{
+  "members": [
+    {
+      "name": "Sam",
+      "cuisine": "Italian",
+      "dietary": []
+    },
+    {
+      "name": "Alex",
+      "cuisine": "Asian",
+      "dietary": ["Vegetarian"]
+    }
+  ],
+  "difficulty": "Easy",
+  "minutes": 30
+}
+```
+
+This is an example of the request structure, not necessarily an exact request from a cooking session.
+
+### Step 3 — Retrieve Recommended Recipes
+
+The recommendation endpoint processes the preferences and returns a list of suggested recipes.
+
+The response is designed to provide up to five recommendations, with information such as:
+
+- Recipe name.
+- Cooking time.
+- Difficulty.
+- Ingredients and cooking instructions.
+- Cooking tasks.
+- Reasons why the recipe may suit the group's preferences.
+
+The app uses the returned recipe information to display meal options for the group.
+
+The exact underlying recipe data source and matching rules depend on the backend implementation.
+
+### Step 4 — Group Meal Selection
+
+The recommended meals are displayed for users to review.
+
+Group members can compare the available options and select a meal they want to cook together.
+
+The recommendations are suggestions rather than guaranteed matches, so users should still review the ingredients and dietary suitability before cooking.
+
+### Step 5 — Cooking Task Preparation
+
+After selecting a recipe, the application uses its cooking task information to support task assignment.
+
+Members can then organise their responsibilities before entering Cooking Mode.
+
+### Current Limitations
+
+Recipe recommendations may not always perfectly match everyone's preferences, especially when group members have different cuisine choices or dietary requirements.
+
+Future improvements could include:
+
+- More accurate preference matching.
+- Better dietary filtering.
+- Clearer explanations for recommended meals.
+- More recipe options.
+- Improved ingredient and allergen checking.
+
+---
+
+## 4. Download and Install the Android App
 
 ktchn is available as an Android APK for prototype testing.
 
-### Download
+### Download the APK
 
-1. Visit the [ktchn GitHub Releases page](https://github.com/Dabbyyyy/DECO3500-table-18/releases).
-2. Open the latest available release.
-3. Scroll to the **Assets** section.
-4. Download the APK file, such as `ktchn.apk`.
-5. Wait for the download to finish.
+**[Download KTCHN.apk](https://github.com/Dabbyyyy/DECO3500-table-18/raw/refs/heads/main/KTCHN.apk)**
 
-**Note:** The APK download will only become available after it has been uploaded to a published GitHub Release.
+Alternatively, you can download it manually:
+
+1. Open the [GitHub repository](https://github.com/Dabbyyyy/DECO3500-table-18).
+2. Find `KTCHN.apk` in the main repository folder.
+3. Click the APK file.
+4. Select **Download** or **View raw** to download it to your device.
 
 ### Install on Android
 
-1. Open the downloaded APK using your phone's Files app or browser.
-2. If Android blocks the installation, open the relevant settings and allow installation from that source.
-3. Return to the APK and select **Install**.
-4. Once installation is complete, select **Open**.
-5. Grant microphone permission if you want to test voice recognition.
+1. Download `KTCHN.apk` to your Android phone.
+2. Open the downloaded APK from your Files app or browser.
+3. If Android blocks the installation, allow installation from that source in your device settings.
+4. Return to the APK and select **Install**.
+5. Once installed, open ktchn.
+6. Grant microphone permission if you want to test the voice assistant.
 
-Only install APK files from sources you trust. The installation permission can be disabled again afterwards.
+Only install APK files from sources you trust. You can disable the installation permission afterwards.
 
 ### Important Notes
 
 - The APK is intended for Android devices.
-- The application is a university prototype, not a production-ready application.
-- Some functionality requires an internet connection.
-- Some features may behave differently across Android devices.
-- Voice recognition depends on device support and microphone permissions.
-- The provided APK is a debug build intended for testing.
+- The app is a university prototype, not a production-ready application.
+- Some features require an internet connection.
+- Voice recognition requires microphone permission and device support.
+- Some functionality may behave differently across Android devices.
+- The APK is intended for development and testing.
 
 ---
 
-## 4. How to Use ktchn
+## 5. How to Use ktchn
 
-**Step 1 — Create or Join a Room**
+### Step 1 — Create or Join a Room
 
-Open the application and create a cooking room, or join an existing room using a code provided by another group member.
+Create a new cooking room or join an existing room using a room code.
 
-**Step 2 — Enter Your Details**
+### Step 2 — Enter Your Details
 
-Enter your name and choose a cooking helper.
+Enter your name and select a voice helper.
 
-**Step 3 — Set Cooking Preferences**
+### Step 3 — Set Cooking Preferences
 
-Choose your preferred cuisine, dietary requirements, and other available cooking preferences.
+Select your cuisine preferences, dietary requirements, and other available cooking options.
 
-**Step 4 — Select a Meal**
+### Step 4 — Select a Meal
 
-Explore recommended recipes and decide what to cook with your group.
+Review the recommended recipes and choose a meal together.
 
-**Step 5 — Organise Cooking Tasks**
+### Step 5 — Assign Cooking Tasks
 
-Review the cooking tasks and assign responsibilities among group members.
+Organise the cooking responsibilities between group members.
 
-**Step 6 — Start Cooking**
+### Step 6 — Start Cooking
 
-Follow your individual step-by-step instructions in Cooking Mode. Use the on-screen controls to navigate instructions, manage timers, and request help.
+Follow your assigned instructions in Cooking Mode.
 
-**Step 7 — Check Group Progress**
+Use the on-screen controls or supported voice commands to navigate through the cooking steps.
 
-Open Group Progress to see how other members are doing and offer assistance when needed.
+### Step 7 — Check Group Progress
 
-**Step 8 — Complete and Share**
+View everyone's progress and offer help when another member needs assistance.
 
-Once cooking is finished, complete the session and explore the shared meal feed.
+### Step 8 — Complete and Share
+
+Once the cooking session is finished, complete your tasks and explore the shared meal feed.
 
 ---
 
-## 5. Technology Stack
+## 6. Technology Stack
 
 | Technology | Purpose |
 |---|---|
 | React | Building the user interface |
-| JavaScript | Application functionality and interactions |
+| JavaScript | Application logic and interactions |
 | Vite | Frontend development and build tooling |
-| CSS | Styling, responsive layouts, and visual design |
-| Firebase Realtime Database | Real-time room synchronisation and shared cooking data |
-| Capacitor | Converting the React application into an Android application |
-| Android SDK | Android application development and building |
-| Gradle | Generating the Android APK |
+| CSS | Styling and responsive layouts |
+| Firebase Realtime Database | Real-time cooking session synchronisation |
+| Recipe Recommendation API | Retrieving suggested recipes based on group preferences |
+| Capacitor | Android application integration |
+| Android SDK | Android application development |
+| Gradle | Building the Android APK |
 | Native Speech Recognition | Recognising spoken commands |
 | Native Text-to-Speech | Reading cooking instructions aloud |
 
 ---
 
-## 6. Run the Project Locally
+## 7. Run the Project Locally
 
 ### Requirements
 
@@ -252,8 +361,8 @@ Before running the project, make sure you have:
 - Node.js
 - npm
 - Git
-- A compatible development environment
 - The required Firebase configuration
+- Access to any backend services used by the application
 
 ### Clone the Repository
 
@@ -261,7 +370,7 @@ Before running the project, make sure you have:
 git clone https://github.com/Dabbyyyy/DECO3500-table-18.git
 ```
 
-Navigate to the application folder:
+Navigate to the project folder:
 
 ```bash
 cd DECO3500-table-18/t18-project-code
@@ -275,9 +384,9 @@ npm install
 
 ### Configure Environment Variables
 
-Configure the environment variables required by the project's Firebase and API integrations.
+Configure the environment variables required by Firebase and any API integrations.
 
-Keep sensitive credentials in local environment files and do not commit secrets to GitHub.
+Do not commit private credentials or API secrets to GitHub.
 
 ### Start the Development Server
 
@@ -287,39 +396,34 @@ npm run dev
 
 Open the local URL displayed in the terminal.
 
+Some features may require the corresponding backend service to be running.
+
 ---
 
-## 7. Build the Android APK
+## 8. Build the Android APK
 
 The Android application is built using Capacitor and Gradle.
 
-### Step 1 — Build the React Application
+### Step 1 — Build React
 
 ```bash
 npm run build
 ```
 
-### Step 2 — Synchronise Capacitor
+### Step 2 — Sync Capacitor
 
 ```bash
 npx cap sync android
 ```
 
-### Step 3 — Build the APK
-
-Navigate to the Android directory:
+### Step 3 — Build Android
 
 ```bash
 cd android
-```
-
-Run:
-
-```bash
 ./gradlew assembleDebug
 ```
 
-The build requires a configured Android SDK and compatible Java environment.
+A configured Android SDK and compatible Java environment are required.
 
 ### Step 4 — Locate the APK
 
@@ -329,110 +433,135 @@ After a successful build, the APK can be found at:
 android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-This APK can be installed on an Android device for testing.
-
-For public distribution, a properly signed release build is recommended.
+This is a debug APK intended for testing.
 
 ---
 
-## 8. Known Limitations
+## 9. Known Limitations
 
-ktchn is currently a functional university prototype with several features that require further development and testing.
+As ktchn is still a university prototype, some features require further improvements.
 
-| Feature | Current limitation |
+| Feature | Current Limitation |
 |---|---|
-| Voice-controlled timer | Commands to start, pause, resume, and reset the timer do not work reliably |
-| Voice navigation | Opening Group Progress through voice commands may not work consistently |
-| Speech recognition | Recognition may stop after an utterance and require users to activate the microphone again |
-| Timer persistence | The countdown may reset when navigating away from Cooking Mode |
-| Android compatibility | Testing has been limited to a small number of devices |
-| Internet connectivity | Real-time synchronisation and online services require network access |
-
-These limitations do not prevent users from exploring the application's main collaborative cooking workflow, but they may affect certain interactions.
+| Voice-controlled timer | Start, pause, resume, and reset commands do not work reliably |
+| Voice navigation | Some navigation commands may not respond consistently |
+| Speech recognition | Users may need to activate the microphone again after speaking |
+| Timer persistence | The countdown may reset when leaving Cooking Mode |
+| Recipe recommendations | Suggested recipes may not always match all group preferences |
+| Dietary filtering | Ingredient and allergen checking requires further improvement |
+| Android compatibility | More testing is needed across different devices |
+| Internet connectivity | Firebase synchronisation and API features require internet access |
 
 ---
 
-## 9. Future Development
+## 10. Future Development
 
-Several improvements could be implemented to enhance ktchn's functionality, usability, and reliability.
+### Improve Voice Recognition
 
-### Improve Voice-Controlled Timer
+We would like to improve voice recognition so users can interact with the app more reliably while cooking.
 
-Develop more reliable voice commands that allow users to:
+Future improvements include:
 
-- Start a countdown by specifying a duration.
-- Pause and resume an existing timer.
-- Reset or cancel a countdown.
-- Ask the assistant how much time is remaining.
-- Receive spoken notifications when a timer finishes.
+- Better recognition of different accents.
+- More reliable helper name detection.
+- Improved voice navigation.
+- Clearer listening feedback.
+- Better handling of background noise.
 
-This would improve hands-free interaction, particularly when users are handling ingredients or cooking equipment.
+### Voice-Controlled Timer
 
-### Improve Voice Recognition and Navigation
+Although the manual cooking timer is available, voice-controlled timer commands are not fully functional.
 
-Improve the assistant's ability to recognise commands in different environments, including noisy kitchens.
+In future development, we would like users to:
 
-Future improvements could include:
-
-- More accurate recognition of helper names.
-- Reliable navigation between Cooking Mode and Group Progress.
-- Better handling of different pronunciations and accents.
-- Improved microphone activation and listening behaviour.
-- Clearer feedback when a command is not recognised.
+- Start a timer using voice commands.
+- Pause and resume a countdown.
+- Reset or cancel a timer.
+- Ask how much time is remaining.
+- Receive spoken notifications when the timer finishes.
 
 ### Persistent Cooking Timer
 
-Move timer management outside the individual Cooking Mode screen so countdowns can continue when users navigate to other sections.
+We would also like to make the countdown continue running when users navigate between different screens.
 
-Future versions could also support multiple simultaneous timers and Android notifications.
+Future versions could support multiple timers and Android notifications.
 
-### Improve Collaborative Awareness
+### Improve Recipe Recommendations
 
-Expand the group progress system to provide clearer information about what each cook is doing.
+The recommendation system could be improved to provide more accurate suggestions for different groups.
 
-Potential improvements include:
+Possible improvements include:
 
-- More detailed live activity indicators.
-- Notifications when someone requests assistance.
-- Improved coordination when tasks depend on one another.
-- More flexible reassignment of cooking responsibilities.
+- Better matching of cuisine preferences.
+- Stronger dietary requirement filtering.
+- Clearer reasons for recommendations.
+- More recipe choices.
+- Better handling of conflicting group preferences.
+- Improved ingredient and allergen information.
 
-### Improve User Experience and Accessibility
+### Improve Collaborative Cooking
 
-Conduct additional usability testing to improve the overall cooking experience.
+We could further improve group coordination by adding:
 
-Potential improvements include:
+- More flexible task reassignment.
+- Notifications when someone requests help.
+- Better support for tasks that depend on each other.
+- Clearer individual and group progress information.
 
-- Larger interactive controls for cooking environments.
-- Better colour contrast and readability.
-- More accessible voice and touch interactions.
-- Reduced screen interaction during active cooking.
-- Improved responsiveness across different device sizes.
+### Accessibility and User Experience
 
-### Further Android Testing and Deployment
+Future improvements could include:
 
-Test ktchn across more Android devices and versions to identify compatibility issues.
+- Larger interactive controls.
+- Better colour contrast.
+- More accessible voice interactions.
+- Clearer navigation.
+- Further usability testing across different devices and users.
 
-Future work could include performance optimisation, improved error handling, production signing, and distribution through an official application store.
+### Further Android Development
+
+We would like to conduct more testing across different Android devices to identify compatibility issues.
+
+Future development could also include performance improvements, better error handling, production signing, and official app distribution.
 
 ---
 
-## 10. Project Status
+## 11. Ethical Considerations
+
+Throughout development, we considered several ethical issues related to collaborative cooking, including:
+
+- User privacy and data protection.
+- Microphone access and voice recognition consent.
+- Accessibility and inclusive design.
+- Fairness in task assignment.
+- Physical safety in the kitchen.
+- Dietary requirements and food safety.
+- Recipe recommendation accuracy.
+- Group awareness and social interaction.
+- Privacy and consent in the shared meal feed.
+
+For more information, see our [Ethical Considerations Wiki](https://github.com/Dabbyyyy/DECO3500-table-18/wiki/Ethical-Considerations).
+
+---
+
+## 12. Project Status
 
 **Status: University Prototype — Development and Testing**
 
-ktchn demonstrates a collaborative cooking experience using shared task coordination, real-time updates, cooking instructions, and an experimental voice assistant.
+ktchn demonstrates how interactive technology can support collaborative cooking through shared responsibilities, real-time progress tracking, cooking instructions, and voice interactions.
 
-The main focus of the project is exploring how interactive technology can support communication, coordination, and awareness during collaborative cooking.
+Although the main cooking workflow has been developed, some features remain experimental and require further testing.
 
-Some features remain experimental and have been documented as known limitations and future development opportunities.
+These limitations have been documented to guide future development.
 
 ---
 
-## 11. Project Team
+## 13. Project Team
 
 Developed by **Table 18** as part of DECO3500.
 
 **GitHub Repository:** https://github.com/Dabbyyyy/DECO3500-table-18
 
-**Android Downloads:** https://github.com/Dabbyyyy/DECO3500-table-18/releases
+**Android APK:** https://github.com/Dabbyyyy/DECO3500-table-18/blob/main/KTCHN.apk
+
+**Ethical Considerations:** https://github.com/Dabbyyyy/DECO3500-table-18/wiki/Ethical-Considerations

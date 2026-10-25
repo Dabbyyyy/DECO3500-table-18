@@ -1,11 +1,11 @@
 # KTCHN by Table 18
 
-## Team
-Aaradheya Sharma
-Ashley Kirsten Kosasih
-Febriani Patricia
-Ji Jien Yee
-Waii Hiin Ng
+## Created by
+Aaradheya Sharma, 
+Ashley Kirsten Kosasih, 
+Febriani Patricia, 
+Ji Jien Yee, 
+Waii Hiin Ng, 
 
 ---
 
